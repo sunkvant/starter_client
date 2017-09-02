@@ -4,13 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from './http-client';
 import {environment} from '../environments/environment';
 import {Profile} from './entity/profile';
-import {Typeahead} from 'ng2-typeahead';
 import {SecurityService} from './service/security.service';
 
-@NgModule({
-  declarations: [Typeahead]
-}
-)
 
 @Component({
   selector: 'app-root',
