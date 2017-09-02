@@ -28,7 +28,6 @@
       'typescript':                   'npm:typescript@2.0.2/lib/typescript.js',
       'moment':                       'npm:moment/moment.js',
       'ng2-bootstrap/ng2-bootstrap':  'npm:ng2-bootstrap@1.1.14/bundles/ng2-bootstrap.umd.min.js',
-      'ng2-typeahead':              'node_modules/ng2-typeahead'
 
     },
     // packages tells the System loader how to load when no filename and/or no extension
@@ -42,7 +41,6 @@
         main: './index.js',
         defaultExtension: 'js'
       },
-      'ng2-typeahead': {main: 'ng2-typeahead.js', defaultExtension: 'js'},
       rxjs: {defaultExtension: 'js'},
       'node_modules/primeng': {
         format: 'cjs',
