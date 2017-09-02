@@ -1,0 +1,71 @@
+.body{
+
+}
+
+.padd{
+  padding-bottom: 20px;
+}
+.container {
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom left, #FFFFFF, #c0d4ee);
+}
+.row {
+  text-align: center;
+}
+
+/*Header1*/
+.header {
+  background-color: #2d2d2d;
+  color: white;
+}
+.form-control {
+  margin-top: 4px;
+  min-width: 5px;
+  min-height: 5px;
+}
+.input-group {
+  padding-top:4%;
+}
+
+/*Header2*/
+.header2 {
+  background-color: #2d2d2d;
+  color: white;
+  padding-bottom: 5px;
+}
+.cvet {
+  color: white;
+}
+.cvet:hover {
+  color: #acd9ff;
+}
+.profiledrop {
+  padding-top:5px;
+}
+
+/*Profile*/
+.profile {
+  padding-top: 10px;
+}
+.buttonblok {
+  padding-top: 10px;
+}
+
+.buttonfirst {
+  margin-left: 0px;
+}
+
+.about {
+  padding-top: 10px;
+}
+
+.contacts {
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+.contactstext {
+  padding-top: 20px;
+}

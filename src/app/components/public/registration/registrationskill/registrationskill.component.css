@@ -1,0 +1,59 @@
+.container {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom left, #FFFFFF, #c0d4ee);
+}
+
+.form-control{
+    font-size: 12px;
+}
+
+.input-group{
+    margin-left: 0;
+}
+.input-group-addon{
+    width: 25px;
+}
+
+.head{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.info{
+    padding-top: 10px;
+    font-size: 30px;
+}
+
+.descrform{
+    font-size: 10px;
+    padding-bottom: 20px;
+}
+.descrform li{
+    font-size: 15px;
+}
+.descrform button{
+    font-size: 12px;
+}
+.descrform span{
+    position:absolute;
+    top:45%;
+    left:90%;
+}
+.padd{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.skills {
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+.skilltext {
+    padding-top: 20px;
+}
+.skill{
+    padding:0;
+    margin: 1px;
+    height: 30px;
+}

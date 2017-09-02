@@ -1,0 +1,187 @@
+<div class="WorkExperience row">
+  <div class="col-lg-2 col-md-2 col-sm-2"></div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+
+    <div class="row" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12"><h4>Места работы
+
+        <!--Workplace add ------------------------------------------------------------------------->
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="customer" >
+                <span class="btn glyphicon glyphicon-plus " popover="Добавить образование"
+                      placement="bottom" containerClass="container"
+                      triggers="mouseenter:mouseleave" style="background-color: #3c763d;width: 2px; height: 2px"
+                      (click)="setAddStatus(true); openModal4(template4,education); "></span>
+        </div>
+
+        <!--Workplace add end------------------------------------------------------------------------->
+
+
+      </h4></div>
+    </div>
+    <div class="worktext col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; background-color: #beecf9" >
+      <div *ngFor="let workplace of workplaces">
+      <div class="row" style="text-align: left" *ngIf="workplace">
+        <div class="col-lg-2 col-md-2 col-sm-2"><h4 *ngIf="workplace.startWork!==0">{{workplace.startWork | date}}-
+          <p *ngIf="!workplace.working">{{workplace.endWork | date}}</p>
+          <p *ngIf="workplace.working">Работаю сейчас</p>
+        </h4>
+          <div class="col-lg-2 col-md-2 col-sm-2" *ngIf="customer">
+            <span class="btn glyphicon glyphicon-edit" popover="Редактировать место работы" placement="left"
+                  containerClass="container" triggers="mouseenter:mouseleave"
+                  (click)="setAddStatus(false); openModal4(template4, workplace)" style="background-color: #6aafb7; width: 5px; height: 5px"></span>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span class="btn glyphicon glyphicon-remove" popover="Удалить место работы"
+                      placement="bottom" containerClass="container" triggers="mouseenter:mouseleave"
+                      style="background-color: #b73f3f; width: 5px; height: 5px" (click)="acceptWorkplace.show(); setDeletedId(workplace.id); setDeletedI(workplaces.indexOf(workplace))"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-10 col-md-10 col-sm-10"><h4  *ngIf="workplace.company!==''">Организация: {{workplace.company}}</h4></div>
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+        <div class="col-lg-10 col-md-10 col-sm-10"><h4 *ngIf="workplace.sphereOfActivity!==''">Сфера деятельности: {{workplace.sphereOfActivity}}</h4></div>
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+        <div class="col-lg-10 col-md-10 col-sm-10"><h4 *ngIf="workplace.position!==''">Должность: {{workplace.position}}</h4></div>
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+        <div class="col-lg-10 col-md-10 col-sm-10"><h4 *ngIf="workplace.duties!==''">Обязанности:{{workplace.duties}}</h4></div>
+      </div>
+</div>
+      <div class="row" class="col-lg-10 col-md-10 col-sm-10" *ngIf="workplaces.length===0">Места работы не заполнены </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!--Модальное окно-->
+      <ng-template #template4 style="z-index: 1">
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+        <div class="col-lg-8 col-md-8 col-sm-8" style=" background: white;">
+
+          <!--Наименование компании-->
+          <div class="row padd">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+              <p>Наименование компании<span style="color:red">*</span></p>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+              <p><input list="company" name="company" class="form-control"
+                        [(ngModel)]="workplace.company" #company="ngModel" required minlength="4"
+                        placeholder="Organization" aria-describedby="sizing-addon2">
+                <datalist id="company">
+                  <option *ngFor="let workplaceSearch of workplacesSearch" value="{{workplaceSearch.company}}"></option>
+                </datalist>
+              </p>
+            </div>
+            <div [hidden]="company.valid || company.untouched" class="alert alert-danger">
+              Введено некорректное название организации
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+              <p>Сфера деятельности<span style="color:red">*</span></p>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+              <input type="text" class="form-control" name="sphereOfActivity"
+                     [(ngModel)]="workplace.sphereOfActivity" #sphereOfActivity="ngModel" required minlength="4"
+                     placeholder="Sphere of activity" aria-describedby="sizing-addon2" id="sphereofactivity">
+            </div>
+            <div [hidden]="sphereOfActivity.valid || sphereOfActivity.untouched" class="alert alert-danger">
+              Введена некорректная сфера дейстельности
+            </div>
+          </div>
+
+
+          <div class="row padd">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+              <p>Должность<span style="color:red">*</span></p>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+              <input type="text" class="form-control" name="position"
+                     [(ngModel)]="workplace.position" #position="ngModel" required minlength="4"
+                     placeholder="Position" aria-describedby="sizing-addon2" id="position">
+            </div>
+            <div [hidden]="position.valid || position.untouched" class="alert alert-danger">
+              Введена некорректная должность
+            </div>
+          </div>
+          <!--Должность END-->
+
+          <!--Обязанности-->
+          <div class="row padd">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+              <p>Обязанности</p>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 input-group aboutform">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+              <textarea class="form-control" name="duties" style="resize:none"
+                        [(ngModel)]="workplace.duties" #duties="ngModel"
+                        id="duties" placeholder="Duties" rows="4"></textarea>
+            </div>
+          </div>
+          <!--Обязанности END-->
+
+          <!--Срок работы-->
+          <div class="row padd">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+              <p>Время работы</p>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <h6>С:</h6>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <h6>По:</h6>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <input type="date" name="position"
+                       [(ngModel)]="workplace.startWork" #startWork="ngModel" >
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <input [disabled]="workplace.working===true" type="date" name="position"
+                       [(ngModel)]="workplace.endWork" #endWork="ngModel" >
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <input type="checkbox"
+                       [(ngModel)]="workplace.working" #working="ngModel"
+                       name="working" > Продолжаю работать<br>
+              </div>
+            </div>
+          </div>
+          <!--Срок работы END-->
+
+          <button type="button" [disabled]="company.invalid || position.invalid || sphereOfActivity.invalid"
+                  class="btn btn-primary pull-right" aria-label="Close" (click)="updateWorkplace(workplaces.indexOf(bufferWorkplace))">
+            Сохранить
+          </button>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+      </ng-template>
+
+<!--Модальное окно END-->
+
+<!--Подтверждение Удаления-->
+
+<div bsModal #acceptWorkplace="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:10%">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Вы действительно хотите удалить Место работы?</h4>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="acceptWorkplace.hide()">
+          Нет
+        </button>
+        <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="deleteWorkplace(); acceptWorkplace.hide()">
+          Удалить
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Подтврждение END-->

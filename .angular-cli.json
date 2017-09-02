@@ -19,9 +19,25 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "./app/assets/images/logo4.png",
+        "./app/assets/web/assets/mobirise-icons/mobirise-icons.css",
+        "./app/assets/tether/tether.min.css",
+        "./app/assets/animate.css/animate.min.css",
+        "./app/assets/socicon/css/styles.css",
+        "./app/assets/theme/css/style.css",
+        "./app/assets/mobirise/css/mbr-additional.css"
+
       ],
-      "scripts": [],
+      "scripts": [
+        "./app/assets/web/assets/jquery/jquery.min.js",
+        "./app/assets/tether/tether.min.js",
+        "./app/assets/bootstrap/js/bootstrap.min.js",
+        "./app/assets/smooth-scroll/smooth-scroll.js",
+        "./app/assets/jarallax/jarallax.min.js",
+        "./app/assets/viewport-checker/jquery.viewportchecker.js",
+        "./app/assets/theme/js/script.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

@@ -1,0 +1,157 @@
+
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+
+      <div class="row padd" style="text-align: center;">
+        <div class="col-lg-12" ><h1>Регистрация нового проекта</h1></div>
+      </div>
+      <!--Information -->
+      <div class="row padd" style="text-align: center;">
+        <div class="col-lg-12" ><h3>Описание проекта<span style="color:red">*</span></h3></div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; background-color: #beecf9">
+          <div class="col-lg-6 col-md-6 col-sm-6" >
+            <div class="row" style="text-align: Center">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <h4>Название проекта<span style="color:red">*</span></h4>
+              </div>
+              <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                <div class="col-lg-10 col-md-10 col-sm-10 input-group fullnameform" style="text-align: left">
+                  <span class="input-group-addon" ><i class="glyphicon glyphicon-tag"></i></span>
+                  <input type="text" class="form-control"  placeholder="name"
+                         [(ngModel)]="project.name" #name="ngModel" required  minlength="4">
+                </div>
+                <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
+                  Некорректное название проекта
+                </div>
+              </div>
+            </div>
+            <div class="row" style="text-align: Center">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <h4>Описание проекта<span style="color:red">*</span></h4>
+              </div>
+              <div class="row">
+              <div class="col-lg-1 col-md-1 col-sm-1"></div>
+              <div class="col-lg-10 col-md-10 col-sm-10 input-group aboutform">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                <textarea class="form-control"
+                          [(ngModel)]="project.description" #description="ngModel" style="resize:none"
+                          id="description"
+                          placeholder="Введите описание проекта" rows="4" required minlength="10"></textarea>
+              </div>
+                <div [hidden]="description.valid || description.untouched" class="alert alert-danger">
+                  Некорректное описание проекта
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6" >
+            <div class="row" style="text-align: Center">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <h4>Отрасль<span style="color:red">*</span></h4>
+              </div>
+              <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+
+                <div class="dropdown form-group">
+                  <button class="btn btn-primary dropdown-toggle" type="button"   data-toggle="dropdown">
+                    <p *ngIf="project.projectCategory">{{project.projectCategory}}</p>
+                    <p *ngIf="categories[0]&&!project.projectCategory">{{categories[0]}}</p>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li role="menuitem" style="cursor: pointer" *ngFor="let category of categories" (click)="project.projectCategory=category"><a>{{category}}</a></li>
+                 </ul>
+                </div>
+
+
+                <!--<div class="col-lg-10 col-md-10 col-sm-10 input-group fullnameform" style="text-align: left">
+                  <span class="input-group-addon" ><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                  <input type="text" class="form-control" placeholder="Отрасль" aria-describedby="basic-addon1" id="otrasl">
+                </div>-->
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <!--Information END-->
+
+      <!--Communication-->
+      <div class="row padd" style="text-align: center;">
+        <div class="col-lg-12" ><h3>Коммуникация на проекте</h3></div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; background-color: #beecf9">
+          <div class="col-lg-4 col-md-4 col-sm-4" >
+            <div class="row" style="text-align: Center">
+              <div class="col-lg-12 col-md-12 col-sm-12"><h4>Язык общения</h4></div>
+            </div>
+            <div class="row" style="text-align: Center">
+              <div class="col-lg-12 col-md-12 col-sm-12 descrform" style="text-align: center;">
+
+                <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6" style="overflow-y:scroll; height:200px;">
+                  <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12" style="cursor:pointer;padding:3px;border-bottom:1px solid black;"
+                       *ngFor="let lang of langs" id="lang" (click)="toggleMultiSelect($event, lang)" id={{lang}}>
+
+                    {{lang}}</div>
+                </div>
+
+
+
+                <!--<div class="dropdown form-group">
+                  <button class="btn btn-primary dropdown-toggle" type="button"   data-toggle="dropdown">
+                    {{project.languages}}  <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li role="menuitem" style="cursor: pointer" (click)="project.projectCategory='Очная'"><a>Очная</a></li>
+                    <li role="menuitem" style="cursor: pointer" (click)="project.projectCategory='Заочная'"><a>Заочная</a></li>
+                    <li role="menuitem" style="cursor: pointer" (click)="project.projectCategory='Вечерняя'"><a>Вечерняя</a></li>
+                    <li role="menuitem" style="cursor: pointer" (click)="project.projectCategory='Дистанционная'"><a>Дистанционная</a></li>
+                  </ul>
+                </div>-->
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4" >
+
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4" >
+            <div class="row" style="text-align: Center">
+              <div class="col-lg-12 col-md-12 col-sm-12"><h4>Способ коммуникации на проекте<span style="color:red">*</span></h4></div>
+            </div>
+            <div class="row" style="text-align: Center">
+              <div class="col-lg-1 col-md-1 col-sm-1"></div>
+              <div class="col-lg-10 col-md-10 col-sm-10 input-group fullnameform" style="text-align: left">
+                <span class="input-group-addon" ><i class="glyphicon glyphicon-earphone"></i></span>
+                <input type="text" class="form-control" placeholder="Способ коммуникации" class="form-control"
+                       [(ngModel)]="project.contactInfo" #contactInfo="ngModel" required  minlength="5">
+              </div>
+              <div [hidden]="contactInfo.valid || contactInfo.untouched" class="alert alert-danger">
+                Некорректный способ коммуникации
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!--Communication END-->
+
+
+      <div class="col-lg-12 col-md-12 col-sm-12 padd">
+        <button type="button" [disabled]="name.invalid || contactInfo.invalid || description.invalid "
+(click)="addProject()"
+                class="btn btn-primary">Зарегистрировать</button>
+      </div>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+
+

@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="import" href="../skill/skill.component.html">
+  <meta charset="utf-8">
+  <title>Starter</title>
+  <base href="/">
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="header">
+      <div class="col-lg-2 col-md-2 col-sm-2"></div>
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div style="text-align: left" class="col-lg-4 col-md-4 col-sm-4"><h1>Starter</h1></div>
+        <div class="col-lg-4"></div>
+        <div style="text-align: right" class="col-lg-4 col-md-4 col-sm-4">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Поиск">
+            <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Найти</button>
+      </span>
+          </div><!-- /input-group -->
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header2 row">
+    <div class="col-lg-8 col-md-8 col-sm-8">
+      <div class="btn-group-md" role="group" aria-label="...">
+        <button type="button" class="btn btn-primary">Сообщения</button>
+        <button type="button" class="btn btn-primary">Проекты</button>
+        <button type="button" class="btn btn-primary">Избранное</button>
+        <button type="button" class="btn btn-primary">Помощь</button>
+      </div>
+    </div>
+    <div class="profiledrop col-lg-4 col-md-4 col-sm-4">
+      <img [src]="image" class="img-circle" alt="Photo" width="35" height="35">
+      <span dropdown (onShown)="onShown()" (onHidden)="onHidden()" (isOpenChange)="isOpenChange()">
+  <a class="cvet" href dropdownToggle (click)="false">Фамилия Имя Отчествович</a>
+    <ul *dropdownMenu class="dropdown-menu">
+      <li *ngFor="let choice of items">
+        <a class="dropdown-item" href="#">{{choice}}</a>
+      </li>
+    </ul>
+    </span>
+    </div>
+  </div>
+  <!--Шапка END-->
+
+  <div class="col-lg-1 col-md-1 col-sm-1"></div>
+  <div class="col-lg-10 col-md-10 col-sm-10"> <!--Container for search-->
+
+    <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9"> <!--Строка для параметров-->
+
+      <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center">
+        <h2> Параметры поиска <span class="btn btn-lg glyphicon glyphicon-option-vertical" data-toggle="collapse" data-target="#param"></span></h2>
+      </div>
+      </div>
+
+      <div class="row collapse" id="param">
+        <div class="col-lg-1 col-md-1 col-sm-1" ></div>
+        <div class="col-lg-5 col-md-5 col-sm-5"> <!--Сами параметры-->
+
+          <!--Role-->
+          <div class="row padd" style="text-align: Left">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Роль</h4>
+
+              <div class="btn-group" dropdown>
+                <button dropdownToggle type="button" class="btn btn-default ">
+                  {{role}} <span class="caret"></span>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu" >
+                  <li role="menuitem" style="cursor: pointer" (click)="role='Стажёр'">Стажёр</li>
+                  <li role="menuitem" style="cursor: pointer" (click)="role='Ментор'">Ментор</li>
+                  <li role="menuitem" style="cursor: pointer" (click)="role='Заказчик'">Заказчик</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <!--Role END-->
+
+
+          <!--Verification-->
+          <div class="row padd" style="text-align: Left">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Верификация</h4>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Пользователь подтверждён</label> <br>
+                <label><input type="checkbox" value="">Пользователь не подтверждён</label>
+              </div>
+            </div>
+          </div>
+          <!--Verification END-->
+
+
+          <!--Направления-->
+          <div class="row padd" style="text-align: Left">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Направление</h4>
+
+              <div class="btn-group" dropdown>
+                <button dropdownToggle type="button" class="btn btn-default ">
+                  {{item}} <span class="caret"></span>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu" >
+                  <li role="menuitem" style="cursor: pointer" (click)="item='Дизайнер'"><nav>Дизайнер</nav></li>
+                  <li role="menuitem" style="cursor: pointer" (click)="item='Бизнес аналитик'">Бизнес аналитик</li>
+                  <li role="menuitem" style="cursor: pointer" (click)="item='Тестировщик'">Тестировщик</li>
+                  <li role="menuitem" style="cursor: pointer" (click)="item='Программист'">Программист</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!--Направления END-->
+
+        </div> <!--Сами параметры END-->
+
+        <div class="col-lg-5 col-md-5 col-sm-5"> <!--Сами параметры2-->
+
+          <!--Number of projects-->
+          <div class="row padd" style="text-align: Left">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Количество проектов</h4>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h5> От:</h5>
+              <input type="number" min="0" step="1" style="width:60px"/>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h5> До:</h5>
+              <input type="number" min="0" step="1" style="width:60px"/>
+            </div>
+          </div>
+          <!--Number of projects END-->
+
+
+          <!--Number of reviews-->
+          <div class="row padd" style="text-align: Left">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Количество отзывов</h4>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h5> От:</h5>
+              <input type="number" min="0" step="1" style="width:60px"/>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h5> До:</h5>
+              <input type="number" min="0" step="1" style="width:60px"/>
+            </div>
+          </div>
+          <!--Number of reviews END-->
+
+
+          <!--Age-->
+          <div class="row" style="text-align: Left">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Возраст</h4>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h5> От:</h5>
+              <input type="number" min="0" step="1" style="width:60px"/>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h5> До:</h5>
+              <input type="number" min="0" step="1" style="width:60px"/>
+            </div>
+          </div>
+          <!--Age END-->
+
+        </div> <!--Сами параметры2 END-->
+
+
+        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+      </div>
+
+    </div> <!--Строка для параметров END-->
+
+    <div class="row" style="padding-bottom: 30px"> <!--Строка поиска-->
+      <div class="col-lg-1 col-md-1 col-sm-1" ></div>
+      <div class="col-lg-10 col-md-10 col-sm-10">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Найти...">
+          <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Найти!</button>
+      </span>
+        </div>
+    </div>
+      <div class="col-lg-1 col-md-1 col-sm-1" ></div>
+    </div>
+    <!--Строка поиска END-->
+  </div> <!--Container for search END-->
+
+  <!--Container for results-->
+  <div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="col-lg-2 col-md-2 col-sm-2"></div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9">
+      <!--Picture-->
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="row" style="text-align: center">
+          <div class="col" >
+            <img [src]="image" class="img-circle" alt="Photo" width="50" height="50">
+          </div>
+        </div>
+      </div>
+      <!--Picture END-->
+      <!--Information-->
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="row" style="text-align: left">
+          <div class="col" >
+            <h4>Фамилия Имя Отчествович
+              <span class="glyphicon glyphicon-ok" popover="Этот пользователь верифицирован ментором" triggers="mouseenter:mouseleave">
+          </span></h4>
+          </div>
+        </div>
+        <div class="row" style="text-align: left">
+          <div class="col" >
+            <h5>Роль: Стажёр</h5>
+          </div>
+        </div>
+
+        <div class="row" style="text-align: left">
+          <div class="col" >
+            <h5>Направление: Программист</h5>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="row" style="text-align: left">
+          <div class="col" >
+            <h5>Количество проектов: 3</h5>
+          </div>
+        </div>
+
+        <div class="row" style="text-align: left">
+          <div class="col" >
+            <h5>Количество отзывов: 7</h5>
+          </div>
+        </div>
+
+        <div class="row" style="text-align: left">
+          <div class="col" >
+            <h5>Возраст: 24 года</h5>
+          </div>
+        </div>
+
+      </div>
+      <!--Information END-->
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-2 col-sm-2"></div>
+  </div><!--Container for results END-->
+
+  <!--Container for results-->
+  <div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="col-lg-2 col-md-2 col-sm-2"></div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9">
+      <!--Picture-->
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="row" style="text-align: center">
+          <div class="col" >
+            <img [src]="image" class="img-circle" alt="Photo" width="50" height="50">
+          </div>
+        </div>
+      </div>
+      <!--Picture END-->
+      <!--Information-->
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="row" style="text-align: left">
+          <div class="col" >
+            <h4>Фамилия Имя Отчествович
+              <span class="glyphicon glyphicon-ok" popover="Этот пользователь верифицирован ментором" triggers="mouseenter:mouseleave">
+          </span></h4>
+          </div>
+        </div>
+        <div class="row" style="text-align: left">
+          <div class="col" >
+            <h5>Роль: Стажёр</h5>
+          </div>
+        </div>
+
+        <div class="row" style="text-align: left">
+          <div class="col" >
+            <h5>Направление: Программист</h5>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="row" style="text-align: left">
+          <div class="col" >
+            <h5>Количество проектов: 3</h5>
+          </div>
+        </div>
+
+        <div class="row" style="text-align: left">
+          <div class="col" >
+            <h5>Количество отзывов: 7</h5>
+          </div>
+        </div>
+
+        <div class="row" style="text-align: left">
+          <div class="col" >
+            <h5>Возраст: 24 года</h5>
+          </div>
+        </div>
+
+      </div>
+      <!--Information END-->
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-2 col-sm-2"></div>
+  </div><!--Container for results END-->
+
+  <div class="col-lg-12 col-md-12 col-sm-12" style="text-align:center; margin-top:20px; margin-bottom: 20px">
+    <button type="button" class="btn btn-primary">
+    Назад
+  </button>
+    <button type="button" class="btn btn-primary">
+      Далее
+    </button>
+  </div>
+  <div class="col-lg-1 col-md-1 col-sm-1"></div>
+</div> <!--Close container-->
+
+
+</body>
+</html>

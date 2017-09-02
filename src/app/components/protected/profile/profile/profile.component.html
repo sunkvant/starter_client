@@ -1,0 +1,495 @@
+<div *ngIf="isDataAvailable">
+      <!--First row-->
+  <div class="profile row" style="text-align: center">
+    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <div class="col-lg-10 col-md-10 col-sm-10">
+    <!--Picture and buttons-->
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="row" style="text-align: center">
+        <div class="col" >
+    <img src="{{profile.contact.avatarPath}}" class="img-circle" alt="Photo" width="200" height="200">
+        </div>
+      </div>
+
+      <div class="row buttonblok" >
+        <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center">
+      <div class="btn-group-vertical">
+      <button type="button" class="btn btn-danger buttonfirst" *ngIf="!customer">Предложить проект</button>
+      <button type="button" class="btn btn-danger" *ngIf="!customer">Написать сообщение</button>
+        <label class="btn btn-default btn-file">
+          Изменить фото <input type="file" style="display: none;" (change)="addPhoto($event)">
+        </label>
+        <!--<button type="button" class="btn btn-danger" *ngIf="customer">Изменить фото</button>-->
+      </div>
+        </div>
+      </div>
+    </div>
+    <!--Picture and buttons END-->
+
+   <!--Fullname Experience About-->
+    <div class="col-lg-8 col-md-8 col-sm-8">
+
+      <div class="row" style="text-align: left">
+        <div class="col-lg-12 col-md-12 col-sm-12"><h2>{{profile.contact.fullName}}
+          <span class="glyphicon glyphicon-ok" popover="Этот пользователь верифицирован ментором" triggers="mouseenter:mouseleave" *ngIf="profile.approved">
+          </span></h2>
+        </div>
+      </div>
+      <div class="row" style="text-align: left">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <h4 *ngIf="profile.role==='Mentor'">Ментор</h4>
+          <h4 *ngIf="profile.role==='Trainee'">Стажёр</h4>
+          <h4 *ngIf="profile.role==='Customer'">Заказчик</h4>
+        </div>
+      </div>
+      <div class="row" style="text-align: left">
+        <div class="col-lg-4 col-md-4 col-sm-4"><h4 *ngIf="profile.role!=='Customer'" >Направление: {{profile.direction}}</h4></div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6" style="text-align: left" >
+          <h4 *ngIf="profile.contact.location.country!==''">Страна проживания: {{profile.contact.location.country}}</h4>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+              <h4 *ngIf="profile.contact.location.city!==''">
+                Город: {{profile.contact.location.city }}</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+              <h4 *ngIf="profile.contact.dateOfBirth!==0">
+                Дата рождения: {{profile.contact.dateOfBirth | date: 'dd/MM/yyyy'}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6" style="border: 1px solid #B0C4DE;">
+          <div class="row">
+        <div class="col-lg-6 col-md-6col-sm-6"><h2>2</h2></div>
+        <div class="col-lg-6 col-md-6col-sm-6"><h2>3</h2></div>
+
+        <div class="col-lg-6 col-md-6col-sm-6">Проекта</div>
+        <div class="col-lg-6 col-md-6col-sm-6">Отзыва</div>
+          </div>
+        </div>
+      </div>
+      <div class="row about">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <p>{{profile.contact.about}}
+          </p>
+        </div>
+      </div>
+      <!--Fullname Experience About END-->
+
+    </div>
+    </div>
+
+    <!--Редактирование общей информации-->
+    <div class="col-lg-1 col-md-1 col-sm-1" *ngIf="customer">
+      <span class="btn glyphicon glyphicon-edit" popover="Редактировать общую информацию" placement="left" containerClass="container"
+            triggers="mouseenter:mouseleave" (click)="openModal1(template)" style="background-color: #6aafb7"></span>
+    </div>
+
+    <ng-template #template>
+      <div class="col-lg-2 col-md-2 col-sm-2"></div>
+      <div class="col-lg-8 col-md-8 col-sm-8" style=" background: white">
+
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 fullname" style="text-align: left">
+            <h2>ФИО</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div  class="form-group" class="col-lg-12 col-md-12 col-sm-12 input-group fullnameform" style="text-align: left">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input type="text" class="form-control"  placeholder="Fullname"
+                   [(ngModel)]="contact.fullName" #fullName="ngModel" required  minlength="4">
+          </div>
+          <div [hidden]="fullName.valid || fullName.untouched" class="alert alert-danger">
+            Укажите корректное имя
+          </div>
+        </div>
+        <!--ФИО END-->
+
+        <!--Birthday-->
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 fullname" style="text-align: left">
+            <h2>Дата рождения</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 input-group fullnameform form-group" style="text-align: left">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-glass"></i></span>
+            <input type="date" [(ngModel)]="contact.dateOfBirth" #dateOfBirth="ngModel" required
+                   name="dateOfBirth" class="form-control"
+                   max="2017-01-01" min="1920-01-01">
+
+          </div>
+          <div [hidden]="dateOfBirth.valid || dateOfBirth.untouched" class="alert alert-danger">
+            Укажите дату рождения
+          </div>
+        </div>
+        <!--Birthday END-->
+
+        <!--Country-->
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: left">
+              <h2>Страна проживания</h2>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 input-group loginform form-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+
+              <p><input list="countries" name="country" class="form-control"
+                        [(ngModel)]="contact.location.country" #country="ngModel" required
+                        placeholder="Country" aria-describedby="sizing-addon2" id="country" (change)="setCities()">
+                <datalist id="countries"  >
+                  <option  *ngFor="let country of this.countries"   value="{{country}}"></option>
+                </datalist></p>
+            </div>
+            <div [hidden]="country.valid || country.untouched" class="alert alert-danger">
+              Укажите страну проживания
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 input-group login" style="text-align: left">
+              <h2>Город</h2>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 input-group loginform form-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+
+              <p><input list="cities" name="city" class="form-control"
+                        [(ngModel)]="contact.location.city" #city="ngModel" required
+                        placeholder="City" aria-describedby="sizing-addon2">
+                <datalist id="cities"  >
+                  <option  *ngFor="let city of this.cities"   value="{{city}}"></option>
+                </datalist></p>
+            </div>
+            <div [hidden]="city.valid || city.untouched" class="alert alert-danger">
+              Укажите город
+            </div>
+          </div>
+          <!--Country END-->
+
+          <!--About-->
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 about" style="text-align: left">
+              <h2>О себе/Интересы</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 input-group aboutform form-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+              <textarea class="form-control" [(ngModel)]="contact.about" #about="ngModel" style="resize:none"
+                        id="about" placeholder="Расскажите немного о себе" rows="4"></textarea>
+            </div>
+          </div>
+          <!--About END-->
+
+        <button type="button" [disabled]="fullName.invalid || dateOfBirth.invalid || country.invalid || city.invalid || about.invalid"
+                class="btn btn-primary pull-right" aria-label="Close" (click)="updateContact()">
+          Сохранить
+        </button>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2"></div>
+    </ng-template>
+    <!--Редактирование общей информации END-->
+  </div>
+    <!--First row END-->
+
+
+    <!--Education row-->
+  <app-education *ngIf="profile.role !== 'Customer'"></app-education>
+  <!--Education row END-->
+
+  <!--Course row-->
+  <div class="course row" *ngIf="profile.role!=='Customer'">
+    <div class="col-lg-2 col-md-2 col-sm-2"></div>
+    <div class="col-lg-8 col-md-8 col-sm-8">
+
+      <div class="row" style="text-align: left">
+        <div class="col-lg-12 col-md-12 col-sm-12" ><h4>Курсы
+
+          <!--Course add ------------------------------------------------------------------------->
+          <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="customer" >
+                <span class="btn glyphicon glyphicon-plus " popover="Добавить образование"
+                      placement="bottom" containerClass="container"
+                      triggers="mouseenter:mouseleave" style="background-color: #3c763d;width: 2px; height: 2px"
+                      (click)="setAddStatus(true); openModal3(template3, course); "></span>
+          </div>
+
+          <!--Course add end------------------------------------------------------------------------->
+
+        </h4></div>
+      </div>
+      <div *ngFor="let course of profile.courses">
+      <div class="coursetext col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; background-color: #beecf9"  *ngIf="course"> <!--style="box-shadow: 0 0 10px #B0C4DE;"-->
+        <div class="row" style="text-align: left">
+          <div class="col-lg-2 col-md-2 col-sm-2"><h4 *ngIf="course.graduationYear!==0">{{course.graduationYear}}</h4>
+            <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: left" *ngIf="customer">
+              <span class="btn glyphicon glyphicon-edit" popover="Редактировать курсы"
+                    placement="left" containerClass="container" triggers="mouseenter:mouseleave"
+                    (click)="setAddStatus(false);openModal3(template3,course)" style="background-color: #6aafb7; width: 5px; height: 5px"></span>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                  <span class="btn glyphicon glyphicon-remove" popover="Удалить курсы" placement="bottom" containerClass="container"
+                        triggers="mouseenter:mouseleave" style="background-color: #b73f3f; width: 5px; height: 5px"
+                  (click)="acceptCourse.show(); setDeletedId(course.id); setDeletedI(profile.courses.indexOf(course))"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10"><h4 *ngIf="course.name!==''">{{course.name}}</h4></div>
+          <div class="col-lg-2 col-md-2 col-sm-2"></div>
+          <div class="col-lg-10 col-md-10 col-sm-10"><h4 *ngIf="course.organization!==''">Организация: {{course.organization}}</h4></div>
+        </div>
+        <div class="row" style="text-align: left">
+          <div class="col-lg-2 col-md-2 col-sm-2"></div>
+          <div class="col-lg-8 col-md-8 col-sm-8"><h4 *ngIf="course.speciality!==''">Специальность: {{course.speciality}}</h4></div>
+        </div>
+      </div>
+      </div>
+      <div class="row" class="col-lg-10 col-md-10 col-sm-10" *ngIf="profile.courses.length===0">Курсы не заполнены </div>
+
+
+    </div>
+
+  </div>
+
+  <!--Редактирование курсов-->
+  <!--Модальное окно-->
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="row padd">
+
+      <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center;">
+
+        <ng-template #template3>
+          <div class="col-lg-2 col-md-2 col-sm-2"></div>
+          <div class="col-lg-8 col-md-8 col-sm-8" style=" background: white">
+
+            <!--Наименование организации-->
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                <p>Наименование организации<span style="color:red">*</span></p>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                <p><input list="organization" name="organization" class="form-control"
+                          [(ngModel)]="course.organization" #organization="ngModel" required minlength="4"
+                          placeholder="Organization" aria-describedby="sizing-addon2" >
+                  <datalist id="organization"  >
+                    <option  *ngFor="let courseSearch of this.coursesSearch"   value="{{courseSearch.organization}}"></option>
+                  </datalist></p>
+              </div>
+              <div [hidden]="organization.valid || organization.untouched" class="alert alert-danger">
+                Введено некорректное название организации
+              </div>
+            </div>
+            <!--Наименование организации END-->
+
+
+            <!--Название курсов-->
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                <p>Название курсов</p>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                <input type="text" class="form-control" name="name"
+                       [(ngModel)]="course.name" #name="ngModel" minlength="4"
+                       placeholder="Name" aria-describedby="sizing-addon2" id="courcename">
+              </div>
+              <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
+                Введено некорректное название курсов
+              </div>
+            </div>
+            <!--Название курсов END-->
+
+
+
+            <!--Специальность-->
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                <p>Специальность<span style="color:red">*</span></p>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                <input type="text" class="form-control" name="speciality"
+                       [(ngModel)]="course.speciality" #speciality="ngModel" minlength="4" required
+                       placeholder="Speciality" aria-describedby="sizing-addon2" id="speciality">
+              </div>
+              <div [hidden]="speciality.valid || speciality.untouched" class="alert alert-danger">
+                Введено некорректное название специальности
+              </div>
+            </div>
+            <!--Специальность END-->
+
+            <!--Год выпуска-->
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                <p>Год выпуска</p>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                <input type="text" class="form-control" name="graduationYear"
+                       [(ngModel)]="course.graduationYear" #graduationYear="ngModel" minlength="4"
+                       pattern="[0-9]{4}"
+                       placeholder="Graduation year" aria-describedby="sizing-addon2" id="graduationyear">
+              </div>
+              <div [hidden]="graduationYear.valid || graduationYear.untouched" class="alert alert-danger">
+                Введён некорректный год выпуска
+              </div>
+            </div>
+            <!--Год выпуска END-->
+
+            <button [disabled]="name.invalid || organization.invalid || graduationYear.invalid || speciality.invalid"
+                    type="button" class="btn btn-primary pull-right" aria-label="Close" (click)="updateCourse(profile.courses.indexOf(bufferCourse))">
+              Сохранить
+            </button>
+          </div>
+          <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </ng-template>
+
+      </div>
+
+    </div>
+  </div>
+  <!--Модальное окно END-->
+  <!--Редактирование курсов END-->
+  <!--Course row END-->
+
+  <!--Подтверждение Удаления-->
+
+  <div bsModal #acceptCourse="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:10%">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Вы действительно хотите удалить Курс?</h4>
+        </div>
+        <div class="modal-body">
+          <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="acceptCourse.hide()">
+            Нет
+          </button>
+          <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="deleteCourse(); acceptCourse.hide()">
+            Удалить
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Подтврждение END-->
+
+
+
+  <!--WorkExperience row-->
+  <app-work *ngIf="profile.role!=='Customer'"></app-work>
+  <!--WorkExperience row END-->
+
+  <!--Skills row-->
+  <app-skill *ngIf="profile.role!=='Customer'"></app-skill>
+  <!--Skills row END-->
+
+  <!--Project row-->
+  <app-profileproject ></app-profileproject>
+  <!--Project row END-->
+
+  <!--Contacts row-->
+  <div class="contacts row">
+    <div class="col-lg-2 col-md-2 col-sm-2"></div>
+    <div class="col-lg-8 col-md-8 col-sm-8" style="background-color: #beecf9">
+
+      <div class="row" style="text-align: left">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE;"><h4>Контакты</h4></div>
+      </div>
+
+      <div class="row" style="text-align: left"  *ngIf="profile.contact.phone!==''">
+        <div class="col-lg-2 col-md-2 col-sm-2"><h4>Телефон:</h4></div>
+        <div class="col-lg-10 col-md-10 col-sm-10"><h4>{{profile.contact.phone}}</h4></div>
+      </div>
+
+      <div class="row" style="text-align: left"   *ngIf="profile.contact.skype!==''">
+        <div class="col-lg-2 col-md-2 col-sm-2"><h4>Skype:</h4></div>
+        <div class="col-lg-10 col-md-10 col-sm-10"><h4 >{{profile.contact.skype}}</h4></div>
+      </div>
+
+      <div class="row" style="text-align: left"  *ngIf="profile.contact.email!==''">
+        <div class="col-lg-2 col-md-2 col-sm-2"><h4>E-mail:</h4></div>
+        <div class="col-lg-10 col-md-10 col-sm-10"><h4>{{profile.contact.email}}</h4></div>
+      </div>
+
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: left">
+      <span class="btn glyphicon glyphicon-edit" popover="Редактировать контакты"
+            placement="left" containerClass="container" triggers="mouseenter:mouseleave"
+            (click)="openModal5(template5)" style="background-color: #6aafb7" *ngIf="customer"></span>
+    </div>
+  </div>
+  <!--Contacts row END-->
+
+  <ng-template #template5>
+    <div class="col-lg-2 col-md-2 col-sm-2"></div>
+    <div class="col-lg-8 col-md-8 col-sm-8" style=" background: white">
+      <!--E-mail-->
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: left">
+          <h2>Email</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 input-group loginform form-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+          <input type="text"  class="form-control"  name="email"
+                 [(ngModel)]="contact.email" #email="ngModel"  minlength="6"
+                 placeholder="Email" aria-describedby="sizing-addon2" pattern="[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}">
+        </div>
+        <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+          Введённый E-mail некорректен
+        </div>
+      </div>
+      <!--E-mail END-->
+
+      <!--Моб.телефон-->
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 phone" style="text-align: left">
+          <h2>Мобильный телефон</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 input-group phoneform form-group" >
+          <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+          <input type="text"  class="form-control"  name="phone"
+                 [(ngModel)]="contact.phone" #phone="ngModel"  minlength="6"
+                 placeholder="Phone" aria-describedby="sizing-addon2" id="Phone"
+                 pattern="[0-9]{7,}">
+        </div>
+        <div [hidden]="phone.valid || phone.untouched" class="alert alert-danger">
+          Введённый телефон некорректен
+        </div>
+      </div>
+      <!--Моб.телефон END-->
+
+      <!--Skype-->
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 skype " style="text-align: left">
+          <h2>Skype</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 input-group skypeform form-group" >
+          <span class="input-group-addon"><i class="socicon-skype"></i></span>
+          <input type="text"  class="form-control"  name="skype"
+                 [(ngModel)]="contact.skype" #skype="ngModel"  minlength="4"
+                 placeholder="Skype" aria-describedby="sizing-addon2" id="Skype">
+        </div>
+        <div [hidden]="skype.valid || skype.untouched" class="alert alert-danger">
+          Введённый Skype некорректен
+        </div>
+      </div>
+      <!--Skype END-->
+
+      <button type="button" [disabled]="skype.invalid || email.invalid || phone.invalid"
+              class="btn btn-primary pull-right" aria-label="Close" (click)="updateContact()">
+        Сохранить
+      </button>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2"></div>
+  </ng-template>
+
+</div>

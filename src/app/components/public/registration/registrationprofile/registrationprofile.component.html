@@ -1,0 +1,279 @@
+<div class="container">
+  <div class="col-lg-2 col-md-2 col-sm-2"></div>
+<div class="col-lg-8 col-md-8 col-sm-8">
+  <!--Head-->
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 head" style="text-align: left;">
+      <h1>Starter</h1>
+    </div>
+  </div>
+  <!--Head END-->
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 info" style="text-align: center;">
+      <p>Общая информация</p>
+    </div>
+  </div>
+
+<!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+  <!--Avatar-->
+ <!-- <div class="col-lg-4 col-md-4 col-sm-4 photo">
+    <div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+    <img [src]="noimage" class="img-circle" alt="Photo" width="150" height="150">
+  </div>
+    </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+      <p><input type="file" name="photo">
+    </div>
+  </div>
+  </div>-->
+  <!--Avatar END-->
+
+  <div class="col-lg-8 col-md-8 col-sm-8" >
+    <!--ФИО-->
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 fullname" style="text-align: left">
+      <h2>ФИО<span style="color:red">*</span></h2>
+    </div>
+  </div>
+  <div class="row">
+      <div  class="form-group" class="col-lg-12 col-md-12 col-sm-12 input-group fullnameform" style="text-align: left">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input type="text" class="form-control"  placeholder="Fullname"
+               [(ngModel)]="user.contact.fullName" #fullName="ngModel" required  minlength="4">
+      </div>
+    <div [hidden]="fullName.valid || fullName.untouched" class="alert alert-danger">
+      Укажите корректное имя
+    </div>
+  </div>
+
+
+    <!--ФИО END-->
+
+    <!--Birthday-->
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 fullname" style="text-align: left">
+        <h2>Дата рождения<span style="color:red">*</span></h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 input-group fullnameform form-group" style="text-align: left">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-glass"></i></span>
+        <input type="date" [(ngModel)]="birth" #dateOfBirth="ngModel" required
+               name="dateOfBirth" class="form-control" value="1999-01-01"
+               max="2017-01-01" min="1920-01-01">
+
+      </div>
+      <div [hidden]="dateOfBirth.valid || dateOfBirth.untouched" class="alert alert-danger">
+        Укажите дату рождения
+      </div>
+    </div>
+    <!--Birthday END-->
+
+    <!--Country-->
+<div class="row">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: left">
+        <h2>Страна проживания<span style="color:red">*</span></h2>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 input-group loginform form-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+
+        <p><input list="countries" name="country" class="form-control"
+                  [(ngModel)]="user.contact.location.country" #country="ngModel" required
+                  placeholder="Country" aria-describedby="sizing-addon2" id="country" (change)="setCities()">
+          <datalist id="countries"  >
+              <option  *ngFor="let country of this.countries"   value="{{country}}"></option>
+          </datalist></p>
+      </div>
+      <div [hidden]="country.valid || country.untouched" class="alert alert-danger">
+      Укажите страну проживания
+    </div>
+
+
+    <div class="col-lg-12 col-md-12 col-sm-12 input-group login" style="text-align: left">
+      <h2>Город<span style="color:red">*</span></h2>
+    </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 input-group loginform form-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+
+        <p><input list="cities" name="city" class="form-control"
+                  [(ngModel)]="user.contact.location.city" #city="ngModel" required
+                  placeholder="City" aria-describedby="sizing-addon2">
+          <datalist id="cities"  >
+            <option  *ngFor="let city of this.cities"   value="{{city}}"></option>
+          </datalist></p>
+      </div>
+      <div [hidden]="city.valid || city.untouched" class="alert alert-danger">
+        Укажите город
+      </div>
+</div>
+    <!--Country END-->
+
+
+    <!--login-->
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: left">
+        <h2>Login<span style="color:red">*</span></h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 input-group loginform form-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-king"></i></span>
+        <input type="text" class="form-control"  name="login" class="form-control"
+               [(ngModel)]="user.login" #login="ngModel" required minlength="4"
+               placeholder="Login" aria-describedby="sizing-addon2" (change)="checkLogin(login.value)" >
+      </div>
+      <div [hidden]="login.valid || login.untouched" class="alert alert-danger">
+        Укажите корректный логин
+      </div>
+      <div [hidden]="!loginCheck || login.untouched" class="alert alert-danger">
+      Выбранный логин уже занят
+    </div>
+    </div>
+    <!--login END-->
+
+  <!--Password-->
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 password" style="text-align: left">
+      <h2>Пароль<span style="color:red">*</span></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 input-group passwordform form-group"  [formGroup]="form">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+      <input type="password" class="form-control"  name="password"
+             [(ngModel)]="user.password"  required minlength="6"
+             placeholder="Password"  name="password"   formControlName="password" >
+    </div>
+    <div [hidden]="form.controls.password.valid || form.controls.password.untouched" class="alert alert-danger">
+      Введённый пароль не корректен
+    </div>
+  </div>
+  <!--Password END-->
+
+  <!--PasswordAccept-->
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 password" style="text-align: left">
+      <h2>Подтвердите пароль<span style="color:red">*</span></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 input-group passwordform form-group" [formGroup]="form">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+      <input type="password"    class="form-control" #confirmPassword
+             placeholder="Password"   name="confirmPassword" required minlength="6" formControlName="confirmPassword" >
+    </div>
+    <div class="alert alert-danger" [hidden]="form.controls.confirmPassword.valid || form.controls.confirmPassword.untouched">
+      Пароли не совпадают
+    </div>
+  </div>
+  <!--PasswordAccept END-->
+
+    <!--E-mail-->
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: left">
+        <h2>Email</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 input-group loginform form-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <input type="text"  class="form-control"  name="email"
+               [(ngModel)]="user.contact.email" #email="ngModel"  minlength="6"
+         placeholder="Email" aria-describedby="sizing-addon2" pattern="[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}">
+      </div>
+      <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+        Введённый E-mail некорректен
+      </div>
+    </div>
+    <!--E-mail END-->
+
+    <!--Моб.телефон-->
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 phone" style="text-align: left">
+        <h2>Мобильный телефон</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 input-group phoneform form-group" >
+        <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+        <input type="text"  class="form-control"  name="phone"
+               [(ngModel)]="user.contact.phone" #phone="ngModel"  minlength="6"
+               placeholder="Phone" aria-describedby="sizing-addon2" id="Phone"
+               pattern="[0-9]{7,}">
+      </div>
+      <div [hidden]="phone.valid || phone.untouched" class="alert alert-danger">
+        Введённый телефон некорректен
+      </div>
+    </div>
+    <!--Моб.телефон END-->
+
+  <!--Skype-->
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 skype " style="text-align: left">
+      <h2>Skype</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 input-group skypeform form-group" >
+      <span class="input-group-addon"><i class="socicon-skype"></i></span>
+      <input type="text"  class="form-control"  name="skype"
+             [(ngModel)]="user.contact.skype" #skype="ngModel"  minlength="4"
+             placeholder="Skype" aria-describedby="sizing-addon2" id="Skype">
+    </div>
+    <div [hidden]="skype.valid || skype.untouched" class="alert alert-danger">
+      Введённый Skype некорректен
+    </div>
+  </div>
+  <!--Skype END-->
+
+
+    <!--About-->
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 about" style="text-align: left">
+        <h2>О себе/Интересы</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 input-group aboutform form-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+        <textarea class="form-control" [(ngModel)]="user.contact.about" #about="ngModel" style="resize:none"
+                  id="about" placeholder="Расскажите немного о себе" rows="4"></textarea>
+      </div>
+    </div>
+    <!--About END-->
+
+
+
+    <!--Submit-->
+    <div class="row" [hidden]="role==='Customer'">
+      <div class="col-lg-12 col-md-12 col-sm-12 submit" style="text-align: right">
+        <button type="submit"  [disabled]="fullName.invalid || dateOfBirth.invalid || country.invalid || city.invalid || login.invalid || form.controls.password.invalid || form.controls.confirmPassword.invalid || email.invalid || skype.invalid || loginCheck"
+                (click)="nextStep()" class="btn btn-primary">
+          Далее
+        </button>
+      </div>
+    </div>
+    <!--Submit END-->
+
+  <!--Registration-->
+  <div class="row" [hidden]="role!=='Customer'">
+    <div class="col-lg-12 col-md-12 col-sm-12 submit" style="text-align: right">
+      <button type="button"
+              [disabled]="fullName.invalid || dateOfBirth.invalid || country.invalid || city.invalid || login.invalid || form.controls.password.invalid || form.controls.confirmPassword.invalid || email.invalid || skype.invalid ||loginCheck"
+              class="btn btn-primary" (click)="registration()">
+        Зарегистрироваться
+      </button>
+    </div>
+  </div>
+  <!--Registration END-->
+
+  </div>
+
+</div>
+  <div class="col-lg-2 col-md-2 col-sm-2"></div>
+</div>
+</div>

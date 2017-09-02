@@ -1,0 +1,367 @@
+<div class="container">
+  <div class="col-lg-2 col-md-2 col-sm-2"></div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <!--Head-->
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 head" style="text-align: left;">
+        <h1>Starter</h1>
+      </div>
+    </div>
+    <!--Head END-->
+
+    <div class="row padd">
+      <div class="col-lg-12 col-md-12 col-sm-12 educationreg" style="text-align: center;">
+        <p>Образование</p>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE;">
+    <div class="row">
+
+      <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: center; ">
+        <p>Учреждение образования</p>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: center;">
+        <p>Форма обучения</p>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3" style="text-align: center; ">
+        <p>Факультет</p>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3" style="text-align: center;">
+        <p>Специальность</p>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-1" style="text-align: center;">
+        <p>Год окончания</p>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-1" style="text-align: center;">
+      </div>
+    </div>
+    </div>
+<div *ngFor="let education of educations">
+    <div  *ngIf="education" class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE;">
+      <div class="row" >
+
+        <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: center;">
+          <p>{{education.name}}</p>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: center;">
+          <p>{{education.educationType}}</p>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3" style="text-align: center;">
+          <p>{{education.faculty}}</p>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3" style="text-align: center;">
+          <p>{{education.speciality}}</p>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1" style="text-align: center;">
+          <p>{{education.graduationYear}}</p>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1" style="text-align: center;">
+          <button type="button" class="btn close btn-sm" style="background-color: red"
+          (click)="educationDelete(education.id)">&times;</button>
+        </div>
+
+
+      </div>
+    </div>
+</div>
+
+    <!--Модальное окно-->
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="row padd">
+
+        <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center;">
+          <button type="button" class="btn btn-primary" (click)="openModal1(template)">Добавить образование</button>
+
+          <ng-template #template>
+              <div class="col-lg-2 col-md-2 col-sm-2"></div>
+              <div class="col-lg-8 col-md-8 col-sm-8" style=" background: white">
+
+                <!--Учреждение образования-->
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                  <p>Учреждение образования<span style="color:red">*</span></p>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 input-group form-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+
+                  <p><input list="name" name="name" class="form-control"
+                            [(ngModel)]="education.name" #name="ngModel" required minlength="4"
+                            placeholder="Name" aria-describedby="sizing-addon2" >
+                    <datalist id="name"  >
+                      <option  *ngFor="let educationSearch of this.educationsSearch"   value="{{educationSearch.name}}"></option>
+                    </datalist></p>
+                </div>
+                <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
+                  Введено некооректное учереждение образования
+                </div>
+              </div>
+                <!--Учреждение образования END-->
+
+                <!--Форма обучения-->
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                    <p>Форма обучения</p>
+                  </div>
+
+                  <div class="dropdown form-group">
+                    <button class="btn btn-primary dropdown-toggle" type="button"  value="{{education.educationType}}" data-toggle="dropdown">
+                      {{education.educationType}}  <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li role="menuitem" style="cursor: pointer" (click)="education.educationType='Очная'"><a>Очная</a></li>
+                      <li role="menuitem" style="cursor: pointer" (click)="education.educationType='Заочная'"><a>Заочная</a></li>
+                      <li role="menuitem" style="cursor: pointer" (click)="education.educationType='Вечерняя'"><a>Вечерняя</a></li>
+                      <li role="menuitem" style="cursor: pointer" (click)="education.educationType='Дистанционная'"><a>Дистанционная</a></li>
+                    </ul>
+                  </div>
+
+
+<!--
+                  <div class="col-lg-12 col-md-12 col-sm-12 input-group form-group" style="text-align: left">
+                    <div class="btn-group" dropdown>
+                      <button dropdownToggle type="button" class="btn btn-default dropdown-toggle" >
+                        <span class="caret"></span>
+                      </button>
+                      <ul *dropdownMenu class="dropdown-menu"  >
+
+                      </ul>
+                    </div>
+                  </div>-->
+                </div>
+                <!--Форма обучения END-->
+
+                <!--Факультет-->
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                    <p>Факультет</p>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 input-group form-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input type="text" class="form-control" name="faculty"
+                           [(ngModel)]="education.faculty" #faculty="ngModel" minlength="4"
+                           placeholder="Faculty" aria-describedby="sizing-addon2" id="faculty">
+                  </div>
+                  <div [hidden]="faculty.valid || faculty.untouched" class="alert alert-danger">
+                    Введено некорректное название факультета
+                  </div>
+                </div>
+                <!--Факультет END-->
+
+                <!--Специальность-->
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                    <p>Специальность<span style="color:red">*</span></p>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 input-group form-group" >
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input type="text" class="form-control" name="speciality"
+                           [(ngModel)]="education.speciality" #speciality="ngModel" minlength="3" required
+                           placeholder="Speciality" aria-describedby="sizing-addon2">
+                  </div>
+                  <div [hidden]="speciality.valid || speciality.untouched" class="alert alert-danger">
+                    Введено некорректное название Cпециальности
+                  </div>
+                </div>
+                <!--Специальность END-->
+
+                <!--Год выпуска-->
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                    <p>Год выпуска</p>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 input-group ">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input type="text" class="form-control" name="graduationYear"
+                           [(ngModel)]="education.graduationYear" #graduationYear="ngModel" minlength="4"
+                            pattern="[0-9]{4}"
+                           placeholder="Graduation year" aria-describedby="sizing-addon2" >
+                  </div>
+                  <div [hidden]="graduationYear.valid || graduationYear.untouched" class="alert alert-danger">
+                    Неверный год выпуска
+                  </div>
+                </div>
+                <!--Год выпуска END-->
+
+                <button [disabled]="name.invalid || faculty.invalid || graduationYear.invalid || speciality.invalid"
+                  type="button" class="btn btn-primary pull-right" aria-label="Close" (click)="educationAdd()">
+                  Сохранить
+                </button>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2"></div>
+          </ng-template>
+
+        </div>
+
+      </div>
+    </div>
+    <!--Модальное окно END-->
+
+
+
+  <div class="col-lg-12 col-md-12 col-sm-12">
+
+    <div class="row padd">
+      <div class="col-lg-12 col-md-12 col-sm-12 educationreg" style="text-align: center;">
+        <p>Курсы повышения квалификации</p>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE;">
+      <div class="row">
+
+        <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: center;">
+          <p>Название курсов</p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4" style="text-align: center;">
+          <p>Наименование организации</p>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3" style="text-align: center;">
+          <p>Специальность</p>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: center;">
+          <p>Год окончания</p>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1" style="text-align: center;">
+        </div>
+      </div>
+    </div>
+<div *ngFor="let course of courses">
+    <div  *ngIf="course" class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE;">
+      <div class="row">
+
+        <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: center;">
+          <p>{{course.name}}</p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4" style="text-align: center;">
+          <p>{{course.organization}}</p>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3" style="text-align: center;">
+          <p>{{course.speciality}}</p>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: center;">
+          <p>{{course.graduationYear}}</p>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1" style="text-align: center;">
+          <button type="button" class="btn close btn-sm"
+                  (click)="courseDelete(course.id)"
+                  style="background-color: red">&times;</button>
+        </div>
+      </div>
+    </div>
+</div>
+    <!--Модальное окно-->
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="row padd">
+
+        <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center;">
+          <button type="button" class="btn btn-primary" (click)="openModal2(template1)">Добавить курсы</button>
+
+          <ng-template #template1>
+              <div class="col-lg-2 col-md-2 col-sm-2"></div>
+              <div class="col-lg-8 col-md-8 col-sm-8" style=" background: white">
+
+                <!--Наименование организации-->
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                    <p>Наименование организации<span style="color:red">*</span></p>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <p><input list="organization" name="organization" class="form-control"
+                              [(ngModel)]="course.organization" #organization="ngModel" required minlength="4"
+                              placeholder="Organization" aria-describedby="sizing-addon2" >
+                      <datalist id="organization"  >
+                        <option  *ngFor="let courseSearch of this.coursesSearch"   value="{{courseSearch.organization}}"></option>
+                      </datalist></p>
+                  </div>
+                  <div [hidden]="organization.valid || organization.untouched" class="alert alert-danger">
+                    Введено некорректное название организации
+                  </div>
+                </div>
+                <!--Наименование организации END-->
+
+
+                <!--Название курсов-->
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                    <p>Название курсов</p>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input type="text" class="form-control" name="name"
+                           [(ngModel)]="course.name" #name="ngModel" minlength="4"
+                           placeholder="Name" aria-describedby="sizing-addon2" id="courcename">
+                  </div>
+                  <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
+                    Введено некорректное название курсов
+                  </div>
+                </div>
+                <!--Название курсов END-->
+
+
+
+                <!--Специальность-->
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                    <p>Специальность<span style="color:red">*</span></p>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input type="text" class="form-control" name="speciality"
+                           [(ngModel)]="course.speciality" #speciality="ngModel" minlength="4" required
+                           placeholder="Speciality" aria-describedby="sizing-addon2" id="speciality">
+                  </div>
+                  <div [hidden]="speciality.valid || speciality.untouched" class="alert alert-danger">
+                    Введено некорректное название специальности
+                  </div>
+                </div>
+                <!--Специальность END-->
+
+                <!--Год выпуска-->
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+                    <p>Год выпуска</p>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input type="text" class="form-control" name="graduationYear"
+                           [(ngModel)]="course.graduationYear" #graduationYear="ngModel" minlength="4"
+                           pattern="[0-9]{4}"
+                           placeholder="Graduation year" aria-describedby="sizing-addon2" id="graduationyear">
+                  </div>
+                  <div [hidden]="graduationYear.valid || graduationYear.untouched" class="alert alert-danger">
+                    Введён некорректный год выпуска
+                  </div>
+                </div>
+                <!--Год выпуска END-->
+
+                <button [disabled]="name.invalid || organization.invalid || graduationYear.invalid || speciality.invalid"
+                  type="button" class="btn btn-primary pull-right" aria-label="Close" (click)="courseAdd()">
+                  Сохранить
+                </button>
+              </div>
+              <div class="col-lg-1 col-md-1 col-sm-1"></div>
+          </ng-template>
+
+        </div>
+
+      </div>
+    </div>
+    <!--Модальное окно END-->
+
+    <!--Submit-->
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 submit" style="text-align: right">
+        <button type="button" class="btn btn-primary" (click)="nextStep()">
+          Далее
+        </button>
+      </div>
+    </div>
+    <!--Submit END-->
+
+
+
+  </div>
+  </div>
+</div>
