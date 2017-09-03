@@ -38,6 +38,8 @@ import {CategoryService} from './service/category.service';
 import {LanguageService} from './service/language.service';
 import {ProjectService} from './service/project.service';
 import {ProjectComponent} from './components/protected/project/project.component';
+import {SearchpersonComponent} from './components/protected/searchperson/searchperson.component';
+import {VacancyService} from "./service/vacancy.service";
 
 const appRoutes: Routes = [
   { path: 'profile/:id', component: ProfileComponent },
@@ -52,6 +54,7 @@ const appRoutes: Routes = [
   { path: 'register/skill', component: RegistrationskillComponent},
   { path: 'project/create', component: RegistrationprojectComponent},
   { path: 'project/:id', component: ProjectComponent},
+  { path: 'search/profile', component: SearchpersonComponent},
 
   {
     path: '',
@@ -82,7 +85,8 @@ const appRoutes: Routes = [
     RegistrationskillComponent,
     LoginComponent,
     RegistrationprojectComponent,
-    ProjectComponent
+    ProjectComponent,
+    SearchpersonComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +103,7 @@ const appRoutes: Routes = [
     ProfileService, TokenService, HttpClient,
     RegistrationService, CountryService, CityService, EducationService,
     CourseService, WorkplaceService, DirectionService, SkillService, SecurityService,
-  ContactService, CategoryService, LanguageService, ProjectService],
+  ContactService, CategoryService, LanguageService, ProjectService, VacancyService],
 
   bootstrap: [AppComponent]
 

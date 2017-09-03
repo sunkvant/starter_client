@@ -1,56 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="import" href="../skill/skill.component.html">
-  <meta charset="utf-8">
-  <title>Starter</title>
-  <base href="/">
-</head>
-<body>
-<div class="container">
-  <div class="row">
-    <div class="header">
-      <div class="col-lg-2 col-md-2 col-sm-2"></div>
-      <div class="col-lg-8 col-md-8 col-sm-8">
-        <div style="text-align: left" class="col-lg-4 col-md-4 col-sm-4"><h1>Starter</h1></div>
-        <div class="col-lg-4"></div>
-        <div style="text-align: right" class="col-lg-4 col-md-4 col-sm-4">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Поиск">
-            <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Найти</button>
-      </span>
-          </div><!-- /input-group -->
-        </div>
-        <div class="col-lg-2 col-md-2 col-sm-2">
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="header2 row">
-    <div class="col-lg-8 col-md-8 col-sm-8">
-      <div class="btn-group-md" role="group" aria-label="...">
-        <button type="button" class="btn btn-primary">Сообщения</button>
-        <button type="button" class="btn btn-primary">Проекты</button>
-        <button type="button" class="btn btn-primary">Избранное</button>
-        <button type="button" class="btn btn-primary">Помощь</button>
-      </div>
-    </div>
-    <div class="profiledrop col-lg-4 col-md-4 col-sm-4">
-      <img [src]="image" class="img-circle" alt="Photo" width="35" height="35">
-      <span dropdown (onShown)="onShown()" (onHidden)="onHidden()" (isOpenChange)="isOpenChange()">
-  <a class="cvet" href dropdownToggle (click)="false">Фамилия Имя Отчествович</a>
-    <ul *dropdownMenu class="dropdown-menu">
-      <li *ngFor="let choice of items">
-        <a class="dropdown-item" href="#">{{choice}}</a>
-      </li>
-    </ul>
-    </span>
-    </div>
-  </div>
-  <!--Шапка END-->
 
   <div class="col-lg-1 col-md-1 col-sm-1"></div>
   <div class="col-lg-10 col-md-10 col-sm-10"> <!--Container for search-->
@@ -59,7 +7,8 @@
 
       <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center">
-        <h2> Параметры поиска <span class="btn btn-lg glyphicon glyphicon-option-vertical" data-toggle="collapse" data-target="#param"></span></h2>
+        <h2> Параметры поиска <span class="btn btn-lg glyphicon glyphicon-option-vertical"
+                                    data-toggle="collapse" data-target="#param"></span></h2>
       </div>
       </div>
 
@@ -71,91 +20,117 @@
           <div class="row padd" style="text-align: Left">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Роль</h4>
 
-              <div class="btn-group" dropdown>
-                <button dropdownToggle type="button" class="btn btn-default ">
-                  {{role}} <span class="caret"></span>
+              <div class="dropdown form-group">
+                <button class="btn btn-primary dropdown-toggle" type="button"  data-toggle="dropdown">
+                  {{searchProfile.role}}
+                  <span class="caret"></span>
                 </button>
-                <ul *dropdownMenu class="dropdown-menu" role="menu" >
-                  <li role="menuitem" style="cursor: pointer" (click)="role='Стажёр'">Стажёр</li>
-                  <li role="menuitem" style="cursor: pointer" (click)="role='Ментор'">Ментор</li>
-                  <li role="menuitem" style="cursor: pointer" (click)="role='Заказчик'">Заказчик</li>
+                <ul class="dropdown-menu" role="menu">
+                  <li role="menuitem" style="cursor: pointer" *ngFor="let role of roles"
+                      (click)="searchProfile.role=role"><a>{{role}}</a></li>
                 </ul>
               </div>
+
             </div>
           </div>
         <!--Role END-->
 
-
-          <!--Verification-->
+          <!--Number of projects-->
           <div class="row padd" style="text-align: Left">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Навыки</h4>
+            </div>
+
+            <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6"
+                 style="overflow-y:scroll; height:400px;">
+              <div  *ngFor="let skill of skills">
+
+                <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12"
+                     style="cursor:pointer;padding:3px;border-bottom:1px solid black;"
+                     id="{{skill}}" (click)="toggleMultiSelectSkill($event, skill)" id={{skill}}>
+                  <span *ngIf="bufferSkills.indexOf(skill)!==-1" style="color:red">*</span>
+                  {{skill}}</div>
+
+              </div>
+            </div>
+
+          </div>
+          <!--Number of projects END-->
+          <!--Verification-->
+          <!--<div class="row padd" style="text-align: Left">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Верификация</h4>
               <div class="checkbox">
                 <label><input type="checkbox" value="">Пользователь подтверждён</label> <br>
                 <label><input type="checkbox" value="">Пользователь не подтверждён</label>
               </div>
             </div>
-          </div>
+          </div>-->
           <!--Verification END-->
+
+
+
+        </div> <!--Сами параметры END-->
+
+        <div class="col-lg-5 col-md-5 col-sm-5"> <!--Сами параметры2-->
+
 
 
           <!--Направления-->
           <div class="row padd" style="text-align: Left">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Направление</h4>
 
-              <div class="btn-group" dropdown>
-                <button dropdownToggle type="button" class="btn btn-default ">
-                  {{item}} <span class="caret"></span>
-                </button>
-                <ul *dropdownMenu class="dropdown-menu" role="menu" >
-                  <li role="menuitem" style="cursor: pointer" (click)="item='Дизайнер'"><nav>Дизайнер</nav></li>
-                  <li role="menuitem" style="cursor: pointer" (click)="item='Бизнес аналитик'">Бизнес аналитик</li>
-                  <li role="menuitem" style="cursor: pointer" (click)="item='Тестировщик'">Тестировщик</li>
-                  <li role="menuitem" style="cursor: pointer" (click)="item='Программист'">Программист</li>
-                </ul>
+              <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6"
+                   style="overflow-y:scroll; height:200px; width: 300px">
+                <div  *ngFor="let direction of directions">
+
+                  <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12"
+                       style="cursor:pointer;padding:5px;border-bottom:2px solid black; font-size: 25px"
+                       id="{{direction}}" (click)="toggleMultiSelect($event, direction)" id={{direction}}>
+                    <span *ngIf="bufferDirections.indexOf(direction)!==-1" style="color:red">*</span>
+                    {{direction}}</div>
+
+                </div>
               </div>
+
             </div>
           </div>
           <!--Направления END-->
 
-        </div> <!--Сами параметры END-->
-
-        <div class="col-lg-5 col-md-5 col-sm-5"> <!--Сами параметры2-->
-
-          <!--Number of projects-->
-          <div class="row padd" style="text-align: Left">
-            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Количество проектов</h4>
-            </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-3">
-              <h5> От:</h5>
-              <input type="number" min="0" step="1" style="width:60px"/>
-            </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-3">
-              <h5> До:</h5>
-              <input type="number" min="0" step="1" style="width:60px"/>
-            </div>
-          </div>
-          <!--Number of projects END-->
 
 
           <!--Number of reviews-->
           <div class="row padd" style="text-align: Left">
-            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Количество отзывов</h4>
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Локация</h4>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-3">
-              <h5> От:</h5>
-              <input type="number" min="0" step="1" style="width:60px"/>
-            </div>
+            <p><input list="countries" name="country" class="form-control"
+                      [(ngModel)]="searchProfile.country" #country="ngModel"
+                      placeholder="Country" aria-describedby="sizing-addon2" id="country" (change)="setCities()">
+              <datalist id="countries"  >
+                <option  *ngFor="let country of this.countries"   value="{{country}}"></option>
+              </datalist></p>
 
-            <div class="col-lg-3 col-md-3 col-sm-3">
-              <h5> До:</h5>
-              <input type="number" min="0" step="1" style="width:60px"/>
-            </div>
+            <p><input list="cities" name="city" class="form-control"
+                     [(ngModel)]="searchProfile.city" #city="ngModel" required
+                     placeholder="City" aria-describedby="sizing-addon2">
+            <datalist id="cities"  >
+              <option  *ngFor="let city of this.cities"   value="{{city}}"></option>
+            </datalist></p>
+
           </div>
           <!--Number of reviews END-->
 
+          <!--Number of reviews-->
+          <div class="row padd" style="text-align: Left">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Учебное заведение</h4>
+            </div>
+
+            <p><input list="name" name="name" class="form-control"
+                      [(ngModel)]="searchProfile.educationName" #name="ngModel"
+                      placeholder="Name" aria-describedby="sizing-addon2" >
+              <datalist id="name"  >
+                <option  *ngFor="let education of educations"   value="{{education.name}}"></option>
+              </datalist></p>
+          </div>
 
           <!--Age-->
           <div class="row" style="text-align: Left">
@@ -164,15 +139,24 @@
 
             <div class="col-lg-3 col-md-3 col-sm-3">
               <h5> От:</h5>
-              <input type="number" min="0" step="1" style="width:60px"/>
+              <input type="number" min="0" step="1"
+                     [(ngModel)]="searchProfile.ageFrom" #ageFrom="ngModel" style="width:60px"/>
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-3">
               <h5> До:</h5>
-              <input type="number" min="0" step="1" style="width:60px"/>
+              <input type="number" min="0" step="1"
+                     [(ngModel)]="searchProfile.ageTo" #ageTo="ngModel" style="width:60px"/>
             </div>
           </div>
           <!--Age END-->
+
+
+          <div class="row" style="text-align: Left">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Опыт менторства</h4>
+              <input type="checkbox" [(ngModel)]="searchProfile.isMentorExp" #mentorExp="ngModel">
+            </div>
+          </div>
 
         </div> <!--Сами параметры2 END-->
 
@@ -186,9 +170,10 @@
       <div class="col-lg-1 col-md-1 col-sm-1" ></div>
       <div class="col-lg-10 col-md-10 col-sm-10">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Найти...">
+          <input type="text" class="form-control" [(ngModel)]="searchProfile.fullName"
+                 placeholder="Найти..." (keypress)="search()">
           <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Найти!</button>
+        <button class="btn btn-default" type="button" (click)="search()">Найти!</button>
       </span>
         </div>
     </div>
@@ -198,15 +183,15 @@
   </div> <!--Container for search END-->
 
   <!--Container for results-->
-  <div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="col-lg-12 col-md-12 col-sm-12" *ngFor="let searchResultProfile of searchResultProfiles">
   <div class="col-lg-2 col-md-2 col-sm-2"></div>
   <div class="col-lg-8 col-md-8 col-sm-8">
     <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9">
       <!--Picture-->
-      <div class="col-lg-2 col-md-2 col-sm-2">
+      <div class="col-lg-2 col-md-2 col-sm-2" routerLink="/profile/{{searchResultProfile.id}}">
         <div class="row" style="text-align: center">
           <div class="col" >
-            <img [src]="image" class="img-circle" alt="Photo" width="50" height="50">
+            <img src="{{searchResultProfile.contact.avatarPath}}" class="img-circle" alt="Photo" width="50" height="50">
           </div>
         </div>
       </div>
@@ -215,26 +200,29 @@
       <div class="col-lg-4 col-md-4 col-sm-4">
         <div class="row" style="text-align: left">
           <div class="col" >
-            <h4>Фамилия Имя Отчествович
-              <span class="glyphicon glyphicon-ok" popover="Этот пользователь верифицирован ментором" triggers="mouseenter:mouseleave">
+            <h4><a routerLink="/profile/{{searchResultProfile.id}}">
+              {{searchResultProfile.contact.fullName}}</a>
+              <span class="glyphicon glyphicon-ok" popover="Этот пользователь верифицирован ментором"
+                    *ngIf="searchResultProfile.approved"
+                    triggers="mouseenter:mouseleave">
           </span></h4>
           </div>
         </div>
         <div class="row" style="text-align: left">
           <div class="col" >
-            <h5>Роль: Стажёр</h5>
+            <h5>Роль: {{searchResultProfile.role}}</h5>
           </div>
         </div>
 
         <div class="row" style="text-align: left">
           <div class="col" >
-            <h5>Направление: Программист</h5>
+            <h5>Направление: {{searchResultProfile.direction}}</h5>
           </div>
         </div>
 
       </div>
 
-      <div class="col-lg-4 col-md-4 col-sm-4">
+     <!-- <div class="col-lg-4 col-md-4 col-sm-4">
         <div class="row" style="text-align: left">
           <div class="col" >
             <h5>Количество проектов: 3</h5>
@@ -253,87 +241,22 @@
           </div>
         </div>
 
-      </div>
+      </div>-->
       <!--Information END-->
     </div>
   </div>
   <div class="col-lg-2 col-md-2 col-sm-2"></div>
   </div><!--Container for results END-->
 
-  <!--Container for results-->
-  <div class="col-lg-12 col-md-12 col-sm-12">
-  <div class="col-lg-2 col-md-2 col-sm-2"></div>
-  <div class="col-lg-8 col-md-8 col-sm-8">
-    <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9">
-      <!--Picture-->
-      <div class="col-lg-2 col-md-2 col-sm-2">
-        <div class="row" style="text-align: center">
-          <div class="col" >
-            <img [src]="image" class="img-circle" alt="Photo" width="50" height="50">
-          </div>
-        </div>
-      </div>
-      <!--Picture END-->
-      <!--Information-->
-      <div class="col-lg-4 col-md-4 col-sm-4">
-        <div class="row" style="text-align: left">
-          <div class="col" >
-            <h4>Фамилия Имя Отчествович
-              <span class="glyphicon glyphicon-ok" popover="Этот пользователь верифицирован ментором" triggers="mouseenter:mouseleave">
-          </span></h4>
-          </div>
-        </div>
-        <div class="row" style="text-align: left">
-          <div class="col" >
-            <h5>Роль: Стажёр</h5>
-          </div>
-        </div>
 
-        <div class="row" style="text-align: left">
-          <div class="col" >
-            <h5>Направление: Программист</h5>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="col-lg-4 col-md-4 col-sm-4">
-        <div class="row" style="text-align: left">
-          <div class="col" >
-            <h5>Количество проектов: 3</h5>
-          </div>
-        </div>
-
-        <div class="row" style="text-align: left">
-          <div class="col" >
-            <h5>Количество отзывов: 7</h5>
-          </div>
-        </div>
-
-        <div class="row" style="text-align: left">
-          <div class="col" >
-            <h5>Возраст: 24 года</h5>
-          </div>
-        </div>
-
-      </div>
-      <!--Information END-->
-    </div>
-  </div>
-  <div class="col-lg-2 col-md-2 col-sm-2"></div>
-  </div><!--Container for results END-->
 
   <div class="col-lg-12 col-md-12 col-sm-12" style="text-align:center; margin-top:20px; margin-bottom: 20px">
-    <button type="button" class="btn btn-primary">
+ <!--   <button type="button" class="btn btn-primary">
     Назад
   </button>
     <button type="button" class="btn btn-primary">
       Далее
-    </button>
+    </button>-->
   </div>
   <div class="col-lg-1 col-md-1 col-sm-1"></div>
-</div> <!--Close container-->
 
-
-</body>
-</html>
