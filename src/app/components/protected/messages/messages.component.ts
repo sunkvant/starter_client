@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-declare var require;
+
 
 @Component({
   selector: 'app-messages',
@@ -7,11 +7,20 @@ declare var require;
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
-    private image = require("../profile/01.jpg");
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  getAllMessages(){
+
+  }
+  getReceivedMessages(){
+
+  }
+  getSentMessages(){
+
   }
 
 }
