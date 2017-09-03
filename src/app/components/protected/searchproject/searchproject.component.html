@@ -16,7 +16,7 @@
 
         <div class="col-lg-4 col-md-4 col-sm-4" >
           <!--Status-->
-          <div class="row padd" style="text-align: Left; margin-bottom:10px; margin-left:1px; margin-right:1px; background-color: #dfffff; border-radius:5px">
+          <div class="row padd" style="text-align: Left; margin-bottom:10px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Статус проекта</h4>
 
               <div class="dropdown form-group" >
@@ -39,16 +39,16 @@
         <div class="col-lg-4 col-md-4 col-sm-4"> <!--Сами параметры-->
 
           <!--Отрасль-->
-          <div class="row padd" style="text-align: Left; margin-bottom:20px; margin-left:1px; margin-right:1px; background-color: #dfffff; border-radius:5px">
+          <div class="row padd" style="text-align: Left; margin-bottom:20px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Отрасль</h4>
               <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6"
-                   style="overflow-y:auto ; height:200px; width: 400px">
+                   style="overflow-y:auto ; width: 400px">
                 <div  *ngFor="let category of categories">
 
                   <div class="options col-lg-10 col-md-10 col-xs-10 col-sm-10"
-                       style="cursor:pointer;padding:3px; font-size: 25px"
+                       style="cursor:pointer;padding:3px; font-size: 15px"
                        id="{{category}}" (click)="toggleMultiSelect($event, category);search()" id={{category}}>
-                    <span *ngIf="bufferCategories.indexOf(category)!==-1" style="color:red">*</span>
+                    <span *ngIf="bufferCategories.indexOf(category)!==-1" style="color:#2fff17"><i class="glyphicon glyphicon-ok"></i></span>
                     {{category}}</div>
 
                 </div>
@@ -62,17 +62,17 @@
 
         <div class="col-lg-4 col-md-4 col-sm-4">
           <!--Направления-->
-          <div class="row padd" style="text-align: Left; margin-bottom:20px; margin-left:1px; margin-right:1px; background-color: #dfffff; border-radius:5px">
+          <div class="row padd" style="text-align: Left; margin-bottom:20px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Язык общения</h4>
 
               <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6"
-                   style="overflow-y:auto ; height:200px; width: 400px">
+                   style="overflow-y:auto ; width: 400px">
                 <div  *ngFor="let language of languages">
 
                   <div class="options col-lg-10 col-md-10 col-xs-10 col-sm-10"
-                       style="cursor:pointer;padding:3px; font-size: 25px"
+                       style="cursor:pointer;padding:3px; font-size: 15px"
                        id="{{language}}" (click)="toggleMultiSelectLanguage($event, language);search()" id={{language}}>
-                    <span *ngIf="bufferLanguages.indexOf(language)!==-1" style="color:red">*</span>
+                    <span *ngIf="bufferLanguages.indexOf(language)!==-1" style="color:#2fff17"><i class="glyphicon glyphicon-ok"></i></span>
                     {{language}}</div>
 
                 </div>
@@ -107,7 +107,7 @@
   <div class="col-lg-12 col-md-12 col-sm-12" *ngFor="let searchResultProject of searchResultProjects">
     <div class="col-lg-2 col-md-2 col-sm-2"></div>
     <div class="col-lg-8 col-md-8 col-sm-8">
-      <div class="row" style="border: 1px solid #B0C4DE; background-color: #dfffff; border-radius: 5px; margin-bottom: 10px">
+      <div class="row" style="border: 1px solid #B0C4DE; background-color: #dbedff; border-radius: 5px; margin-bottom: 10px">
         <div class="col-lg-1 col-md-1 col-sm-1"></div>
         <!--Information-->
         <div class="col-lg-4 col-md-4 col-sm-4">
