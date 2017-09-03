@@ -1,57 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="import" href="../skill/skill.component.html">
-  <meta charset="utf-8">
-  <title>Starter</title>
-  <base href="/">
-</head>
-<body>
-<div class="container">
-  <div class="row">
-    <div class="header">
-      <div class="col-lg-2 col-md-2 col-sm-2"></div>
-      <div class="col-lg-8 col-md-8 col-sm-8">
-        <div style="text-align: left" class="col-lg-4 col-md-4 col-sm-4"><h1>Starter</h1></div>
-        <div class="col-lg-4"></div>
-        <div style="text-align: right" class="col-lg-4 col-md-4 col-sm-4">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Поиск">
-            <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Найти</button>
-      </span>
-          </div><!-- /input-group -->
-        </div>
-        <div class="col-lg-2 col-md-2 col-sm-2">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="header2 row">
-    <div class="col-lg-8 col-md-8 col-sm-8">
-      <div class="btn-group-md" role="group" aria-label="...">
-        <button type="button" class="btn btn-primary">Сообщения</button>
-        <button type="button" class="btn btn-primary">Проекты</button>
-        <button type="button" class="btn btn-primary">Избранное</button>
-        <button type="button" class="btn btn-primary">Помощь</button>
-      </div>
-    </div>
-    <div class="profiledrop col-lg-4 col-md-4 col-sm-4">
-      <img [src]="image" class="img-circle" alt="Photo" width="35" height="35">
-      <span dropdown (onShown)="onShown()" (onHidden)="onHidden()" (isOpenChange)="isOpenChange()">
-  <a class="cvet" href dropdownToggle (click)="false">Фамилия Имя Отчествович</a>
-    <ul *dropdownMenu class="dropdown-menu">
-      <li *ngFor="let choice of items">
-        <a class="dropdown-item" href="#">{{choice}}</a>
-      </li>
-    </ul>
-    </span>
-    </div>
-  </div>
-  <!--Шапка END-->
-
   <div class="col-lg-1 col-md-1 col-sm-1"></div>
   <div class="col-lg-10 col-md-10 col-sm-10"> <!--Container for search-->
 
@@ -70,37 +16,38 @@
 
             <!--Role-->
             <div class="row padd" style="text-align: Left">
-              <div class="col-lg-12 col-md-12 col-sm-12"><h4>Требуемая роль:</h4>
+              <div class="col-lg-12 col-md-12 col-sm-12"><h4>Позиция:</h4>
 
-                <div class="btn-group" dropdown>
-                  <button dropdownToggle type="button" class="btn btn-default ">
-                    {{role}} <span class="caret"></span>
-                  </button>
-                  <ul *dropdownMenu class="dropdown-menu" role="menu" >
-                    <li role="menuitem" style="cursor: pointer" (click)="status='Стажёр'">Стажёр</li>
-                    <li role="menuitem" style="cursor: pointer" (click)="status='Ментор'">Ментор</li>
-                  </ul>
+                <div  *ngFor="let position of positions">
+
+                  <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12"
+                       style="cursor:pointer;padding:3px;border-bottom:2px solid black; font-size: 25px"
+                       id="{{position}}" (click)="toggleMultiSelect($event, position);search()" id={{position}}>
+                    <span *ngIf="bufferPositions.indexOf(position)!==-1" style="color:red">*</span>
+                    {{position}}</div>
+
                 </div>
               </div>
+
             </div>
             <!--Role END-->
 
 
             <!--Направление-->
             <div class="row padd" style="text-align: Left">
-              <div class="col-lg-12 col-md-12 col-sm-12"><h4>Требуемое направление:</h4>
-                <div class="btn-group" dropdown>
-                  <button dropdownToggle type="button" class="btn btn-default ">
-                    {{position}} <span class="caret"></span>
-                  </button>
-                  <ul *dropdownMenu class="dropdown-menu" role="menu" >
-                    <li role="menuitem" style="cursor: pointer" (click)="position='Дизайнер'"><nav>Дизайнер</nav></li>
-                    <li role="menuitem" style="cursor: pointer" (click)="position='Бизнес аналитик'">Бизнес аналитик</li>
-                    <li role="menuitem" style="cursor: pointer" (click)="position='Тестировщик'">Тестировщик</li>
-                    <li role="menuitem" style="cursor: pointer" (click)="position='Программист'">Программист</li>
-                  </ul>
-                </div>
+              <div class="dropdown form-group">
+                <button class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        [disabled]="anyRole" data-toggle="dropdown">
+                  {{searchVacancy.role}}
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li role="menuitem" style="cursor: pointer" *ngFor="let role of roles"
+                      (click)="searchVacancy.role=role;search()"><a>{{role}}</a></li>
+                </ul>
               </div>
+              <input type="checkbox"   [(ngModel)]="anyRole" > Любая роль
             </div>
             <!--Направление END-->
 
@@ -109,20 +56,17 @@
             <div class="row padd" style="text-align: Left">
               <div class="col-lg-12 col-md-12 col-sm-12"><h4>Требуемые языки:</h4>
 
-                <div class="col-lg-12 col-md-12 col-sm-12 padd" style="text-align: center;">
-                  <input list="languages">
-                  <datalist id="languages">
-                    <option value="Английский">
-                    <option value="Русский">
-                    <option value="Немецкий">
-                    <option value="Польский">
-                    <option value="Белорусский">
-                  </datalist>
-                </div>
-                <div class="col-lg-12" style="border: 1px solid #B0C4DE;">
-                  <span class="label label-default"></span>
-                  <button type="button" class="btn skill btn-sm" style="background-color: #B0C4DE">Английский &times;</button>
-                  <button type="button" class="btn skill btn-sm" style="background-color: #B0C4DE">Русский &times;</button>
+                <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6"
+                     style="overflow-y:auto ; height:200px; width: 400px">
+                  <div  *ngFor="let language of languages">
+
+                    <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12"
+                         style="cursor:pointer;padding:3px;border-bottom:2px solid black; font-size: 25px"
+                         id="{{language}}" (click)="toggleMultiSelectLanguage($event, language);search()" id={{language}}>
+                      <span *ngIf="bufferLanguages.indexOf(language)!==-1" style="color:red">*</span>
+                      {{language}}</div>
+
+                  </div>
                 </div>
 
               </div>
@@ -137,23 +81,17 @@
             <div class="row padd" style="text-align: Left">
               <div class="col-lg-12 col-md-12 col-sm-12"><h4>Требуемые навыки:</h4>
 
-                <div class="col-lg-12 col-md-12 col-sm-12 padd" style="text-align: center;">
-                  <input list="skills">
-                  <datalist id="skills">
-                    <option value="Adobe Illustrator">
-                    <option value="Java EE">
-                    <option value="Adobe Photoshop">
-                    <option value="C++">
-                    <option value="Python">
-                  </datalist>
-                </div>
-                <div class="col-lg-12" style="border: 1px solid #B0C4DE;">
-                  <span class="label label-default"></span>
-                  <button type="button" class="btn skill btn-sm" style="background-color: #B0C4DE">Illustrator &times;</button>
-                  <button type="button" class="btn skill btn-sm" style="background-color: #B0C4DE">Java EE &times;</button>
-                  <button type="button" class="btn skill btn-sm" style="background-color: #B0C4DE">Adobe Illustrator &times;</button>
-                  <button type="button" class="btn skill btn-sm" style="background-color: #B0C4DE">Adobe Photoshop &times;</button>
-                  <button type="button" class="btn skill btn-sm" style="background-color: #B0C4DE">Photoshop &times;</button>
+                <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6"
+                     style="overflow-y:auto; height:400px;">
+                  <div  *ngFor="let skill of skills">
+
+                    <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12"
+                         style="cursor:pointer;padding:3px;border-bottom:1px solid black;"
+                         id="{{skill}}" (click)="toggleMultiSelectSkill($event, skill); search()" id={{skill}}>
+                      <span *ngIf="bufferSkills.indexOf(skill)!==-1" style="color:red">*</span>
+                      {{skill}}</div>
+
+                  </div>
                 </div>
 
               </div>
@@ -161,7 +99,7 @@
             <!--Навыки END-->
 
             <!--Количество вакансий-->
-            <div class="row padd" style="text-align: Left">
+            <!--<div class="row padd" style="text-align: Left">
               <div class="col-lg-12 col-md-12 col-sm-12"><h4>Количество вакансий</h4>
               </div>
 
@@ -174,7 +112,7 @@
                 <h5> До:</h5>
                 <input type="number" min="0" step="1" style="width:60px"/>
               </div>
-            </div>
+            </div>-->
             <!--Количество вакансий END-->
 
 
@@ -187,7 +125,7 @@
 
     </div> <!--Строка для параметров END-->
 
-    <div class="row" style="padding-bottom: 30px"> <!--Строка поиска-->
+    <!--<div class="row" style="padding-bottom: 30px"> &lt;!&ndash;Строка поиска&ndash;&gt;
       <div class="col-lg-1 col-md-1 col-sm-1" ></div>
       <div class="col-lg-10 col-md-10 col-sm-10">
         <div class="input-group">
@@ -198,12 +136,12 @@
         </div>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1" ></div>
-    </div>
+    </div>-->
     <!--Строка поиска END-->
   </div> <!--Container for search END-->
 
   <!--Container for results-->
-  <div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="col-lg-12 col-md-12 col-sm-12" *ngFor="let searchResultVacancy of searchResultVacancies">
     <div class="col-lg-2 col-md-2 col-sm-2"></div>
     <div class="col-lg-8 col-md-8 col-sm-8">
       <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9">
@@ -212,59 +150,45 @@
         <div class="col-lg-4 col-md-4 col-sm-4">
           <div class="row" style="text-align: left;">
             <div class="col" >
-              <h4>Front-end developer</h4>
-            </div>
-          </div>
-          <div class="row" style="text-align: left">
-            <div class="col" >
-              <h5>Проект: <a herf="#">Pixangel App</a></h5>
+              <h4>{{searchResultVacancy.position}}</h4>
             </div>
           </div>
 
           <div class="row" style="text-align: left">
             <div class="col" >
-              <h5>Отрасль: Телеком</h5>
-            </div>
-          </div>
-
-          <div class="row" style="text-align: left">
-            <div class="col" >
-              <h5>Требуемая роль: Стажёр</h5>
+              <h5>Требуемая роль: {{searchResultVacancy.role}}</h5>
             </div>
           </div>
 
         </div>
 
         <div class="col-lg-4 col-md-4 col-sm-4">
+
           <div class="row" style="text-align: left">
-            <div class="col" >
-              <h5>Требуемое направление: Программист</h5>
+            <div class="col" *ngIf="searchResultVacancy.languages.length !== 0">
+              <h5>Требуемые языки: <span class="label label-default"
+                                         *ngFor="let language of searchResultVacancy.languages">
+                {{language}}</span></h5>
+            </div>
+          </div>
+
+          <div class="row" style="text-align: left">
+            <div class="col" *ngIf="searchResultVacancy.skills.length !== 0">
+              <h5>Требуемые навыки: <span class="label label-default"
+                                          *ngFor="let skill of searchResultVacancy.skills">
+                {{skill}}</span></h5>
             </div>
           </div>
 
           <div class="row" style="text-align: left">
             <div class="col" >
-              <h5>Требуемые языки: <span class="label label-default">Английский</span>
-                <span class="label label-default">Русский</span></h5>
-            </div>
-          </div>
-
-          <div class="row" style="text-align: left">
-            <div class="col" >
-              <h5>Требуемые навыки: <span class="label label-default">Angular 2</span>
-                <span class="label label-default">Javascript</span></h5>
-            </div>
-          </div>
-
-          <div class="row" style="text-align: left">
-            <div class="col" >
-              <h5>Свободно вакансий: 3</h5>
+              <h5>Свободно вакансий: {{searchResultVacancy.personNumber}}</h5>
             </div>
           </div>
 
           <div class="row" style="text-align: right">
             <div class="col" >
-              <a href="#"><h5>Подробнее...</h5></a>
+              <a routerLink="/project/{{searchResultVacancy.projectId}}"><h5>Подробнее...</h5></a>
             </div>
           </div>
         </div>
@@ -274,89 +198,15 @@
     <div class="col-lg-2 col-md-2 col-sm-2"></div>
   </div><!--Container for results END-->
 
-  <!--Container for results-->
-  <div class="col-lg-12 col-md-12 col-sm-12">
-    <div class="col-lg-2 col-md-2 col-sm-2"></div>
-    <div class="col-lg-8 col-md-8 col-sm-8">
-      <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9">
-        <div class="col-lg-1 col-md-1 col-sm-1"></div>
-        <!--Information-->
-        <div class="col-lg-4 col-md-4 col-sm-4">
-          <div class="row" style="text-align: left;">
-            <div class="col" >
-              <h4>Front-end developer</h4>
-            </div>
-          </div>
-          <div class="row" style="text-align: left">
-            <div class="col" >
-              <h5>Проект: <a herf="#">Pixangel App</a></h5>
-            </div>
-          </div>
 
-          <div class="row" style="text-align: left">
-            <div class="col" >
-              <h5>Отрасль: Телеком</h5>
-            </div>
-          </div>
-
-          <div class="row" style="text-align: left">
-            <div class="col" >
-              <h5>Требуемая роль: Стажёр</h5>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="col-lg-4 col-md-4 col-sm-4">
-          <div class="row" style="text-align: left">
-            <div class="col" >
-              <h5>Требуемое направление: Программист</h5>
-            </div>
-          </div>
-
-          <div class="row" style="text-align: left">
-            <div class="col" >
-              <h5>Требуемые языки: <span class="label label-default">Английский</span>
-                <span class="label label-default">Русский</span></h5>
-            </div>
-          </div>
-
-          <div class="row" style="text-align: left">
-            <div class="col" >
-              <h5>Требуемые навыки: <span class="label label-default">Angular 2</span>
-                <span class="label label-default">Javascript</span></h5>
-            </div>
-          </div>
-
-          <div class="row" style="text-align: left">
-            <div class="col" >
-              <h5>Свободно вакансий: 3</h5>
-            </div>
-          </div>
-
-          <div class="row" style="text-align: right">
-            <div class="col" >
-              <a href="#"><h5>Подробнее...</h5></a>
-            </div>
-          </div>
-        </div>
-        <!--Information END-->
-      </div>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-2"></div>
-  </div><!--Container for results END-->
 
   <div class="col-lg-12 col-md-12 col-sm-12" style="text-align:center; margin-top:20px; margin-bottom: 20px">
-    <button type="button" class="btn btn-primary">
+   <!-- <button type="button" class="btn btn-primary">
       Назад
     </button>
     <button type="button" class="btn btn-primary">
       Далее
-    </button>
+    </button>-->
   </div>
   <div class="col-lg-1 col-md-1 col-sm-1"></div>
-</div> <!--Close container-->
 
-
-</body>
-</html>

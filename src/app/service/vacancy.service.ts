@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '../http-client';
 import {environment} from '../../environments/environment';
+import {SearchVacancy} from "../entity/search-vacancy";
+import {ConverterService} from "./converter.service";
 
 const API_URL = environment.apiUrl;
 
@@ -8,7 +10,7 @@ const API_URL = environment.apiUrl;
 export class VacancyService {
    positions: String[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private converterService: ConverterService) { }
 
   addVacancy(vacancy, projectId){
     return this.http
@@ -41,6 +43,18 @@ export class VacancyService {
       });
 
      return this.positions;
+  }
+
+  searchVacancy(searchVacancy: SearchVacancy){
+    return this.http
+      .get(API_URL + 'api/vacancy/search' + this.converterService.objToQuerry(searchVacancy))
+      .map(response => {
+        if (response.status === 204){
+          return null;
+        }else{
+          return response.json();
+        }
+      });
   }
 
 }

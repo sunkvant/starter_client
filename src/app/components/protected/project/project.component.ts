@@ -44,6 +44,9 @@ export class ProjectComponent implements OnInit {
   bufferSkill: String;
   deletedI: number;
   deletedId: number;
+  showVacancy: Vacancy;
+  approved: String;
+  role: String;
 
   skillAdd(name){
 
@@ -67,6 +70,9 @@ export class ProjectComponent implements OnInit {
   private languageService: LanguageService, private skillService: SkillService, private vacancyService: VacancyService) {
     this.roles[0] = 'Mentor';
     this.roles[1] = 'Trainee';
+    this.showVacancy = new Vacancy();
+    this.approved = localStorage.getItem('approved');
+    this.role = localStorage.getItem('role');
   }
 
     public openModal1(template: TemplateRef<any>) {
@@ -153,11 +159,7 @@ export class ProjectComponent implements OnInit {
     event.preventDefault();
     if (this.bufferLanguages.indexOf(val) === -1){
       this.bufferLanguages = [...this.bufferLanguages, val];
-      //document.getElementById(val).style.setProperty('background-color','red');
-      // $('#' + val).toggleClass('fa fa-check');
     }else{
-     // document.getElementById(val).style.setProperty('background-color','');
-      //$('#' + val).toggleClass('fa fa-check');
       this.bufferLanguages = this.bufferLanguages.filter(function(elem){
         return elem !== val;
       });
@@ -190,10 +192,10 @@ export class ProjectComponent implements OnInit {
         i++;
       }
     });
-    if(this.vacancy.role===''){
+    if(this.vacancy.role ===''){
       this.vacancy.role = this.roles[0];
     }
-    if(this.vacancy.position===''){
+    if(this.vacancy.position ===''){
       this.vacancy.position = this.positions[0];
     }
 
@@ -218,6 +220,10 @@ export class ProjectComponent implements OnInit {
 
   setDeletedId(id){
     this.deletedId = id;
+  }
+
+  setShowVacancy(vacancy){
+    this.showVacancy = vacancy;
   }
 
 }

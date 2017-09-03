@@ -43,6 +43,7 @@ import {VacancyService} from "./service/vacancy.service";
 import {MyprojectsComponent} from "./components/protected/myprojects/myprojects.component";
 import {SearchprojectComponent} from "./components/protected/searchproject/searchproject.component";
 import {ConverterService} from "./service/converter.service";
+import {SearchvacantionComponent} from "./components/protected/searchvacantion/searchvacantion.component";
 
 const appRoutes: Routes = [
   { path: 'profile/:id', component: ProfileComponent },
@@ -60,6 +61,7 @@ const appRoutes: Routes = [
   { path: 'search/profile', component: SearchpersonComponent},
   { path: 'projects', component: MyprojectsComponent},
   { path: 'search/project', component: SearchprojectComponent},
+  { path: 'search/vacancy', component: SearchvacantionComponent},
   {
     path: '',
     component: IndexComponent,
@@ -92,7 +94,8 @@ const appRoutes: Routes = [
     ProjectComponent,
     SearchpersonComponent,
     MyprojectsComponent,
-    SearchprojectComponent
+    SearchprojectComponent,
+    SearchvacantionComponent
   ],
   imports: [
     BrowserModule,

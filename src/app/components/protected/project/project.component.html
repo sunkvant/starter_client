@@ -133,11 +133,10 @@
             </div>
 
             </div>
-            <!--<div class="col-lg-3 col-md-3 col-sm-3">
-              <span class="btn btn-sm glyphicon glyphicon-edit" popover="Редактировать вакансию"
-                    *ngIf="customer||projectMentor"
-                    containerClass="container" triggers="mouseenter:mouseleave" (click)="openModal3(template3)" style="background-color: #6aafb7"></span>
-            </div>-->
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="btn btn-sm glyphicon glyphicon-edit" popover="Подробнее"
+                    containerClass="container" triggers="mouseenter:mouseleave" (click)="setShowVacancy(vacancy);vacantion.show()" style="background-color: #6aafb7"></span>
+            </div>
             <div class="col-lg-3 col-md-3 col-sm-3">
               <span class="btn btn-sm glyphicon glyphicon-remove" popover="Удалить вакансию"
                     *ngIf="customer||projectMentor"
@@ -573,3 +572,70 @@
 
 <!--Подтврждение END-->
 
+  <!--Просмотр вакансии-->
+
+  <div bsModal #vacantion="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="text-align: center">
+          <h3 class="modal-title">Просмотр вакансии</h3>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; background-color: #beecf9">
+
+
+              <div class="row padd" style="text-align: Center; background-color: #acd9ff">
+                <div class="col-lg-12 col-md-12 col-sm-12"><h3>{{showVacancy.position}}</h3></div>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 padd">
+                <div class="row" style="text-align: Center; background-color: #acd9ff">
+                  <div class="col-lg-12 col-md-12 col-sm-12"><h4>Требуемая роль</h4></div>
+                </div>
+                <div class="row" style="text-align: Center">
+                  <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                  <div class="col-lg-10 col-md-10 col-sm-10 fullnameform" style="text-align: center">
+                    <h5>{{showVacancy.role}}</h5>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 padd" *ngIf="showVacancy.skills.length !== 0">
+                <div class="row" style="text-align: Center; background-color: #acd9ff">
+                  <div class="col-lg-12 col-md-12 col-sm-12"><h4>Требуемые навыки</h4></div>
+                </div>
+                <!--Навыки-->
+                <div class="row padd" >
+                  <span class="label label-default" *ngFor="let skill of showVacancy.skills">{{skill}}</span>
+                </div>
+                <!--Навыки END-->
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 padd" *ngIf="showVacancy.languages.length !== 0">
+                <div class="row" style="text-align: Center; background-color: #acd9ff">
+                  <div class="col-lg-12 col-md-12 col-sm-12"><h4>Требуемые языки</h4></div>
+                </div>
+                <!--Языки-->
+                <div class="row padd" >
+                  <span class="label label-default" *ngFor="let language of showVacancy.languages">{{language}}</span>
+                </div>
+                <!--Языки END-->
+              </div>
+            </div>
+          </div>
+                      <span *ngIf="approved !== 'true' && role==='Mentor'">Чтобы принимать участие в проектах необходимо пройти ассесмент</span>
+        </div>
+        <button type="button" class="btn btn-primary pull-left"
+                [disabled]="approved !== 'true' && role==='Mentor'" aria-label="Close"
+                (click)="vacantion.hide()">
+          Подать заявку
+        </button>
+        <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="vacantion.hide()">
+          Закрыть
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--Просмотр вакансии END-->

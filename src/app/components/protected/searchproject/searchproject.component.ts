@@ -32,17 +32,14 @@ export class SearchprojectComponent implements OnInit {
     this.bufferLanguages = [];
     this.anyStatus = false;
 
+
   }
 
   toggleMultiSelect(event, val){
     event.preventDefault();
     if (this.bufferCategories.indexOf(val) === -1){
       this.bufferCategories = [...this.bufferCategories, val];
-      //document.getElementById(val).style.setProperty('background-color','red');
-      // $('#' + val).toggleClass('fa fa-check');
     }else{
-      // document.getElementById(val).style.setProperty('background-color','');
-      //$('#' + val).toggleClass('fa fa-check');
       this.bufferCategories = this.bufferCategories.filter(function(elem){
         return elem !== val;
       });
@@ -52,11 +49,7 @@ export class SearchprojectComponent implements OnInit {
     event.preventDefault();
     if (this.bufferLanguages.indexOf(val) === -1){
       this.bufferLanguages = [...this.bufferLanguages, val];
-      //document.getElementById(val).style.setProperty('background-color','red');
-      // $('#' + val).toggleClass('fa fa-check');
     }else{
-      // document.getElementById(val).style.setProperty('background-color','');
-      //$('#' + val).toggleClass('fa fa-check');
       this.bufferLanguages = this.bufferLanguages.filter(function(elem){
         return elem !== val;
       });
