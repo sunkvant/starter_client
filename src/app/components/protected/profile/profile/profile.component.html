@@ -16,7 +16,7 @@
       <div class="btn-group-vertical">
       <button type="button" class="btn btn-danger buttonfirst" *ngIf="!customer">Предложить проект</button>
       <button type="button" class="btn btn-danger" *ngIf="!customer">Написать сообщение</button>
-        <label class="btn btn-default btn-file" *ngIf="customer">
+        <label class="btn btn-warning btn-file" *ngIf="customer">
           Изменить фото <input type="file" style="display: none;" accept="image/*,image/jpeg"
                                (change)="addPhoto($event)" >
         </label>
@@ -38,28 +38,28 @@
       </div>
       <div class="row" style="text-align: left">
         <div class="col-lg-4 col-md-4 col-sm-4">
-          <h4 *ngIf="profile.role==='Mentor'">Ментор</h4>
-          <h4 *ngIf="profile.role==='Trainee'">Стажёр</h4>
-          <h4 *ngIf="profile.role==='Customer'">Заказчик</h4>
+          <h5 *ngIf="profile.role==='Mentor'"><b>Роль на площадке:</b> Ментор</h5>
+          <h5 *ngIf="profile.role==='Trainee'"><b>Роль на площадке:</b> Стажёр</h5>
+          <h5 *ngIf="profile.role==='Customer'"><b>Роль на площадке:</b> Заказчик</h5>
         </div>
       </div>
       <div class="row" style="text-align: left">
-        <div class="col-lg-4 col-md-4 col-sm-4"><h4 *ngIf="profile.role!=='Customer'" >Направление: {{profile.direction}}</h4></div>
+        <div class="col-lg-4 col-md-4 col-sm-4"><h5 *ngIf="profile.role!=='Customer'" ><b>Направление:</b> {{profile.direction}}</h5></div>
       </div>
 
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6" style="text-align: left" >
-          <h4 *ngIf="profile.contact.location.country!==''">Страна проживания: {{profile.contact.location.country}}</h4>
+          <h5 *ngIf="profile.contact.location.country!==''"><b>Страна проживания:</b> {{profile.contact.location.country}}</h5>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
-              <h4 *ngIf="profile.contact.location.city!==''">
-                Город: {{profile.contact.location.city }}</h4>
+              <h5 *ngIf="profile.contact.location.city!==''">
+                <b>Город:</b> {{profile.contact.location.city }}</h5>
             </div>
           </div>
           <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
-              <h4 *ngIf="profile.contact.dateOfBirth!==0">
-                Дата рождения: {{profile.contact.dateOfBirth | date: 'dd/MM/yyyy'}}</h4>
+              <h5 *ngIf="profile.contact.dateOfBirth!==0">
+                <b>Дата рождения:</b> {{profile.contact.dateOfBirth | date: 'dd/MM/yyyy'}}</h5>
             </div>
           </div>
         </div>
@@ -75,8 +75,8 @@
       </div>
       <div class="row about">
         <div class="col-lg-12 col-md-12 col-sm-12">
-          <p>{{profile.contact.about}}
-          </p>
+          <h5>{{profile.contact.about}}
+          </h5>
         </div>
       </div>
       <!--Fullname Experience About END-->
@@ -93,10 +93,10 @@
     <ng-template #template>
       <div class="col-lg-2 col-md-2 col-sm-2"></div>
       <div class="col-lg-8 col-md-8 col-sm-8" style=" background: white">
-
+<div class="col-lg-12 col-md-12 col-sm-12">
         <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 fullname" style="text-align: left">
-            <h2>ФИО</h2>
+          <div class="col-lg-12 col-md-12 col-sm-12 fullname" style="text-align: left; border-bottom: solid 1px #6aafb7">
+            <h4>ФИО</h4>
           </div>
         </div>
         <div class="row">
@@ -109,12 +109,14 @@
             Укажите корректное имя
           </div>
         </div>
+</div>
         <!--ФИО END-->
 
         <!--Birthday-->
-        <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row" style="padding-top:10px; border-bottom: solid 1px #6aafb7">
           <div class="col-lg-12 col-md-12 col-sm-12 fullname" style="text-align: left">
-            <h2>Дата рождения</h2>
+            <h4>Дата рождения</h4>
           </div>
         </div>
         <div class="row">
@@ -129,12 +131,14 @@
             Укажите дату рождения
           </div>
         </div>
+        </div>
         <!--Birthday END-->
 
         <!--Country-->
+        <div class="col-lg-12 col-md-12 col-sm-12">
           <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: left">
-              <h2>Страна проживания</h2>
+            <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: left; border-bottom: solid 1px #6aafb7">
+              <h4>Страна проживания</h4>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 input-group loginform form-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
@@ -149,8 +153,9 @@
             <div [hidden]="country.valid || country.untouched" class="alert alert-danger">
               Укажите страну проживания
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 input-group login" style="text-align: left">
-              <h2>Город</h2>
+
+            <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left; border-bottom: solid 1px #6aafb7">
+              <h4>Город</h4>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 input-group loginform form-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
@@ -166,12 +171,14 @@
               Укажите город
             </div>
           </div>
+        </div>
           <!--Country END-->
 
           <!--About-->
-          <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="row" style="border-bottom: solid 1px #6aafb7">
             <div class="col-lg-12 col-md-12 col-sm-12 about" style="text-align: left">
-              <h2>О себе/Интересы</h2>
+              <h4>О себе/Интересы</h4>
             </div>
           </div>
           <div class="row">
@@ -181,6 +188,7 @@
                         id="about" placeholder="Расскажите немного о себе" rows="4"></textarea>
             </div>
           </div>
+        </div>
           <!--About END-->
 
         <button type="button" [disabled]="fullName.invalid || dateOfBirth.invalid || country.invalid || city.invalid || about.invalid"
