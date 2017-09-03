@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <title>Starter</title>
+  <base href="/">
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="header">
+      <div class="col-lg-2 col-md-2 col-sm-2"></div>
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div style="text-align: left" class="col-lg-4 col-md-4 col-sm-4"><h1>Starter</h1></div>
+        <div class="col-lg-4"></div>
+        <div style="text-align: right" class="col-lg-4 col-md-4 col-sm-4">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Поиск">
+            <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Найти</button>
+      </span>
+          </div><!-- /input-group -->
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header2 row">
+    <div class="col-lg-8 col-md-8 col-sm-8">
+      <div class="btn-group-md" role="group" aria-label="...">
+        <button type="button" class="btn btn-primary">Сообщения</button>
+        <button type="button" class="btn btn-primary">Проекты</button>
+        <button type="button" class="btn btn-primary">Избранное</button>
+        <button type="button" class="btn btn-primary">Помощь</button>
+      </div>
+    </div>
+    <div class="profiledrop col-lg-4 col-md-4 col-sm-4">
+      <img [src]="image" class="img-circle" alt="Photo" width="35" height="35">
+      <span dropdown (onShown)="onShown()" (onHidden)="onHidden()" (isOpenChange)="isOpenChange()">
+  <a class="cvet" href dropdownToggle (click)="false">Фамилия Имя Отчествович</a>
+    <ul *dropdownMenu class="dropdown-menu">
+      <li *ngFor="let choice of items">
+        <a class="dropdown-item" href="#">{{choice}}</a>
+      </li>
+    </ul>
+</span>
+    </div>
+  </div>
+
+
+    <!--Information -->
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="col-lg-2" style="background-color: #b9d6d6; margin-top: 10px">
+        <a href="#"><h4>Все сообщения</h4></a>
+        <a href="#"><h4>Полученные</h4></a>
+        <a href="#"><h4>Отправленные</h4></a>
+      </div>
+      <div class="col-lg-8">
+        <div class="row padd" style="text-align: center;">
+          <div class="col-lg-12" ><h2>Сообщения</h2></div>
+        </div>
+      </div>
+    </div>
+    <!--Information END-->
+
+  <!--Message row-->
+  <div class="row padd">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="col-lg-1 col-md-1 col-sm-1"></div>
+      <div class="col-lg-2 col-md-2 col-sm-2" style="text-align:left">
+
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-6" style="border: 1px solid #B0C4DE;">
+        <div class="col-lg-1 col-md-1 col-sm-1">
+          <img [src]="image" class="img-circle" alt="Photo" width="35" height="35">
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+          <div class="row"><a href="#"><h4>Иванов Фёдор Константинович</h4></a></div>
+          <div class="row" style="text-align:left"><h4>Тема: Добро пожаловать на проект</h4></div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          03.09.2017
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 padd">
+        <button type="button" class="btn btn-primary pull-right" aria-label="Close" (click)="message.show()">
+          Читать
+        </button>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-1" style="text-align:left">
+        <span class="btn btn-sm glyphicon glyphicon-remove pull-left" popover="Удалить сообщение" placement="bottom" containerClass="container" triggers="mouseenter:mouseleave" style="background-color: #b73f3f"></span>
+      </div>
+
+    </div>
+  </div>
+  <!--Message row END-->
+
+  <!--Assesment row-->
+  <div class="row padd">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="col-lg-1 col-md-1 col-sm-1"></div>
+      <div class="col-lg-2 col-md-2 col-sm-2"></div>
+
+      <div class="col-lg-6 col-md-6 col-sm-6" style="border: 1px solid #B0C4DE;">
+        <div class="col-lg-1 col-md-1 col-sm-1">
+          <img [src]="image" class="img-circle" alt="Photo" width="35" height="35">
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+          <div class="row"><a href="#"><h4>Иванов Фёдор Константинович</h4></a></div>
+          <div class="row" style="text-align:left"><h4>Тема: Ассесмент на подтверждение статуса Ментор</h4></div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          01.09.2017
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 padd">
+          <button type="button" class="btn btn-primary pull-right" aria-label="Close" (click)="assesment.show()">
+            Ответить
+          </button>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-1" style="text-align:left">
+        <span class="btn btn-sm glyphicon glyphicon-remove pull-left" popover="Удалить сообщение" placement="bottom" containerClass="container" triggers="mouseenter:mouseleave" style="background-color: #b73f3f"></span>
+      </div>
+
+    </div>
+  </div>
+  <!--Assesment row END-->
+
+  <div class="col-lg-12 col-md-12 col-sm-12 padd" style="text-align: center">
+    <button type="button" class="btn btn-primary">Назад</button>
+  </div>
+
+
+</div> <!--Close container-->
+
+
+</body>
+</html>
+<!--Message-->
+<div bsModal #message="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:10%">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE;">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <img [src]="image" class="img-circle" alt="Photo" width="35" height="35">
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="row"><a href="#"><h4>Иванов Фёдор Константинович</h4></a></div>
+            <div class="row" style="text-align:left"><h4>Тема: Добро пожаловать на проект</h4></div>
+            <div class="row" style="text-align:justify"><p>Приветствуем вас на проекте Starter. Надеемся вам здесь очень понравится. Всего хорошего</p></div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2">
+            03.09.2017
+          </div>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-primary pull-right" aria-label="Close" (click)="message.hide()">
+          Закрыть
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  <!--Message END-->
+
+  <!--Assesment-->
+  <div bsModal #assesment="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:10%">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE;">
+            <div class="col-lg-1 col-md-1 col-sm-1">
+              <img [src]="image" class="img-circle" alt="Photo" width="35" height="35">
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9">
+              <div class="row"><a href="#"><h4>Иванов Фёдор Константинович</h4></a></div>
+              <div class="row" style="text-align:left"><h4>Тема: Ассесмент на подтверждение статуса Ментор</h4></div>
+              <div class="row" style="text-align:justify">
+                <p>Добрый день. Не могли бы вы проверить и подтвердить мои навыки, что бы я мог работать на площадке в роли ментора</p>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+              03.09.2017
+            </div>
+          </div>
+          <div class="modal-body">
+            <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="assesment.hide()">
+              Подтвердить
+            </button>
+            <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="assesment.hide()">
+              Отклонить
+            </button>
+            <button type="button" class="btn btn-primary pull-right" aria-label="Close" (click)="assesment.hide()">
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!--Assesment END-->

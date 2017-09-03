@@ -183,7 +183,8 @@
         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
         <input type="text"  class="form-control"  name="email"
                [(ngModel)]="user.contact.email" #email="ngModel"  minlength="6"
-         placeholder="Email" aria-describedby="sizing-addon2" pattern="[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+?\.[a-zA-Z]{2,}">
+         placeholder="Email" aria-describedby="sizing-addon2"
+               pattern="[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+?\.[a-zA-Z]{2,}">
       </div>
       <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
         Введённый E-mail некорректен

@@ -7,7 +7,7 @@ const API_URL = environment.apiUrl;
 @Injectable()
 export class CityService {
 
-  cities: String[] = [];
+  private cities: String[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -26,5 +26,24 @@ export class CityService {
       });
     return this.cities;
   }
+
+  getAllCities(){
+
+    this.http
+      .get(API_URL + 'api/cities')
+      .subscribe(response => {
+        let i = 0;
+        response.json().forEach(city => {
+          this.cities[i] = String();
+          this.cities[i] = city;
+          i++;
+          return this.cities;
+        });
+      });
+    return this.cities;
+  }
+
+
+
 
 }

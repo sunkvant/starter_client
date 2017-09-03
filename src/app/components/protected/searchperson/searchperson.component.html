@@ -21,22 +21,24 @@
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Роль</h4>
 
               <div class="dropdown form-group">
-                <button class="btn btn-primary dropdown-toggle" type="button"  data-toggle="dropdown">
+                <button class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        [disabled]="anyRole" data-toggle="dropdown">
                   {{searchProfile.role}}
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                   <li role="menuitem" style="cursor: pointer" *ngFor="let role of roles"
-                      (click)="searchProfile.role=role"><a>{{role}}</a></li>
+                      (click)="searchProfile.role=role;search()"><a>{{role}}</a></li>
                 </ul>
               </div>
-
+              <input type="checkbox" (click)="search()" [(ngModel)]="anyRole"> Любая роль
             </div>
           </div>
         <!--Role END-->
 
           <!--Number of projects-->
-          <div class="row padd" style="text-align: Left">
+          <div class="row padd" style="text-align: Left" *ngIf="searchProfile.role !== 'Customer' || anyRole">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Навыки</h4>
             </div>
 
@@ -46,7 +48,7 @@
 
                 <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12"
                      style="cursor:pointer;padding:3px;border-bottom:1px solid black;"
-                     id="{{skill}}" (click)="toggleMultiSelectSkill($event, skill)" id={{skill}}>
+                     id="{{skill}}" (click)="toggleMultiSelectSkill($event, skill); search()" id={{skill}}>
                   <span *ngIf="bufferSkills.indexOf(skill)!==-1" style="color:red">*</span>
                   {{skill}}</div>
 
@@ -75,7 +77,7 @@
 
 
           <!--Направления-->
-          <div class="row padd" style="text-align: Left">
+          <div class="row padd" style="text-align: Left" *ngIf="searchProfile.role !== 'Customer' || anyRole">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Направление</h4>
 
               <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6"
@@ -84,7 +86,7 @@
 
                   <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12"
                        style="cursor:pointer;padding:5px;border-bottom:2px solid black; font-size: 25px"
-                       id="{{direction}}" (click)="toggleMultiSelect($event, direction)" id={{direction}}>
+                       id="{{direction}}" (click)="toggleMultiSelect($event, direction);search()" id={{direction}}>
                     <span *ngIf="bufferDirections.indexOf(direction)!==-1" style="color:red">*</span>
                     {{direction}}</div>
 
@@ -109,7 +111,7 @@
                 <option  *ngFor="let country of this.countries"   value="{{country}}"></option>
               </datalist></p>
 
-            <p><input list="cities" name="city" class="form-control"
+            <p><input list="cities" name="city" class="form-control" (change)="search()"
                      [(ngModel)]="searchProfile.city" #city="ngModel" required
                      placeholder="City" aria-describedby="sizing-addon2">
             <datalist id="cities"  >
@@ -120,15 +122,15 @@
           <!--Number of reviews END-->
 
           <!--Number of reviews-->
-          <div class="row padd" style="text-align: Left">
+          <div class="row padd" style="text-align: Left" *ngIf="searchProfile.role !== 'Customer' || anyRole">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Учебное заведение</h4>
             </div>
 
-            <p><input list="name" name="name" class="form-control"
+            <p><input list="name" name="name" class="form-control" (change)="search()"
                       [(ngModel)]="searchProfile.educationName" #name="ngModel"
                       placeholder="Name" aria-describedby="sizing-addon2" >
               <datalist id="name"  >
-                <option  *ngFor="let education of educations"   value="{{education.name}}"></option>
+                <option  *ngFor="let education of educations"    value="{{education.name}}"></option>
               </datalist></p>
           </div>
 
@@ -139,22 +141,23 @@
 
             <div class="col-lg-3 col-md-3 col-sm-3">
               <h5> От:</h5>
-              <input type="number" min="0" step="1"
+              <input type="number" min="0" step="1" (click)="search()"
                      [(ngModel)]="searchProfile.ageFrom" #ageFrom="ngModel" style="width:60px"/>
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-3">
               <h5> До:</h5>
-              <input type="number" min="0" step="1"
+              <input type="number" min="0" step="1" (click)="search()"
                      [(ngModel)]="searchProfile.ageTo" #ageTo="ngModel" style="width:60px"/>
             </div>
           </div>
           <!--Age END-->
 
 
-          <div class="row" style="text-align: Left">
+          <div class="row" style="text-align: Left" *ngIf="searchProfile.role !== 'Mentor' || anyRole">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Опыт менторства</h4>
-              <input type="checkbox" [(ngModel)]="searchProfile.isMentorExp" #mentorExp="ngModel">
+              <input type="checkbox" [(ngModel)]="searchProfile.isMentorExp"
+                     (click)="search()" #mentorExp="ngModel">
             </div>
           </div>
 
@@ -180,10 +183,11 @@
       <div class="col-lg-1 col-md-1 col-sm-1" ></div>
     </div>
     <!--Строка поиска END-->
-  </div> <!--Container for search END-->
+  </div > <!--Container for search END-->
 
   <!--Container for results-->
-  <div class="col-lg-12 col-md-12 col-sm-12" *ngFor="let searchResultProfile of searchResultProfiles">
+  <div class="col-lg-12 col-md-12 col-sm-12" style="height: 1000px"
+       *ngFor="let searchResultProfile of searchResultProfiles">
   <div class="col-lg-2 col-md-2 col-sm-2"></div>
   <div class="col-lg-8 col-md-8 col-sm-8">
     <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9">

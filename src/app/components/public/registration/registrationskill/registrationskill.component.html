@@ -18,7 +18,9 @@
 
       <div class="dropdown form-group">
         <button class="btn btn-primary dropdown-toggle" type="button"  data-toggle="dropdown">
-          {{direction}}  <span class="caret"></span>
+          <p *ngIf="direction">{{direction}}</p>
+          <p *ngIf="!direction&&directionsSearch.length!==0">{{directionsSearch[0]}}</p>
+          <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu">
           <li role="menuitem" style="cursor: pointer" *ngFor="let directionSearch of directionsSearch" (click)="direction=directionSearch"><a>{{directionSearch}}</a></li>

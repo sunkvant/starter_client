@@ -5,6 +5,7 @@ import { HttpClient } from '../http-client';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import {SearchProfile} from "../entity/search-profile";
+import {ConverterService} from "./converter.service";
 
 const API_URL = environment.apiUrl;
 
@@ -14,7 +15,7 @@ export class ProfileService {
 
   profile: Profile = new Profile();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private converterService: ConverterService) {
     this.http  = http;
   }
 
@@ -54,43 +55,17 @@ export class ProfileService {
   }
 
   searchProfile(searchProfile: SearchProfile){
-
-    /*let params: URLSearchParams = new URLSearchParams(searchProfile);
-    params.set('appid', StaticSettings.API_KEY);
-    params.set('cnt', days.toString());
-*/
-
-    /*let searchString;
-    if(searchProfile.skills.length !== 0){
-      searchString += ''
-    }
-    searchProfile.skills.forEach( skill => {
-
-    })*/
-
-
     return this.http
-      .get(API_URL + 'api/profile/search' + this.obj_to_query(searchProfile))
+      .get(API_URL + 'api/profile/search' + this.converterService.objToQuerry(searchProfile))
       .map(response => {
         if (response.status === 204){
           return null;
         }else{
           return response.json();
         }
-
       });
   }
 
-  obj_to_query(obj) {
-    let parts = [];
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        if(obj[key]!==null){
-          parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
-        }
-      }
-    }
-    return "?" + parts.join('&');
-  }
+
 
 }

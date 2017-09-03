@@ -1,0 +1,169 @@
+
+
+  <div class="col-lg-1 col-md-1 col-sm-1"></div>
+  <div class="col-lg-10 col-md-10 col-sm-10"> <!--Container for search-->
+
+    <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9"> <!--Строка для параметров-->
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center">
+          <h2> Параметры поиска <span class="btn btn-lg glyphicon glyphicon-option-vertical" data-toggle="collapse" data-target="#param"></span></h2>
+        </div>
+      </div>
+
+      <div class="row collapse" id="param">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-4 col-md-4 col-sm-4" ></div>
+        <div class="col-lg-4 col-md-4 col-sm-4"> <!--Сами параметры-->
+
+          <!--Status-->
+          <div class="row padd" style="text-align: Left">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Статус проекта</h4>
+
+              <div class="dropdown form-group" >
+                <button class="btn btn-primary dropdown-toggle" type="button"
+                        [disabled]="anyStatus" data-toggle="dropdown">
+                  {{searchProject.statuses}}
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li role="menuitem" style="cursor: pointer" *ngFor="let status of statuses"
+                      (click)="searchProject.statuses=status; search()"><a>{{status}}</a></li>
+                </ul>
+              </div>
+              <input type="checkbox" (click)="search()" [(ngModel)]="anyStatus"> Любой статус
+
+            </div>
+          </div>
+          <!--Role END-->
+
+
+          <!--Отрасль-->
+          <div class="row padd" style="text-align: Left">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Отрасль</h4>
+              <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6"
+                   style="overflow-y:auto ; height:200px; width: 400px">
+                <div  *ngFor="let category of categories">
+
+                  <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12"
+                       style="cursor:pointer;padding:3px;border-bottom:2px solid black; font-size: 25px"
+                       id="{{category}}" (click)="toggleMultiSelect($event, category);search()" id={{category}}>
+                    <span *ngIf="bufferCategories.indexOf(category)!==-1" style="color:red">*</span>
+                    {{category}}</div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Отрасль END-->
+
+
+          <!--Направления-->
+          <div class="row padd" style="text-align: Left">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Язык общения</h4>
+
+              <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6"
+                   style="overflow-y:auto ; height:200px; width: 400px">
+                <div  *ngFor="let language of languages">
+
+                  <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12"
+                       style="cursor:pointer;padding:3px;border-bottom:2px solid black; font-size: 25px"
+                       id="{{language}}" (click)="toggleMultiSelectLanguage($event, language);search()" id={{language}}>
+                    <span *ngIf="bufferLanguages.indexOf(language)!==-1" style="color:red">*</span>
+                    {{language}}</div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Направления END-->
+
+        </div> <!--Сами параметры END-->
+
+
+        <div class="col-lg-4 col-md-4 col-sm-4"></div>
+      </div>
+      </div>
+
+    </div> <!--Строка для параметров END-->
+
+    <div class="row" style="padding-bottom: 30px"> <!--Строка поиска-->
+      <div class="col-lg-1 col-md-1 col-sm-1" ></div>
+      <div class="col-lg-10 col-md-10 col-sm-10">
+        <div class="input-group">
+          <input type="text" class="form-control" (keypress)="search()"
+                 [(ngModel)]="searchProject.name" placeholder="Найти...">
+          <span class="input-group-btn">
+        <button class="btn btn-default" type="button" (click)="search()">Найти!</button>
+      </span>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-1" ></div>
+    </div>
+    <!--Строка поиска END-->
+  </div> <!--Container for search END-->
+
+  <!--Container for results-->
+  <div class="col-lg-12 col-md-12 col-sm-12" *ngFor="let searchResultProject of searchResultProjects">
+    <div class="col-lg-2 col-md-2 col-sm-2"></div>
+    <div class="col-lg-8 col-md-8 col-sm-8">
+      <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9">
+        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        <!--Information-->
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="row" style="text-align: left">
+            <div class="col" >
+              <h4>{{searchResultProject.name}}</h4>
+            </div>
+          </div>
+          <div class="row" style="text-align: left">
+            <div class="col" >
+              <h5>Заказчик: <a routerLink="/profile/{{searchResultProject.customer.id}}">{{searchResultProject.customer.contact.fullName}}</a></h5>
+            </div>
+          </div>
+
+          <div class="row" style="text-align: left">
+            <div class="col" >
+              <h5>Отрасль: {{searchResultProject.projectCategory}}</h5>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="row" style="text-align: left">
+            <div class="col" >
+              <h5>Статус проекта: {{searchResultProject.projectStatus}}</h5>
+            </div>
+          </div>
+
+          <div class="row" style="text-align: left">
+          <!--<div class="col" >
+            <h5>Язык общения на проекте: Английский</h5>
+          </div>-->
+        </div>
+
+          <div class="row" style="text-align: right">
+            <div class="col" >
+              <a routerLink="/project/{{searchResultProject.id}}"><h5>Подробнее...</h5></a>
+            </div>
+          </div>
+        </div>
+        <!--Information END-->
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2"></div>
+  </div><!--Container for results END-->
+
+
+
+  <div class="col-lg-12 col-md-12 col-sm-12" style="text-align:center; margin-top:20px; margin-bottom: 20px">
+    <!--<button type="button" class="btn btn-primary">
+      Назад
+    </button>
+    <button type="button" class="btn btn-primary">
+      Далее
+    </button>-->
+  </div>
+  <div class="col-lg-1 col-md-1 col-sm-1"></div>
+

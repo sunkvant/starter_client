@@ -9,7 +9,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="customer" >
                 <span class="btn glyphicon glyphicon-plus " popover="Добавить образование"
                       placement="bottom" containerClass="container"
-                      triggers="mouseenter:mouseleave" style="background-color: #3c763d;width: 2px; height: 2px"
+                      triggers="mouseenter:mouseleave" style="background-color: #3c763d;"
                       (click)="setAddStatus(true); openModal4(template4,education); "></span>
         </div>
 
@@ -28,12 +28,12 @@
           <div class="col-lg-2 col-md-2 col-sm-2" *ngIf="customer">
             <span class="btn glyphicon glyphicon-edit" popover="Редактировать место работы" placement="left"
                   containerClass="container" triggers="mouseenter:mouseleave"
-                  (click)="setAddStatus(false); openModal4(template4, workplace)" style="background-color: #6aafb7; width: 5px; height: 5px"></span>
+                  (click)="setAddStatus(false); openModal4(template4, workplace)" style="background-color: #6aafb7; "></span>
             <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <span class="btn glyphicon glyphicon-remove" popover="Удалить место работы"
                       placement="bottom" containerClass="container" triggers="mouseenter:mouseleave"
-                      style="background-color: #b73f3f; width: 5px; height: 5px" (click)="acceptWorkplace.show(); setDeletedId(workplace.id); setDeletedI(workplaces.indexOf(workplace))"></span>
+                      style="background-color: #b73f3f;" (click)="acceptWorkplace.show(); setDeletedId(workplace.id); setDeletedI(workplaces.indexOf(workplace))"></span>
               </div>
             </div>
           </div>

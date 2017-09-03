@@ -4,4 +4,8 @@
 export class Location {
   country: String = '';
   city: String = '';
+
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
 }

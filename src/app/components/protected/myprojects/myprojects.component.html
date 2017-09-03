@@ -1,0 +1,82 @@
+
+
+  <div class="row" *ngIf="isDataAvaliable">
+
+
+    <!--Information -->
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8">
+        <div class="row padd" style="text-align: center;">
+          <div class="col-lg-12" ><h2>Мои проекты</h2></div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: left; padding-top:30px" *ngIf="role!=='Customer'">
+        <button type="button" class="btn btn-primary pull-left" aria-label="Close"
+                routerLink="/search/project">
+          Найти проект
+        </button>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: left; padding-top:30px" *ngIf="role==='Customer'">
+        <button type="button" class="btn btn-primary pull-left" aria-label="Close"
+                routerLink="/project/create">
+          Создать проект
+        </button>
+      </div>
+    </div>
+    <!--Information END-->
+
+    <!--My projects -->
+    <!--Container for results-->
+    <div class="col-lg-12 col-md-12 col-sm-12" style="padding-bottom:10px" *ngFor="let myProject of myProjects">
+      <div class="col-lg-2 col-md-2 col-sm-2"></div>
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9">
+          <div class="col-lg-1 col-md-1 col-sm-1"></div>
+          <!--Information-->
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="row" style="text-align: left">
+              <div class="col" >
+                <h2>{{myProject.name}}</h2>
+              </div>
+            </div>
+            <div class="row" style="text-align: left">
+              <div class="col" >
+                <h4>Заказчик: <a routerLink="/profile/{{myProject.customer.id}}">{{myProject.customer.contact.fullName}}</a></h4>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="row" style="text-align: left; padding-top:20px">
+              <div class="col" >
+                <h5>Статус проекта: {{myProject.projectStatus}}</h5>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-3">
+
+            <div class="row" style="text-align-last: end; padding-top:70px">
+              <div class="col" >
+                <a routerLink="/project/{{myProject.id}}"><h5>Подробнее...</h5></a>
+              </div>
+            </div>
+          </div>
+          <!--Information END-->
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2"></div>
+    </div><!--Container for results END-->
+
+
+
+  <!--  <div class="col-lg-12 col-md-12 col-sm-12 padd">
+      <button type="button" class="btn btn-primary">Назад</button>
+    </div>-->
+    <div class="col-lg-2"></div>
+  </div>
+
+

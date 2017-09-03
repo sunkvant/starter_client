@@ -27,6 +27,7 @@ export class SearchpersonComponent implements OnInit {
     countries: String[];
     educations: Education[];
     searchResultProfiles: Profile[];
+    anyRole: boolean;
 
   constructor(private directionService: DirectionService, private skillService: SkillService,
   private cityService: CityService, private countryService: CountryService, private educationService: EducationService,
@@ -36,6 +37,7 @@ export class SearchpersonComponent implements OnInit {
     this.roles[1] = 'Trainee';
     this.roles[2] = 'Customer';
 
+    this.anyRole = false;
     //this.searchProfile.role = this.roles[0];
     this.bufferDirections = [];
     this.directions = this.directionService.getAllDirections();
@@ -80,13 +82,20 @@ export class SearchpersonComponent implements OnInit {
   }
 
   search(){
-    if(this.bufferSkills.length !== 0){
 
       this.searchProfile.skills = this.bufferSkills;
-    }
-    if(this.bufferDirections.length !== 0){
+
       this.searchProfile.directions = this.bufferDirections;
-    }
+
+      if(this.anyRole){
+        this.searchProfile.role = null;
+      }
+      if(this.searchProfile.role === 'Customer'){
+        this.searchProfile.skills = null;
+        this.searchProfile.educationName = null;
+        this.searchProfile.directions = null;
+      }
+
 /*
     if(this.searchProfile.role === 'Заказчик'){
       this.searchProfile.role = 'Customer';

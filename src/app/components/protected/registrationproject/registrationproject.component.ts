@@ -4,6 +4,7 @@ import {$} from "protractor/built";
 import {CategoryService} from "../../../service/category.service";
 import {LanguageService} from "../../../service/language.service";
 import {ProjectService} from "../../../service/project.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -20,7 +21,7 @@ export class RegistrationprojectComponent implements OnInit {
   categories: String[] = [];
 
   constructor(private categoryService: CategoryService, private languageService: LanguageService,
-  private  projectService: ProjectService) {
+  private  projectService: ProjectService, private route: Router) {
     this.langs = this.languageService.getAllLanguages();
     this.project = new Project();
     this.categories = this.categoryService.getAllCategories();
@@ -48,7 +49,9 @@ export class RegistrationprojectComponent implements OnInit {
       this.project.projectCategory = this.categories[0];
     }
     this.project.languages = this.selectedLangues;
-    this.projectService.addProject(this.project).subscribe();
+    this.projectService.addProject(this.project).subscribe( success => {
+      this.route.navigate(['projects/']);
+    });
 
   }
 

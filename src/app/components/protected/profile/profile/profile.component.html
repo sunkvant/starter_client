@@ -16,8 +16,9 @@
       <div class="btn-group-vertical">
       <button type="button" class="btn btn-danger buttonfirst" *ngIf="!customer">Предложить проект</button>
       <button type="button" class="btn btn-danger" *ngIf="!customer">Написать сообщение</button>
-        <label class="btn btn-default btn-file">
-          Изменить фото <input type="file" style="display: none;" (change)="addPhoto($event)">
+        <label class="btn btn-default btn-file" *ngIf="customer">
+          Изменить фото <input type="file" style="display: none;" accept="image/*,image/jpeg"
+                               (change)="addPhoto($event)" >
         </label>
         <!--<button type="button" class="btn btn-danger" *ngIf="customer">Изменить фото</button>-->
       </div>
@@ -183,7 +184,7 @@
           <!--About END-->
 
         <button type="button" [disabled]="fullName.invalid || dateOfBirth.invalid || country.invalid || city.invalid || about.invalid"
-                class="btn btn-primary pull-right" aria-label="Close" (click)="updateContact()">
+                class="btn btn-primary pull-right" aria-label="Close" (click)="updateContact(0)">
           Сохранить
         </button>
       </div>
@@ -208,9 +209,9 @@
 
           <!--Course add ------------------------------------------------------------------------->
           <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="customer" >
-                <span class="btn glyphicon glyphicon-plus " popover="Добавить образование"
+                <span class="btn glyphicon glyphicon-plus " popover="Добавить курсы"
                       placement="bottom" containerClass="container"
-                      triggers="mouseenter:mouseleave" style="background-color: #3c763d;width: 2px; height: 2px"
+                      triggers="mouseenter:mouseleave" style="background-color: #3c763d;"
                       (click)="setAddStatus(true); openModal3(template3, course); "></span>
           </div>
 
@@ -225,11 +226,11 @@
             <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: left" *ngIf="customer">
               <span class="btn glyphicon glyphicon-edit" popover="Редактировать курсы"
                     placement="left" containerClass="container" triggers="mouseenter:mouseleave"
-                    (click)="setAddStatus(false);openModal3(template3,course)" style="background-color: #6aafb7; width: 5px; height: 5px"></span>
+                    (click)="setAddStatus(false);openModal3(template3,course)" style="background-color: #6aafb7; "></span>
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
                   <span class="btn glyphicon glyphicon-remove" popover="Удалить курсы" placement="bottom" containerClass="container"
-                        triggers="mouseenter:mouseleave" style="background-color: #b73f3f; width: 5px; height: 5px"
+                        triggers="mouseenter:mouseleave" style="background-color: #b73f3f;"
                   (click)="acceptCourse.show(); setDeletedId(course.id); setDeletedI(profile.courses.indexOf(course))"></span>
                 </div>
               </div>
@@ -486,7 +487,7 @@
       <!--Skype END-->
 
       <button type="button" [disabled]="skype.invalid || email.invalid || phone.invalid"
-              class="btn btn-primary pull-right" aria-label="Close" (click)="updateContact()">
+              class="btn btn-primary pull-right" aria-label="Close" (click)="updateContact(1)">
         Сохранить
       </button>
     </div>

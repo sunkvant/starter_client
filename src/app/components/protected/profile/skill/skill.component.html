@@ -14,7 +14,7 @@
         <span class="label label-default" *ngFor="let skill of realSkills ">{{skill}}</span>
             <span class="btn glyphicon glyphicon-edit" popover="Редактировать ключевые компетенции" placement="left"
                   containerClass="container" triggers="mouseenter:mouseleave"
-                  (click)="openModal6(template6)" style="background-color: #6aafb7; width: 2px; height: 1px;" *ngIf="customer"></span>
+                  (click)="openModal6(template6)" style="background-color: #6aafb7;" *ngIf="customer"></span>
 
           </div>
           <div class="row" class="col-lg-10 col-md-10 col-sm-10" *ngIf="realSkills.length===0l">Навыки не заполнены </div>

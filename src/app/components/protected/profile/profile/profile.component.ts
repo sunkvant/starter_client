@@ -12,6 +12,7 @@ import {Course} from '../../../../entity/course';
 import {CourseService} from '../../../../service/course.service';
 import {ContactService} from '../../../../service/contact.service';
 import {Contact} from '../../../../entity/contact';
+import {Location} from "../../../../entity/location";
 
 @Component({
   selector: 'app-profile',
@@ -57,8 +58,9 @@ chek = false;
   public openModal1(template: TemplateRef<any>) {
 
     this.countries = this.countryService.getAllCountries();
-    this.setCities();
     this.contact = new Contact(this.profile.contact);
+    this.contact.location = new  Location(this.profile.contact.location);
+    this.setCities();
     this.modalRef = this.modalService.show(template);
   }
 
@@ -80,7 +82,7 @@ chek = false;
   }
 
   setCities(){
-    this.cities = this.cityService.getAllCitiesByCountry(this.profile.contact.location.country);
+    this.cities = this.cityService.getAllCitiesByCountry(this.contact.location.country);
   }
 
   ngOnInit() {
@@ -128,15 +130,14 @@ chek = false;
   }
 
 
-  updateContact(){
+  updateContact(status){
     this.contactService.updateContact(this.contact)
       .subscribe( success => {
         this.profile.contact = this.contact;
-        if (this.modalRef){
+        if (status === 0){
           this.modalRef.hide();
           document.location.href = '/profile';
-        }
-        if (this.modalRef5) {
+        }else {
           this.modalRef5.hide();
         }
       });

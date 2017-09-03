@@ -53,6 +53,7 @@ search(value) {
         this.myProfile = profile;
         this.isDataAvalible = true;
         localStorage.setItem('uid', this.myProfile.id.toString());
+        localStorage.setItem('role', this.myProfile.role.toString());
       });
     }else{
       this.isDataAvalible = true;

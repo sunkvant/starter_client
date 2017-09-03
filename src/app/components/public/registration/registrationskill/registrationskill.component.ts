@@ -48,11 +48,10 @@ export class RegistrationskillComponent implements OnInit {
   console.log(this.registrationService.checkUserStatus());
     this.i = 0;
     this.skills = new Array<Skill>();
-    this.direction = String();
     this.skillsSearch = this.skillService.getAllSkills();
     console.log(this.skillsSearch);
     this.directionsSearch = this.directionService.getAllDirections();
-      this.direction = 'Java Developer';
+
 
   }
 
