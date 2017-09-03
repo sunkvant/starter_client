@@ -132,7 +132,7 @@ export class RegistrationService {
 
                 const userInfo = user.response[0];
 
-                //console.log(userInfo);
+                console.log(userInfo);
                 //this.profile.direction.id = 1;
 
                 //this.profile.role = 4;
@@ -163,7 +163,12 @@ export class RegistrationService {
                 }
 
                 if (userInfo.bdate) {
-                  this.profile.contact.dateOfBirth = Date.parse(userInfo.bdate);
+                  if(Date.parse(userInfo.bdate)){
+                    this.profile.contact.dateOfBirth =  Date.parse(userInfo.bdate);
+                  }else{
+                    this.profile.contact.dateOfBirth =  0;
+                  }
+
                 }else{
                   this.profile.contact.dateOfBirth = 0;
                 }
