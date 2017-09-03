@@ -3,50 +3,59 @@
   <div class="col-lg-8 col-md-8 col-sm-8">
 
     <div class="row" style="text-align: left">
-      <div class="col-lg-12 col-md-12 col-sm-12" ><h4>Образование
+      <div class="col-lg-12 col-md-12 col-sm-12" ><h4>Образование</h4>
         <!--Education add ------------------------------------------------------------------------->
         <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="customer" >
                 <span class="btn glyphicon glyphicon-plus " popover="Добавить образование"
                       placement="bottom" containerClass="container"
-                      triggers="mouseenter:mouseleave" style="background-color: #3c763d;"
+                      triggers="mouseenter:mouseleave" style="background-color: #72d074;"
                       (click)="setAddStatus(true); openModal2(template2,education); "></span>
         </div>
 
         <!--Education add end------------------------------------------------------------------------->
 
-      </h4></div>
+      </div>
     </div>
-    <div class="educationtext col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; background-color: #beecf9"> <!--style="box-shadow: 0 0 10px #B0C4DE;"-->
-      <div *ngFor="let education of educations">
+
+    <div class="educationtext col-lg-12 col-md-12 col-sm-12" style="background-color: #f6f8fa; border-radius:5px"> <!--style="box-shadow: 0 0 10px #B0C4DE;"-->
+      <div *ngFor="let education of educations" style="border: 1px solid #B0C4DE; margin-bottom:10px; border-radius:5px">
       <div class="row" style="text-align: left" *ngIf="education">
-        <div class="col-lg-2 col-md-2 col-sm-2"><h4 *ngIf="education.graduationYear!==0">{{education.graduationYear}}</h4>
+        <div class="col-lg-2 col-md-2 col-sm-2"><h4 *ngIf="education.graduationYear!==0"><b>Год окончания:</b> {{education.graduationYear}}</h4>
           <!--Редактирование образования-->
-          <div class="col-lg-2 col-md-2 col-sm-2" *ngIf="customer">
-            <span class="btn glyphicon glyphicon-edit" popover="Редактировать образование"
-                  placement="left" containerClass="container"
-                  triggers="mouseenter:mouseleave"(click)="setAddStatus(false);openModal2(template2,education)"
-                  style="background-color: #6aafb7;"></span>
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12">
-                <span class="btn glyphicon glyphicon-remove" popover="Удалить образование"
-                      placement="bottom" containerClass="container"
-                      triggers="mouseenter:mouseleave" style="background-color: #b73f3f;" (click)="accept.show(); setDeletedId(education.id); setDeletedI(educations.indexOf(education))"></span>
-              </div>
-            </div>
-
-
-
+          <div class="col-lg-2 col-md-2 col-sm-2">
 
           </div>
         </div>
         <!-- ------------------------------------------------------------>
-        <div class="col-lg-10 col-md-10 col-sm-10"><h4 *ngIf="education.name!==''">Учреждение образования: {{education.name}}</h4></div>
+        <div class="col-lg-8 col-md-8 col-sm-8"><h4 *ngIf="education.name!==''"><b>Учреждение образования:</b> {{education.name}}</h4></div>
+        <div class="col-lg-2 col-md-2 col-sm-2" *ngIf="customer">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <span class="btn btn-sm glyphicon glyphicon-edit " popover="Редактировать образование"
+                  placement="left" containerClass="container"
+                  triggers="mouseenter:mouseleave"(click)="setAddStatus(false);openModal2(template2,education)"
+                  style="background-color: #95d5de;"></span>
+          </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <span class="btn btn-sm glyphicon glyphicon-remove" popover="Удалить образование"
+                      placement="bottom" containerClass="container"
+                      triggers="mouseenter:mouseleave" style="background-color: #f99682;" (click)="accept.show(); setDeletedId(education.id); setDeletedI(educations.indexOf(education))"></span>
+            </div>
+
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="col-lg-2 col-md-2 col-sm-2"></div>
-        <div class="col-lg-10 col-md-10 col-sm-10"><h4 *ngIf="education.faculty!==''">Факультет: {{education.faculty}}</h4></div>
+        <div class="col-lg-8 col-md-8 col-sm-8"><h4 *ngIf="education.faculty!==''"><b>Факультет:</b> {{education.faculty}}</h4></div>
         <div class="col-lg-2 col-md-2 col-sm-2"></div>
-        <div class="col-lg-10 col-md-10 col-sm-10"><h4 *ngIf="education.speciality!==''">Специальность: {{education.speciality}}</h4></div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="col-lg-2 col-md-2 col-sm-2"></div>
-        <div class="col-lg-10 col-md-10 col-sm-10"><h4 *ngIf="education.educationType!==''">Форма обучения: {{education.educationType}}</h4></div>
+        <div class="col-lg-8 col-md-8 col-sm-8"><h4 *ngIf="education.speciality!==''"><b>Специальность:</b> {{education.speciality}}</h4></div>
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+        <div class="col-lg-8 col-md-8 col-sm-8"><h4 *ngIf="education.educationType!==''"><b>Форма обучения:</b> {{education.educationType}}</h4></div>
+        </div>
 
       </div>
       </div>
@@ -58,14 +67,15 @@
 
 
 </div>
-
+<!--Редактирование образования-->
 <ng-template #template2 >
   <div class="col-lg-2 col-md-2 col-sm-2"></div>
   <div class="col-lg-8 col-md-8 col-sm-8" style=" background: white">
 
     <!--Учреждение образования-->
+    <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left; border-bottom: solid 1px #6aafb7">
         <p>Учреждение образования<span style="color:red">*</span></p>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 input-group form-group">
@@ -82,11 +92,13 @@
         Введено некооректное учереждение образования
       </div>
     </div>
+    </div>
     <!--Учреждение образования END-->
 
     <!--Форма обучения-->
+    <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left; border-bottom: solid 1px #6aafb7">
         <p>Форма обучения</p>
       </div>
 
@@ -115,11 +127,13 @@
                           </div>
                         </div>-->
     </div>
+    </div>
     <!--Форма обучения END-->
 
     <!--Факультет-->
+    <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left; border-bottom: solid 1px #6aafb7">
         <p>Факультет</p>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 input-group form-group">
@@ -132,11 +146,13 @@
         Введено некорректное название факультета
       </div>
     </div>
+    </div>
     <!--Факультет END-->
 
     <!--Специальность-->
+    <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left; border-bottom: solid 1px #6aafb7">
         <p>Специальность<span style="color:red">*</span></p>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 input-group form-group" >
@@ -149,11 +165,13 @@
         Введено некорректное название Cпециальности
       </div>
     </div>
+    </div>
     <!--Специальность END-->
 
     <!--Год выпуска-->
+    <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left; border-bottom: solid 1px #6aafb7">
         <p>Год выпуска</p>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 input-group ">
@@ -167,18 +185,21 @@
         Неверный год выпуска
       </div>
     </div>
+    </div>
     <!--Год выпуска END-->
-
+<div class="col-lg-12 col-md-12 col-sm-12" style="padding-top:10px; padding-bottom:10px">
     <button [disabled]="name.invalid || faculty.invalid || graduationYear.invalid || speciality.invalid"
             type="button" class="btn btn-primary pull-right" aria-label="Close" (click)="updateEducation(educations.indexOf(bufferEducation))">
       Сохранить
     </button>
+</div>
   </div>
   <div class="col-lg-2 col-md-2 col-sm-2"></div>
 
 
 </ng-template>
 <!--Редактирование образования END-->
+
 <!--Подтверждение Удаления-->
 
 <div bsModal #accept="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:10%">
