@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Message} from "../../../entity/message";
+import {Profile} from "../../../entity/profile";
 
 
 @Component({
@@ -8,7 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessagesComponent implements OnInit {
 
-  constructor() { }
+  messages: Message[];
+  showMessage: Message;
+  newMessage: Message;
+
+  constructor() {
+    this.messages = [];
+    this.showMessage = new Message();
+    this.showMessage.senderPerson =  new Profile();
+  }
 
   ngOnInit() {
   }
@@ -21,6 +31,13 @@ export class MessagesComponent implements OnInit {
   }
   getSentMessages(){
 
+  }
+  setShowMessage(message){
+    this.showMessage = message;
+
+  }
+  writeMessage(){
+    this.newMessage = new Message();
   }
 
 }

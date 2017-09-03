@@ -45,6 +45,7 @@ import {SearchprojectComponent} from "./components/protected/searchproject/searc
 import {ConverterService} from "./service/converter.service";
 import {SearchvacantionComponent} from "./components/protected/searchvacantion/searchvacantion.component";
 import {MessagesComponent} from "./components/protected/messages/messages.component";
+import { WriteMessageComponent } from './components/protected/write-message/write-message.component';
 
 const appRoutes: Routes = [
   { path: 'profile/:id', component: ProfileComponent },
@@ -99,7 +100,8 @@ const appRoutes: Routes = [
     MyprojectsComponent,
     SearchprojectComponent,
     SearchvacantionComponent,
-    MessagesComponent
+    MessagesComponent,
+    WriteMessageComponent
   ],
   imports: [
     BrowserModule,
