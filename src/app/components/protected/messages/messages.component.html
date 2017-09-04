@@ -107,7 +107,6 @@
 </div>
   <!--Message END-->
 
-
     <!--Отправка сообщения-->
 
     <div bsModal #sendmessage="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:0px">
@@ -120,7 +119,7 @@
             <div class="row">
               <div class="col-lg-1 col-md-1 col-sm-1"></div>
               <div class="col-lg-10 col-md-10 col-sm-10">
-                <h4>Получатель: <a herf="#">Наталья Лукшина</a></h4>
+                <!--<h4>Получатель: <a >{{profile.contact.fullName}}</a></h4>-->
               </div>
             </div>
 
@@ -128,15 +127,18 @@
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="col-lg-1 col-md-1 col-sm-1"></div>
                 <div class="col-lg-10 col-md-10 col-sm-10">
-                  <h4>Тема сообщения:</h4>
+                  <h4>Тема сообщения:<span style="color:red">*</span></h4>
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="col-lg-1 col-md-1 col-sm-1"></div>
                 <div class="col-lg-10 col-md-10 col-sm-10 input-group">
                   <span class="input-group-addon" ><i class="glyphicon glyphicon-pencil"></i></span>
-                  <input type="text" class="form-control" style="margin-top: 0px" [(ngModel)]="newMessage.title"
-                         placeholder="Тема сообщения" aria-describedby="basic-addon1" id="messagetitle">
+                  <input type="text" class="form-control" style="margin-top: 0px" [(ngModel)]="newMessage.title" required minlength="3"
+                         placeholder="Тема сообщения" #title="ngModel" aria-describedby="basic-addon1" id="messagetitle">
+                </div>
+                <div [hidden]="title.valid || title.untouched" class="alert alert-danger">
+                  Некорректная тема
                 </div>
               </div>
             </div>
@@ -145,21 +147,25 @@
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="col-lg-1 col-md-1 col-sm-1"></div>
                 <div class="col-lg-10 col-md-10 col-sm-10">
-                  <h4>Текст сообщения:</h4>
+                  <h4>Текст сообщения:<span style="color:red">*</span></h4>
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="col-lg-1 col-md-1 col-sm-1"></div>
                 <div class="col-lg-10 col-md-10 col-sm-10 input-group">
                   <span class="input-group-addon" ><i class="glyphicon glyphicon-pencil"></i></span>
-                  <textarea class="form-control" [(ngModel)]="newMessage.text"
+                  <textarea class="form-control" [(ngModel)]="newMessage.text" #text="ngModel" required
                             style="margin-top: 0px" placeholder="Текст сообщения" rows="5" id="comment"></textarea>
+                </div>
+                <div [hidden]="text.valid || text.untouched" class="alert alert-danger">
+                  Введите сообщение
                 </div>
               </div>
             </div>
 
           </div>
-          <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="sendmessage.hide()">
+          <button type="button" [disabled]="text.invalid || title.invalid"
+                  class="btn btn-primary pull-left" aria-label="Close" (click)="sendmessage.hide(); sentMessage()">
             Отправить
           </button>
           <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="sendmessage.hide()">
@@ -170,5 +176,8 @@
     </div>
 
     <!--Отправка сообщения END-->
+
+
+
 
 

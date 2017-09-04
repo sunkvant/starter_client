@@ -14,8 +14,9 @@
       <div class="row buttonblok" >
         <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center">
       <div class="btn-group-vertical">
-      <button type="button" class="btn btn-danger buttonfirst" *ngIf="!customer">Предложить проект</button>
-      <button type="button" class="btn btn-danger" *ngIf="!customer">Написать сообщение</button>
+      <button type="button" class="btn btn-danger buttonfirst"
+              *ngIf="!customer && role!=='Customer' && !approved && profile.role === 'Mentor'">Запросить ассесмент</button>
+      <button type="button" class="btn btn-danger" *ngIf="!customer" (click)="createNewMessage(); sendmessage.show()">Написать сообщение</button>
         <label class="btn btn-warning btn-file" *ngIf="customer">
           Изменить фото <input type="file" style="display: none;" accept="image/*,image/jpeg"
                                (change)="addPhoto($event)" >
@@ -503,3 +504,73 @@
   </ng-template>
 
 </div>
+
+<!--Отправка сообщения-->
+
+<div bsModal #sendmessage="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:0px">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="text-align: center">
+        <h3 class="modal-title">Отправить сообщение</h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-1 col-md-1 col-sm-1"></div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <h4>Получатель: <a >{{profile.contact.fullName}}</a></h4>
+          </div>
+        </div>
+
+        <div class="row padd">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col-lg-10 col-md-10 col-sm-10">
+              <h4>Тема сообщения:<span style="color:red">*</span></h4>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col-lg-10 col-md-10 col-sm-10 input-group">
+              <span class="input-group-addon" ><i class="glyphicon glyphicon-pencil"></i></span>
+              <input type="text" class="form-control" style="margin-top: 0px" [(ngModel)]="newMessage.title" required minlength="3"
+                     placeholder="Тема сообщения" #title="ngModel" aria-describedby="basic-addon1" id="messagetitle">
+            </div>
+            <div [hidden]="title.valid || title.untouched" class="alert alert-danger">
+              Некорректная тема
+            </div>
+          </div>
+        </div>
+
+        <div class="row padd">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col-lg-10 col-md-10 col-sm-10">
+              <h4>Текст сообщения:<span style="color:red">*</span></h4>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col-lg-10 col-md-10 col-sm-10 input-group">
+              <span class="input-group-addon" ><i class="glyphicon glyphicon-pencil"></i></span>
+              <textarea class="form-control" [(ngModel)]="newMessage.text" #text="ngModel" required
+                        style="margin-top: 0px" placeholder="Текст сообщения" rows="5" id="comment"></textarea>
+            </div>
+            <div [hidden]="text.valid || text.untouched" class="alert alert-danger">
+              Введите сообщение
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <button type="button" [disabled]="text.invalid || title.invalid"
+              class="btn btn-primary pull-left" aria-label="Close" (click)="sendmessage.hide(); sentMessage()">
+        Отправить
+      </button>
+      <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="sendmessage.hide()">
+        Закрыть
+      </button>
+    </div>
+  </div>
+</div>
+
+<!--Отправка сообщения END-->

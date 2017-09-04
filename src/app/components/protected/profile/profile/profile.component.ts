@@ -13,6 +13,8 @@ import {CourseService} from '../../../../service/course.service';
 import {ContactService} from '../../../../service/contact.service';
 import {Contact} from '../../../../entity/contact';
 import {Location} from "../../../../entity/location";
+import {Message} from "../../../../entity/message";
+import {MessageService} from "../../../../service/message.service";
 
 @Component({
   selector: 'app-profile',
@@ -42,12 +44,23 @@ chek = false;
   addStatus = false;
   deletedI = -1;
   private files: any;
+  newMessage: Message;
+  role: String;
+  approved: boolean;
 
 
   constructor(private activatedRoute: ActivatedRoute, private profileService: ProfileService,
               private modalService: BsModalService, private countryService: CountryService,
               private cityService: CityService, private courseService: CourseService,
-              private contactService: ContactService, private route: Router) {
+              private contactService: ContactService, private route: Router,
+  private messageService: MessageService) {
+
+    this.newMessage = new Message();
+    this.role = localStorage.getItem('role');
+    if(localStorage.getItem('approved') === 'false'){
+      this.approved = false;
+    }
+
 
   }
 
@@ -97,7 +110,6 @@ chek = false;
       this.profileService.getProfileById(this.id)
         .subscribe(
           (profile) => {
-            console.log(profile);
             if (profile){
               this.customer = false;
               this.profile = profile;
@@ -189,6 +201,17 @@ chek = false;
       }
       this.profileService.updateAvatar(formData);
     }
+  }
+
+  createNewMessage(){
+    this.newMessage = new Message();
+  }
+
+  sentMessage(){
+    this.newMessage.receiverId = this.profile.id;
+    this.messageService.sendMessage(this.newMessage).subscribe();
+
 
   }
+
 }

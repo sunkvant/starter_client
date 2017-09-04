@@ -3,7 +3,7 @@
   <div class="col-lg-1 col-md-1 col-sm-1"></div>
   <div class="col-lg-10 col-md-10 col-sm-10"> <!--Container for search-->
 
-    <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9"> <!--Строка для параметров-->
+    <div class="row" style="border: 1px solid #c9e5ff; background-color: #f5f7f9; border-radius:5px"> <!--Строка для параметров-->
 
       <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center">
@@ -14,42 +14,42 @@
 
       <div class="row collapse" id="param">
         <div class="col-lg-1 col-md-1 col-sm-1" ></div>
-        <div class="col-lg-5 col-md-5 col-sm-5"> <!--Сами параметры-->
+        <div class="col-lg-5 col-md-5 col-sm-5" style="margin-right:10px"> <!--Сами параметры-->
 
-          <!--Role-->
-          <div class="row padd" style="text-align: Left">
-            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Роль</h4>
+          <!--Направления-->
+          <div class="row padd" style="text-align: left; margin-bottom:10px; background-color: #dbedff; border-radius:5px" *ngIf="searchProfile.role !== 'Customer' || anyRole">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Направление</h4>
 
-              <div class="dropdown form-group">
-                <button class="btn btn-primary dropdown-toggle"
-                        type="button"
-                        [disabled]="anyRole" data-toggle="dropdown">
-                  {{searchProfile.role}}
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                  <li role="menuitem" style="cursor: pointer" *ngFor="let role of roles"
-                      (click)="searchProfile.role=role;search()"><a>{{role}}</a></li>
-                </ul>
+              <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6"
+                   style="overflow-y:auto; height:200px; width: 300px">
+                <div  *ngFor="let direction of directions">
+
+                  <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12"
+                       style="cursor:pointer;padding:5px; font-size: 15px"
+                       id="{{direction}}" (click)="toggleMultiSelect($event, direction);search()" id={{direction}}>
+                    <span *ngIf="bufferDirections.indexOf(direction)!==-1" style="color:#2fff17"><i class="glyphicon glyphicon-ok"></i></span>
+                    {{direction}}</div>
+
+                </div>
               </div>
-              <input type="checkbox" (click)="search()" [(ngModel)]="anyRole"> Любая роль
+
             </div>
           </div>
-        <!--Role END-->
+          <!--Направления END-->
 
           <!--Number of projects-->
-          <div class="row padd" style="text-align: Left" *ngIf="searchProfile.role !== 'Customer' || anyRole">
+          <div class="row padd" style="text-align: left; margin-bottom:10px; background-color: #dbedff; border-radius:5px" *ngIf="searchProfile.role !== 'Customer' || anyRole">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Навыки</h4>
             </div>
 
             <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6"
-                 style="overflow-y:scroll; height:400px;">
+                 style="overflow-y:auto; height:200px;">
               <div  *ngFor="let skill of skills">
 
                 <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12"
-                     style="cursor:pointer;padding:3px;border-bottom:1px solid black;"
+                     style="cursor:pointer;padding:3px; font-size: 15px"
                      id="{{skill}}" (click)="toggleMultiSelectSkill($event, skill); search()" id={{skill}}>
-                  <span *ngIf="bufferSkills.indexOf(skill)!==-1" style="color:red">*</span>
+                  <span *ngIf="bufferSkills.indexOf(skill)!==-1" style="color:#2fff17"><i class="glyphicon glyphicon-ok"></i></span>
                   {{skill}}</div>
 
               </div>
@@ -74,33 +74,30 @@
 
         <div class="col-lg-5 col-md-5 col-sm-5"> <!--Сами параметры2-->
 
+          <!--Role-->
+          <div class="row padd" style="text-align: left; margin-bottom:10px; background-color: #dbedff; border-radius:5px">
+            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Роль</h4>
 
-
-          <!--Направления-->
-          <div class="row padd" style="text-align: Left" *ngIf="searchProfile.role !== 'Customer' || anyRole">
-            <div class="col-lg-12 col-md-12 col-sm-12"><h4>Направление</h4>
-
-              <div class="multiple-select col-lg-6 col-md-6 col-sm-6 col-xs-6"
-                   style="overflow-y:scroll; height:200px; width: 300px">
-                <div  *ngFor="let direction of directions">
-
-                  <div class="options col-lg-12 col-md-12 col-xs-12 col-sm-12"
-                       style="cursor:pointer;padding:5px;border-bottom:2px solid black; font-size: 25px"
-                       id="{{direction}}" (click)="toggleMultiSelect($event, direction);search()" id={{direction}}>
-                    <span *ngIf="bufferDirections.indexOf(direction)!==-1" style="color:red">*</span>
-                    {{direction}}</div>
-
-                </div>
+              <div class="dropdown form-group">
+                <button class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        [disabled]="anyRole" data-toggle="dropdown">
+                  {{searchProfile.role}}
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li role="menuitem" style="cursor: pointer" *ngFor="let role of roles"
+                      (click)="searchProfile.role=role;search()"><a>{{role}}</a></li>
+                </ul>
               </div>
-
+              <input type="checkbox" (click)="search()" [(ngModel)]="anyRole"> Любая роль
             </div>
           </div>
-          <!--Направления END-->
-
+          <!--Role END-->
 
 
           <!--Number of reviews-->
-          <div class="row padd" style="text-align: Left">
+          <div class="row padd" style="text-align: left; margin-bottom:10px; background-color: #dbedff; border-radius:5px">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Локация</h4>
             </div>
 
@@ -122,7 +119,7 @@
           <!--Number of reviews END-->
 
           <!--Number of reviews-->
-          <div class="row padd" style="text-align: Left" *ngIf="searchProfile.role !== 'Customer' || anyRole">
+          <div class="row padd" style="text-align: left; margin-bottom:10px; background-color: #dbedff; border-radius:5px" *ngIf="searchProfile.role !== 'Customer' || anyRole">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Учебное заведение</h4>
             </div>
 
@@ -135,7 +132,7 @@
           </div>
 
           <!--Age-->
-          <div class="row" style="text-align: Left">
+          <div class="row" style="text-align: left; background-color: #dbedff; padding-bottom:5px; margin-bottom:10px; border-radius:5px">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Возраст</h4>
             </div>
 
@@ -154,10 +151,11 @@
           <!--Age END-->
 
 
-          <div class="row" style="text-align: Left" *ngIf="searchProfile.role !== 'Mentor' || anyRole">
+          <div class="row" style="text-align: left; background-color: #dbedff; border-radius:5px"
+               *ngIf="searchProfile.role === 'Mentor' || anyRole">
             <div class="col-lg-12 col-md-12 col-sm-12"><h4>Опыт менторства</h4>
               <input type="checkbox" [(ngModel)]="searchProfile.isMentorExp"
-                     (click)="search()" #mentorExp="ngModel">
+                      #mentorExp="ngModel">
             </div>
           </div>
 
@@ -186,11 +184,12 @@
   </div > <!--Container for search END-->
 
   <!--Container for results-->
-  <div class="col-lg-12 col-md-12 col-sm-12" style="height: 1000px"
+  <div style="height: 1000px">
+  <div class="col-lg-12 col-md-12 col-sm-12"
        *ngFor="let searchResultProfile of searchResultProfiles">
   <div class="col-lg-2 col-md-2 col-sm-2"></div>
   <div class="col-lg-8 col-md-8 col-sm-8">
-    <div class="row" style="border: 1px solid #B0C4DE; background-color: #beecf9">
+    <div class="row" style="border: 1px solid #B0C4DE; margin-bottom:10px; background-color: #dbedff; border-radius:5px">
       <!--Picture-->
       <div class="col-lg-2 col-md-2 col-sm-2" routerLink="/profile/{{searchResultProfile.id}}">
         <div class="row" style="text-align: center">
@@ -250,6 +249,7 @@
     </div>
   </div>
   <div class="col-lg-2 col-md-2 col-sm-2"></div>
+  </div>
   </div><!--Container for results END-->
 
 

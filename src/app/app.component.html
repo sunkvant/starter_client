@@ -5,7 +5,7 @@
 
 <div class="container" *ngIf="isDataAvalible">
   <div *ngIf="showHead">
-  <div class="row" >
+  <div class="row" style="background-color: #f6f8fa">
     <div class="header">
       <div class="col-lg-2 col-md-2 col-sm-2"></div>
       <div class="col-lg-8 col-md-8 col-sm-8">
@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div class="header2 row" >
+  <div class="header2 row" style="border-bottom:solid 1px #b9d6d6">
     <div class="col-lg-8 col-md-8 col-sm-8">
       <div class="btn-group-md" role="group" aria-label="...">
         <button type="button" class="btn btn-primary" routerLink="/messages">Сообщения</button>
@@ -44,8 +44,8 @@
     <div class="profiledrop col-lg-4 col-md-4 col-sm-4">
       <img src="{{myProfile.contact.avatarPath}}" class="img-circle" alt="Photo" width="35" height="35">
       <span dropdown (onShown)="onShown()" (onHidden)="onHidden()" (isOpenChange)="isOpenChange()">
-  <a class="cvet" href dropdownToggle routerLink="/profile" >{{myProfile.contact.fullName}}</a>
-        <button class="btn glyphicon glyphicon"  style="color:#a94442" routerLink="/logout"> Выйти </button>
+  <a class="cvet" href dropdownToggle routerLink="/profile" style="font-size:1.6rem">{{myProfile.contact.fullName}}</a>
+        <button class="btn btn-warning"  style="color:#a94442" routerLink="/logout"> Выйти </button>
     <ul *dropdownMenu class="dropdown-menu">
       <li *ngFor="let choice of items">
         <a class="dropdown-item" href="#">{{choice}}</a>

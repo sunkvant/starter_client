@@ -17,6 +17,7 @@ export class Message {
   text: String;
   isAnswered: boolean;
   vacancyDTO: Vacancy;
+  receiverId: number;
 
 
   constructor(values: Object = {}) {
