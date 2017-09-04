@@ -9,7 +9,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="customer" >
                 <span class="btn glyphicon glyphicon-plus " popover="Добавить образование"
                       placement="bottom" containerClass="container"
-                      triggers="mouseenter:mouseleave" style="background-color: #3c763d;"
+                      triggers="mouseenter:mouseleave" style="background-color: #72d074;"
                       (click)="setAddStatus(true); openModal4(template4,education); "></span>
         </div>
 
@@ -18,33 +18,47 @@
 
       </h4></div>
     </div>
-    <div class="worktext col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; background-color: #beecf9" >
-      <div *ngFor="let workplace of workplaces">
-      <div class="row" style="text-align: left" *ngIf="workplace">
-        <div class="col-lg-2 col-md-2 col-sm-2"><h4 *ngIf="workplace.startWork!==0">{{workplace.startWork | date}}-
+    <div class="worktext col-lg-12 col-md-12 col-sm-12">
+      <div *ngFor="let workplace of workplaces" style="border: 1px solid #B0C4DE; background-color: #f6f8fa; margin-bottom:10px; border-radius:5px">
+      <div class="row" style="text-align: left" *ngIf="workplace;">
+        <div class="col-lg-2 col-md-2 col-sm-2"><h5 *ngIf="workplace.startWork!==0">{{workplace.startWork | date}}-
           <p *ngIf="!workplace.working">{{workplace.endWork | date}}</p>
           <p *ngIf="workplace.working">Работаю сейчас</p>
-        </h4>
-          <div class="col-lg-2 col-md-2 col-sm-2" *ngIf="customer">
-            <span class="btn glyphicon glyphicon-edit" popover="Редактировать место работы" placement="left"
-                  containerClass="container" triggers="mouseenter:mouseleave"
-                  (click)="setAddStatus(false); openModal4(template4, workplace)" style="background-color: #6aafb7; "></span>
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12">
-                <span class="btn glyphicon glyphicon-remove" popover="Удалить место работы"
-                      placement="bottom" containerClass="container" triggers="mouseenter:mouseleave"
-                      style="background-color: #b73f3f;" (click)="acceptWorkplace.show(); setDeletedId(workplace.id); setDeletedI(workplaces.indexOf(workplace))"></span>
-              </div>
-            </div>
-          </div>
+        </h5>
+
         </div>
-        <div class="col-lg-10 col-md-10 col-sm-10"><h4  *ngIf="workplace.company!==''">Организация: {{workplace.company}}</h4></div>
-        <div class="col-lg-2 col-md-2 col-sm-2"></div>
-        <div class="col-lg-10 col-md-10 col-sm-10"><h4 *ngIf="workplace.sphereOfActivity!==''">Сфера деятельности: {{workplace.sphereOfActivity}}</h4></div>
-        <div class="col-lg-2 col-md-2 col-sm-2"></div>
-        <div class="col-lg-10 col-md-10 col-sm-10"><h4 *ngIf="workplace.position!==''">Должность: {{workplace.position}}</h4></div>
-        <div class="col-lg-2 col-md-2 col-sm-2"></div>
-        <div class="col-lg-10 col-md-10 col-sm-10"><h4 *ngIf="workplace.duties!==''">Обязанности:{{workplace.duties}}</h4></div>
+        <div class="col-lg-10 col-md-10 col-sm-10">
+          <div class="col-lg-10 col-md-10 col-sm-10"><h5  *ngIf="workplace.company!==''"><b>Организация:</b> {{workplace.company}}</h5></div>
+
+        <div class="col-lg-2 col-md-2 col-sm-2" *ngIf="customer">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+          <span class="btn btn-sm glyphicon glyphicon-edit" popover="Редактировать место работы" placement="left"
+                  containerClass="container" triggers="mouseenter:mouseleave"
+                  (click)="setAddStatus(false); openModal4(template4, workplace)" style="background-color: #95d5de;"></span>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <span class="btn btn-sm glyphicon glyphicon-remove" popover="Удалить место работы"
+                      placement="bottom" containerClass="container" triggers="mouseenter:mouseleave"
+                      style="background-color: #f99682;" (click)="acceptWorkplace.show(); setDeletedId(workplace.id); setDeletedI(workplaces.indexOf(workplace))"></span>
+            </div>
+
+        </div>
+          <div class="col-lg-2 col-md-2 col-sm-2"></div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-2 col-md-2 col-sm-2"></div>
+          <div class="col-lg-10 col-md-10 col-sm-10"><h5 *ngIf="workplace.sphereOfActivity!==''"><b>Сфера деятельности:</b> {{workplace.sphereOfActivity}}</h5></div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-2 col-md-2 col-sm-2"></div>
+          <div class="col-lg-10 col-md-10 col-sm-10"><h5 *ngIf="workplace.position!==''"><b>Должность:</b> {{workplace.position}}</h5></div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-2 col-md-2 col-sm-2"></div>
+        <div class="col-lg-10 col-md-10 col-sm-10"><h5 *ngIf="workplace.duties!==''"><b>Обязанности:</b> {{workplace.duties}}</h5></div>
+        </div>
       </div>
 </div>
       <div class="row" class="col-lg-10 col-md-10 col-sm-10" *ngIf="workplaces.length===0">Места работы не заполнены </div>
