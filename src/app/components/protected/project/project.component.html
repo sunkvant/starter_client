@@ -647,7 +647,7 @@
           </div>
                       <span *ngIf="approved !== 'true' && role==='Mentor'">Чтобы принимать участие в проектах необходимо пройти ассесмент</span>
         </div>
-        <button type="button" class="btn btn-primary pull-left"
+        <button type="button" class="btn btn-primary pull-left" *ngIf="!customer&&role===showVacancy.role"
                 [disabled]="approved !== 'true' && role==='Mentor'" aria-label="Close"
                 (click)="vacantion.hide();requestVacancy(showVacancy.id)" >
           Подать заявку

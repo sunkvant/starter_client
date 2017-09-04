@@ -47,7 +47,7 @@
           Читать
         </button>
           <button type="button" class="btn btn-primary pull-right" aria-label="Close"
-                  (click)="setShowMessage(message); messageAbout.show()" *ngIf="message.requestType==='Accessment' || message.requestType==='Vacancy'">
+                  (click)="setShowMessage(message); messageAbout.show()" *ngIf="message.requestType==='Assessment' || message.requestType==='Vacancy'">
             Ответить
           </button>
 
@@ -98,11 +98,24 @@
           </div>
       </div>
       <div class="modal-body">
-        <div *ngIf="showMessage.requestType==='Accessment' || showMessage.requestType==='Vacancy'">
-        <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="messageAbout.hide()">
+        <div *ngIf="showMessage.requestType==='Accessment'">
+
+          <button type="button" class="btn btn-primary pull-left" aria-label="Close"
+                  (click)="setAssessment(showMessage.senderPerson.id);messageAbout.hide()">
+            Подтвердить
+          </button>
+          <button type="button" class="btn btn-primary pull-left" aria-label="Close"
+                  (click)="messageAbout.hide()">
+            Отклонить
+          </button>
+        </div>
+        <div *ngIf="showMessage.requestType==='Vacancy'">
+        <button type="button" class="btn btn-primary pull-left" aria-label="Close"
+                (click)="setUserOnVacancy(showMessage.receiverPerson.id);messageAbout.hide()">
           Подтвердить
         </button>
-        <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="messageAbout.hide()">
+        <button type="button" class="btn btn-primary pull-left" aria-label="Close"
+                (click)="messageAbout.hide()">
           Отклонить
         </button>
         </div>

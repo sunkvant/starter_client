@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Message} from "../../../entity/message";
 import {Profile} from "../../../entity/profile";
 import {MessageService} from "../../../service/message.service";
+import {ProfileService} from "../../../service/profile.service";
+import {VacancyService} from "../../../service/vacancy.service";
 
 
 @Component({
@@ -15,9 +17,9 @@ export class MessagesComponent implements OnInit {
   showMessage: Message;
   newMessage: Message;
   uid: number;
-  deletedMessage:Message;
+  deletedMessage: Message;
 
-  constructor(private messageService: MessageService) {
+  constructor(private messageService: MessageService, private profileService: ProfileService, private vacancyService: VacancyService) {
     this.messages = [];
     this.uid = +localStorage.getItem('uid');
 
@@ -67,6 +69,7 @@ export class MessagesComponent implements OnInit {
 
   writeMessage(){
     this.newMessage = new Message();
+    this.newMessage.title = '(Re)' + this.showMessage.title;
   }
 
   setDeletedMessage(message){
@@ -78,6 +81,15 @@ export class MessagesComponent implements OnInit {
       const i = this.messages.indexOf(this.deletedMessage);
       this.messages[i].id = -1;
     });
+  }
+
+  setAssessment(uid){
+    this.profileService.setAssessment(uid).subscribe();
+
+  }
+
+  setUserOnVacancy(uid){
+    this.vacancyService.setUserOnVacancy(uid, this.showMessage.vacancyDTO.id).subscribe();
   }
 
 }

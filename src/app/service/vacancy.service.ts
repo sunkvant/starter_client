@@ -66,4 +66,13 @@ export class VacancyService {
       });
   }
 
+  setUserOnVacancy(uid, vacancyId){
+    return this.http
+      .post(API_URL + '/api/project/team/profile/' + uid + '/vacancy/' + vacancyId , null )
+      .map(response => {
+        //console.log(response);
+        return response;
+      });
+  }
+
 }

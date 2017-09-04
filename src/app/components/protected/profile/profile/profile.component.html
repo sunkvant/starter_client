@@ -15,7 +15,8 @@
         <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center">
       <div class="btn-group-vertical">
       <button type="button" class="btn btn-danger buttonfirst"
-              *ngIf="!customer && role!=='Customer' && !approved && profile.role === 'Mentor'">Запросить ассесмент</button>
+              *ngIf="!customer && role!=='Customer' && !approved && profile.role === 'Mentor'"
+      (click)="getAssessment()">Запросить ассесмент</button>
       <button type="button" class="btn btn-danger" *ngIf="!customer" (click)="createNewMessage(); sendmessage.show()">Написать сообщение</button>
         <label class="btn btn-warning btn-file" *ngIf="customer">
           Изменить фото <input type="file" style="display: none;" accept="image/*,image/jpeg"
@@ -584,3 +585,22 @@
 </div>
 
 <!--Отправка сообщения END-->
+
+<!--Подтверждение change-->
+
+<div bsModal #info="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:10%">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Заявка на ассесмент отправлена. Дождитесь ответа Ментора.</h4>
+      </div> <div class="modal-body">
+        <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="info.hide()">
+          Нет
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--change END-->
