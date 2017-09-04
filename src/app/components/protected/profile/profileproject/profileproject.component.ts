@@ -7,7 +7,6 @@ declare var require: any;
   styleUrls: ['./profileproject.component.css']
 })
 export class ProfileprojectComponent implements OnInit {
-    private image = require("../profile/01.jpg");
   constructor() { }
 
   ngOnInit() {
