@@ -95,6 +95,22 @@ export class ProjectService {
       });
   }
 
+  getConsultation(uid, projectId){
+    const message = {
+      projectId: projectId,
+      title: 'Запрос на консультацию',
+      single: true,
+      receiverPersonId: uid
+    }
+
+    return this.http
+      .post(API_URL + '/api/message/consultationRequest', message)
+      .map(response => {
+        //console.log(response);
+        return response;
+      });
+  }
+
 
 
 }

@@ -40,7 +40,7 @@ export class ProjectComponent implements OnInit {
   skillsSearch: String[] = [];
   skills: Skill[] = [];
   skill: Skill;
-  teamTraineeCount=0;
+  teamTraineeCount= 0;
   teamMentorCount = 0;
   i = 0;
   bufferSkill: String;
@@ -81,6 +81,8 @@ export class ProjectComponent implements OnInit {
     this.role = localStorage.getItem('role');
     this.newMessage = new Message();
     this.statuses = this.projectService.getStatuses();
+
+
   }
 
     public openModal1(template: TemplateRef<any>) {
@@ -143,13 +145,13 @@ export class ProjectComponent implements OnInit {
               console.log(this.project);
 
               this.project.team.forEach(team => {
-                if(team.role === 'Ментор'){
+                if(team.role === 'Mentor'){
                   this.teamMentorCount++;
                 }
-                if(team.role === 'Стажёр'){
+                if(team.role === 'Trainee'){
                   this.teamTraineeCount++;
                 }
-              })
+              });
 
             }else{
               this.route.navigate(['/404']);
@@ -251,6 +253,10 @@ export class ProjectComponent implements OnInit {
     this.vacancyService.requestVacancy(id).subscribe();
   }
 
+  getConsultation(uid){
+    this.projectService.getConsultation(uid, this.project.id).subscribe();
+
+  }
 
 
 }

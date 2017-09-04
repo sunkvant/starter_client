@@ -214,14 +214,14 @@
 
             <div *ngIf="teamTraineeCount !== 0">
             <div *ngFor="let trainee of project.team">
-            <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px" *ngIf="trainee.role==='Ментор'">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px" *ngIf="trainee.role==='Trainee'">
             <div class="row" >
               <div class="col-lg-10 col-md-10 col-sm-10" style="text-align: left"
                    routerLink="/profile/{{trainee.profile.id}}">
                 <div class="col-lg-2">
                   <img src="{{trainee.profile.contact.avatarPath}}" class="img-circle" alt="Photo" width="35" height="35">
                 </div>
-                <h6>{{trainee.profile.contact.fullName}}</h6></div>
+                <a routerLink="/profile/{{trainee.profile.id}}"><h6>{{trainee.profile.contact.fullName}}</h6></a></div>
               <div class="col-lg-2 col-md-2 col-sm-2">
               <span class="btn glyphicon glyphicon-envelope" popover="Отправить сообщение" containerClass="container"
                     triggers="mouseenter:mouseleave" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px"></span>
@@ -249,18 +249,18 @@
 
             <div *ngIf="teamMentorCount !== 0">
             <div *ngFor="let mentor of project.team">
-            <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px" *ngIf="mentor.role==='Ментор'">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px" *ngIf="mentor.role==='Mentor'">
               <div class="row" >
-                <div class="col-lg-10 col-md-10 col-sm-10" style="text-align: left"
-                routerLink="/profile/{{mentor.profile.id}}">
+                <div class="col-lg-10 col-md-10 col-sm-10" style="text-align: left">
+
                   <div class="col-lg-2">
                     <img src="{{mentor.profile.contact.avatarPath}}" class="img-circle" alt="Photo" width="35" height="35">
                   </div>
-                  <h6>{{mentor.profile.contact.fullName}}</h6></div>
-                <div class="col-lg-2 col-md-2 col-sm-2">
-                  <span class="btn glyphicon glyphicon-envelope" popover="Отправить сообщение"
-                        containerClass="container" (click)="sendmessage.show()"
-                        triggers="mouseenter:mouseleave" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px"></span>
+                  <a routerLink="/profile/{{mentor.profile.id}}"> <h6>{{mentor.profile.contact.fullName}}</h6></a></div>
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                  <span class="btn glyphicon glyphicon-envelope" popover="Запросить консультацию"
+                        containerClass="container" (click)="status.show(); getConsultation(mentor.profile.id)"
+                        triggers="mouseenter:mouseleave" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px"> Консультация</span>
                 </div>
               </div>
               <div class="row">
@@ -285,7 +285,7 @@
       <!--Team END-->
 
     <div class="col-lg-12 col-md-12 col-sm-12 padd">
-      <button type="button" class="btn btn-primary">Назад</button>
+      <!--<button type="button" class="btn btn-primary">Назад</button>-->
     </div>
     <div class="col-lg-2"></div>
   </div>
@@ -760,6 +760,26 @@
           </button>
           <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="acceptChangeStatus.hide();changeProjectStatus() ">
             Подтвердить
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--change END-->
+  <!--Подтверждение change-->
+
+  <div bsModal #status="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:10%">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Ваша заявка на консультацию отправлена. Дождитесь ответа ментора.</h4>
+        </div>
+        <!--<span style="color:red">*После смены статуса на "Close" проект будет закрыт и его редактирование будет невозможным</span>-->
+        <div class="modal-body">
+
+          <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="status.hide();">
+            Ok
           </button>
         </div>
       </div>
