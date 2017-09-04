@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from '../../../entity/project';
-import {$} from "protractor/built";
 import {CategoryService} from "../../../service/category.service";
 import {LanguageService} from "../../../service/language.service";
 import {ProjectService} from "../../../service/project.service";
