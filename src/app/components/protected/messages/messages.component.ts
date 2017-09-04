@@ -14,9 +14,12 @@ export class MessagesComponent implements OnInit {
   messages: Message[];
   showMessage: Message;
   newMessage: Message;
+  uid: number;
+  deletedMessage:Message;
 
   constructor(private messageService: MessageService) {
     this.messages = [];
+    this.uid = +localStorage.getItem('uid');
 
     this.showMessage = new Message();
     this.showMessage.senderPerson =  new Profile();
@@ -38,10 +41,14 @@ export class MessagesComponent implements OnInit {
 
   }
   getReceivedMessages(){
-
+    this.messageService.getReceivedMessages().subscribe( messages => {
+      this.messages = messages;
+    });
   }
   getSentMessages(){
-
+    this.messageService.getSentMessages().subscribe( messages => {
+      this.messages = messages;
+    });
   }
   setShowMessage(message){
     this.showMessage = message;
@@ -60,6 +67,17 @@ export class MessagesComponent implements OnInit {
 
   writeMessage(){
     this.newMessage = new Message();
+  }
+
+  setDeletedMessage(message){
+    this.deletedMessage = message;
+  }
+
+  deleteMessage(){
+    this.messageService.deleteMessage(this.deletedMessage.id).subscribe(()=>{
+      const i = this.messages.indexOf(this.deletedMessage);
+      this.messages[i].id = -1;
+    });
   }
 
 }

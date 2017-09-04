@@ -34,6 +34,15 @@ export class ProjectService {
       });
   }
 
+  closeProject(id){
+    return this.http
+      .post(API_URL + 'api/project/' + id+ '/close', null)
+      .map(response => {
+        //console.log(response);
+        return response;
+      });
+  }
+
   getProjectById(id){
     return this.http
       .get(API_URL + 'api/project/' + id)

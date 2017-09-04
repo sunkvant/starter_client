@@ -20,6 +20,16 @@ export class VacancyService {
         return response;
       });
   }
+
+  requestVacancy( vacancyId){
+    return this.http
+      .post(API_URL + 'api/message/vacancyRequest/' + vacancyId , null )
+      .map(response => {
+        //console.log(response);
+        return response;
+      });
+  }
+
   deleteVacancy(id, projectId){
     return this.http
       .delete(API_URL + 'api/project/' + projectId + '/vacancy/ '+ id)
@@ -41,7 +51,6 @@ export class VacancyService {
           return this.positions;
         });
       });
-
      return this.positions;
   }
 

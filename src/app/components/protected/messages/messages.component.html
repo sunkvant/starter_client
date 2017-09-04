@@ -7,9 +7,6 @@
         <a (click)="getReceivedMessages()"><h4>Входящие</h4></a>
         <a (click)="getSentMessages()"><h4>Отправленные</h4></a>
       </div>
-      <button (click)="sendmessage.show()">
-        Новое сообщение
-      </button>
       <div class="col-lg-8">
         <div class="row padd" style="text-align: center;">
           <div class="col-lg-12" ><h2>Сообщения</h2></div>
@@ -23,7 +20,7 @@
     <span *ngIf="messages.length === 0">У вас нет сообщений</span>
     </div>
   <div class="row padd" *ngFor="let message of messages">
-    <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="message.id !== -1">
       <div class="col-lg-1 col-md-1 col-sm-1"></div>
       <div class="col-lg-2 col-md-2 col-sm-2" style="text-align:left">
 
@@ -35,7 +32,7 @@
           <img src="{{message.senderPerson.contact.avatarPath}}" class="img-circle" alt="Photo" width="35" height="35">
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8">
-          <div class="row"><a href="#"><h4>{{message.senderPerson.contact.fullName}}</h4></a></div>
+          <div class="row"><a routerLink="/profile/{{message.senderPerson.id}}"><h4>{{message.senderPerson.contact.fullName}}</h4></a></div>
           <div class="row" style="text-align:left"><h4>Тема: {{message.title}}</h4></div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3">
@@ -57,7 +54,8 @@
         </div>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-1" style="text-align:left">
-        <span class="btn btn-sm glyphicon glyphicon-remove pull-left" popover="Удалить сообщение" placement="bottom" containerClass="container" triggers="mouseenter:mouseleave" style="background-color: #b73f3f"></span>
+        <span class="btn btn-sm glyphicon glyphicon-remove pull-left" (click)="acceptDelete.show();setDeletedMessage(message)"
+              popover="Удалить сообщение" placement="bottom" containerClass="container" triggers="mouseenter:mouseleave" style="background-color: #b73f3f"></span>
       </div>
 
     </div>
@@ -108,7 +106,7 @@
           Отклонить
         </button>
         </div>
-        <button type="button"  *ngIf="showMessage.requestType==='Message' || showMessage.requestType==='Consultation'"
+        <button type="button"  *ngIf="(showMessage.requestType==='Message' || showMessage.requestType==='Consultation') && showMessage.senderPerson.id !== uid"
                 class="btn btn-primary pull-left" aria-label="Close" (click)="writeMessage();sendmessage.show();messageAbout.hide()">
           Ответить
         </button>
@@ -192,7 +190,26 @@
     </div>
 
     <!--Отправка сообщения END-->
+    <!--Подтверждение change-->
 
+    <div bsModal #acceptDelete="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:10%">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title pull-left">Вы действительно хотите удалить сообщение?</h4>
+          </div><div class="modal-body">
+            <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="acceptDelete.hide()">
+              Нет
+            </button>
+            <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="acceptDelete.hide();deleteMessage() ">
+              Удалить
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--change END-->
 
 
 

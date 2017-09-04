@@ -46,7 +46,7 @@
 
 
 
-        <div class="dropdown form-group" *ngIf="customer">
+        <div class="dropdown form-group" *ngIf="customer && project.projectStatus !== 'Close'">
           <button class="btn btn-primary dropdown-toggle" type="button"
                   data-toggle="dropdown">
             {{project.projectStatus}}
@@ -54,12 +54,12 @@
           </button>
           <ul class="dropdown-menu" role="menu">
             <li role="menuitem" style="cursor: pointer" *ngFor="let status of statuses"
-                (click)="project.projectStatus.statuses=status;acceptChangeStatus.show();"><a>{{status}}</a></li>
+                (click)="setStatus(status);acceptChangeStatus.show();"><a>{{status}}</a></li>
           </ul>
         </div>
 
 
-        <div class="row" style="text-align: Center" *ngIf="!customer">
+        <div class="row" style="text-align: Center" *ngIf="!customer || project.projectStatus === 'Close'">
           <div class="col-lg-12 col-md-12 col-sm-12"><h5>{{project.projectStatus}}</h5></div>
         </div>
       </div>
@@ -69,8 +69,9 @@
     </div>
       </div>
     </div>
-    <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: left" *ngIf="customer">
-      <span class="btn glyphicon glyphicon-edit" popover="Редактировать описание проекта" placement="left" containerClass="container" triggers="mouseenter:mouseleave" (click)="openModal1(template1)" style="background-color: #6aafb7"></span>
+    <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: left" *ngIf="customer && project.projectStatus !== 'Close'">
+      <span class="btn glyphicon glyphicon-edit" popover="Редактировать описание проекта"
+            placement="left" containerClass="container" triggers="mouseenter:mouseleave" (click)="openModal1(template1)" style="background-color: #6aafb7"></span>
     </div>
   </div>
       <!--Information END-->
@@ -111,7 +112,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-2" style="text-align: left" *ngIf="customer">
+    <div class="col-lg-2" style="text-align: left" *ngIf="customer && project.projectStatus !== 'Close'">
       <span class="btn glyphicon glyphicon-edit"
             popover="Редактировать способ коммуникации на проекте" placement="left"
             containerClass="container" triggers="mouseenter:mouseleave"
@@ -127,8 +128,9 @@
       <div class="row padd" style="text-align: center;">
         <div class="col-lg-12" ><h2>Вакансии</h2></div>
           <div class="col-lg-12 col-md-12 col-sm-12">
-            <span class="btn btn-sm glyphicon glyphicon-plus" *ngIf="customer||projectMentor"
-                  popover="Добавить вакансию" containerClass="container" triggers="mouseenter:mouseleave"
+            <span class="btn btn-sm glyphicon glyphicon-plus" *ngIf="(customer||projectMentor) && project.projectStatus !== 'Close'"
+                  popover="Добавить вакансию" containerClass="container"
+                  triggers="mouseenter:mouseleave"
                   (click)="openModal4(template3)" style="background-color: #22e42c"></span>
           </div>
       </div>
@@ -647,7 +649,7 @@
         </div>
         <button type="button" class="btn btn-primary pull-left"
                 [disabled]="approved !== 'true' && role==='Mentor'" aria-label="Close"
-                (click)="vacantion.hide()">
+                (click)="vacantion.hide();requestVacancy(showVacancy.id)" >
           Подать заявку
         </button>
         <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="vacantion.hide()">
@@ -660,6 +662,7 @@
   <!--Просмотр вакансии END-->
 
   <!--Отправка сообщения-->
+<!--
 
   <div bsModal #sendmessage="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:0px">
     <div class="modal-dialog">
@@ -671,7 +674,7 @@
           <div class="row">
             <div class="col-lg-1 col-md-1 col-sm-1"></div>
             <div class="col-lg-10 col-md-10 col-sm-10">
-              <!--<h4>Получатель: <a >{{profile.contact.fullName}}</a></h4>-->
+              &lt;!&ndash;<h4>Получатель: <a >{{profile.contact.fullName}}</a></h4>&ndash;&gt;
             </div>
           </div>
 
@@ -726,6 +729,7 @@
       </div>
     </div>
   </div>
+-->
 
   <!--Отправка сообщения END-->
 
@@ -735,14 +739,14 @@
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title pull-left">Вы действительно хотите cменить статус проектa?</h4>
+          <h4 class="modal-title pull-left">Вы действительно хотите cменить статус проектa на {{status}}?</h4>
         </div>
-        <span style="color:red">После смены стату на "Завершён" проект был закрыт и его редактирование будет невозможным</span>
+        <span style="color:red">*После смены статуса на "Close" проект будет закрыт и его редактирование будет невозможным</span>
         <div class="modal-body">
-          <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="accept.hide()">
+          <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="acceptChangeStatus.hide()">
             Нет
           </button>
-          <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="accept.hide();changeProjectStatus() ">
+          <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="acceptChangeStatus.hide();changeProjectStatus() ">
             Подтвердить
           </button>
         </div>
