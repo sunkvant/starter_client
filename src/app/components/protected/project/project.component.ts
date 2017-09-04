@@ -52,6 +52,11 @@ export class ProjectComponent implements OnInit {
   newMessage: Message;
   statuses: String[];
   status: String;
+  removedPersonId: number;
+
+  setRemovePersonId(id){
+    this.removedPersonId = id;
+  }
 
   skillAdd(name){
 
@@ -256,6 +261,10 @@ export class ProjectComponent implements OnInit {
   getConsultation(uid){
     this.projectService.getConsultation(uid, this.project.id).subscribe();
 
+  }
+
+  removeFromTeam(){
+    this.projectService.removeFromTeam(this.removedPersonId, this.project.id).subscribe();
   }
 
 
