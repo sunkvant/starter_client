@@ -16,7 +16,7 @@
       <div class="btn-group-vertical">
       <button type="button" class="btn btn-danger buttonfirst"
               *ngIf="!customer && role!=='Customer' && !approved && profile.role === 'Mentor'"
-      (click)="getAssessment()">Запросить ассесмент</button>
+      (click)="getAssessment(profile.id)">Запросить ассесмент</button>
       <button type="button" class="btn btn-danger" *ngIf="!customer" (click)="createNewMessage(); sendmessage.show()">Написать сообщение</button>
         <label class="btn btn-warning btn-file" *ngIf="customer">
           Изменить фото <input type="file" style="display: none;" accept="image/*,image/jpeg"
