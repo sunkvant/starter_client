@@ -14,11 +14,11 @@ export class IndexComponent implements OnInit{
 
 
     //private profile = require('./profile/profile.component.html');
-    private image1 = require('../../../assets/images/33d87d8.png');
-    private image2 = require('../../../assets/images/trainee.png');
-    private image3 = require('../../../assets/images/mentor-2.png');
-    private image4 = require('../../../assets/images/customer.png');
-    private logo = require('../../../assets/images/logo4.png');
+     image1 = require('../../../assets/images/33d87d8.png');
+     image2 = require('../../../assets/images/trainee.png');
+     image3 = require('../../../assets/images/mentor-2.png');
+     image4 = require('../../../assets/images/customer.png');
+     logo = require('../../../assets/images/logo4.png');
 
     constructor( private securityService: SecurityService,private route: Router) {}
 
