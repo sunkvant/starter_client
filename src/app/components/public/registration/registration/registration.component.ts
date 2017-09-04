@@ -11,9 +11,9 @@ declare var require: any;
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-    private image1 = require('./trainee.png');
-  private image2 = require('./mentor-2.png');
-    private image3 = require('./customer.png');
+   image1 = require('./trainee.png');
+   image2 = require('./mentor-2.png');
+   image3 = require('./customer.png');
 
     role: String =  String();
 

@@ -25,7 +25,7 @@ export class RegistrationskillComponent implements OnInit {
   bufferSkill: String;
   user: Profile = new Profile();
 
-  skillAdd(name){
+  skillAdd(){
 
     this.skill = new Skill();
     this.skill.id = this.i;
