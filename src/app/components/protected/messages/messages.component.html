@@ -33,7 +33,8 @@
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8">
           <div class="row"><a routerLink="/profile/{{message.senderPerson.id}}"><h4>{{message.senderPerson.contact.fullName}}</h4></a></div>
-          <div class="row" style="text-align:left"><h4>Тема: {{message.title}}</h4></div>
+          <div class="row" style="text-align:left"><h4 *ngIf="message.requestType !== 'Assessment'">Тема: {{message.title}}</h4>
+            <h4 *ngIf="message.requestType === 'Assessment'">Тема: Запрос на ассесмент</h4></div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3">
           {{message.date | date : 'dd/MM/yyyy' }}<p></p>
@@ -87,11 +88,18 @@
                    class="img-circle" alt="Photo" width="35" height="35">
             <a> <span routerLink="/profile/{{showMessage.receiverPerson.id}}">К</span></a>
           </div>
-          <div class="col-lg-9 col-md-9 col-sm-9">
+          <div class="col-lg-9 col-md-9 col-sm-9" *ngIf="showMessage.requestType !== 'Assessment'">
             <div class="row"><h4>Сообщение</h4></div>
             <!--<div class="row"><a routerLink="/profile/{{showMessage.receiverPerson.id}}"><h4>{{showMessage.receiverPerson.contact.fullName}}</h4></a></div>-->
             <div class="row" style="text-align:left"><h4>Тема: {{showMessage.title}}</h4></div>
-            <div class="row" style="text-align:justify"><p>{{showMessage.text}}</p></div>
+            <div class="row" style="text-align:justify"><p *ngIf="showMessage.requestType !== 'Consultation'">{{showMessage.text}}</p>
+              <p *ngIf="showMessage.requestType === 'Consultation'">Доброго времени суток! Прошу провести консультацию по проекту.</p></div>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-9" *ngIf="showMessage.requestType === 'Assessment'">
+            <div class="row"><h4>Сообщение</h4></div>
+            <!--<div class="row"><a routerLink="/profile/{{showMessage.receiverPerson.id}}"><h4>{{showMessage.receiverPerson.contact.fullName}}</h4></a></div>-->
+            <div class="row" style="text-align:left"><h4>Тема: Запрос на ассесмент.</h4></div>
+            <div class="row" style="text-align:justify"><p>Доброго времени суток! Прошу подтвердить мои профессианальные навыки и дать мне ассесмент.</p></div>
           </div>
           <div class="col-lg-2 col-md-2 col-sm-2">
             {{showMessage.date | date:'dd/MM/yyyy'}}
@@ -101,17 +109,19 @@
         <div *ngIf="showMessage.requestType==='Assessment'">
 
           <button type="button" class="btn btn-primary pull-left" aria-label="Close"
+                  *ngIf="showMessage.senderPerson.id !== uid"
                   (click)="setAssessment(showMessage.senderPerson.id);messageAbout.hide()">
             Подтвердить
           </button>
           <button type="button" class="btn btn-primary pull-left" aria-label="Close"
+                  *ngIf="showMessage.senderPerson.id !== uid"
                   (click)="messageAbout.hide()">
             Отклонить
           </button>
         </div>
         <div *ngIf="showMessage.requestType==='Vacancy'">
         <button type="button" class="btn btn-primary pull-left" aria-label="Close"
-                (click)="setUserOnVacancy(showMessage.receiverPerson.id);messageAbout.hide()">
+                (click)="setUserOnVacancy(showMessage.senderPerson.id);messageAbout.hide()">
           Подтвердить
         </button>
         <button type="button" class="btn btn-primary pull-left" aria-label="Close"

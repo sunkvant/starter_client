@@ -36,20 +36,51 @@ export class MessagesComponent implements OnInit {
 
   }
 
-  getAllMessages(){
-    this.messageService.getAllMassages().subscribe( messages => {
+  getAllMessages() {
+    this.messageService.getAllMassages().subscribe(messages => {
       this.messages = messages;
-    });
+      this.messages.sort((a: any, b: any) => {
+        if (a.id > b.id) {
+          return -1;
+        } else if (a.id < b.id) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
 
+    });
   }
+
   getReceivedMessages(){
     this.messageService.getReceivedMessages().subscribe( messages => {
       this.messages = messages;
+      this.messages.sort((a: any, b: any) => {
+        if (a.id > b.id) {
+          return -1;
+        } else if (a.id < b.id) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
     });
+
   }
   getSentMessages(){
     this.messageService.getSentMessages().subscribe( messages => {
       this.messages = messages;
+      this.messages.sort((a: any, b: any) => {
+        if (a.id > b.id) {
+          return -1;
+        } else if (a.id < b.id) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
     });
   }
   setShowMessage(message){
