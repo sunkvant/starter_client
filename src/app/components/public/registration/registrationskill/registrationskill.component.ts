@@ -66,6 +66,9 @@ export class RegistrationskillComponent implements OnInit {
         i++;
       }
     });
+    if(!this.direction){
+      this.direction = this.directionsSearch[0];
+    }
     this.registrationService.setSkills(bufferSkills);
     this.registrationService.setDirection(this.direction);
     this.registrationService.setMentorExp(this.user.mentorExp, this.user.experience);
