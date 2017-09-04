@@ -214,6 +214,7 @@
 
             <div *ngIf="teamTraineeCount !== 0">
             <div *ngFor="let trainee of project.team">
+              <div *ngIf="trainee.isActive">
             <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px" *ngIf="trainee.role==='Trainee'">
             <div class="row" >
               <div class="col-lg-10 col-md-10 col-sm-10" style="text-align: left"
@@ -223,12 +224,14 @@
                 </div>
                 <a routerLink="/profile/{{trainee.profile.id}}"><h6>{{trainee.profile.contact.fullName}}</h6></a></div>
               <div class="col-lg-2 col-md-2 col-sm-2">
-              <span class="btn glyphicon glyphicon-envelope" popover="Отправить сообщение" containerClass="container"
-                    triggers="mouseenter:mouseleave" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px"></span>
+               </div>
               </div>
-              </div>
+              <span class="btn glyphicon glyphicon-delete" popover="Delete" *ngIf="customer || projectMentor"
+                    containerClass="container" (click)="delete.show(); setRemovePersonId(trainee.profile.id)"
+                    triggers="mouseenter:mouseleave" style="background-color: #866031;"> Удалить</span>
             <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left"><h6>{{trainee.profile.direction}}</h6></div>
+            </div>
             </div>
             </div>
             </div>
@@ -249,6 +252,7 @@
 
             <div *ngIf="teamMentorCount !== 0">
             <div *ngFor="let mentor of project.team">
+              <div *ngIf="trainee.isActive">
             <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px" *ngIf="mentor.role==='Mentor'">
               <div class="row" >
                 <div class="col-lg-10 col-md-10 col-sm-10" style="text-align: left">
@@ -258,6 +262,10 @@
                   </div>
                   <a routerLink="/profile/{{mentor.profile.id}}"> <h6>{{mentor.profile.contact.fullName}}</h6></a></div>
                 <div class="col-lg-5 col-md-5 col-sm-5">
+                  <span class="btn glyphicon glyphicon-delete" popover="Delete" *ngIf="customer || projectMentor"
+                  containerClass="container" (click)="delete.show(); setRemovePersonId(mentor.profile.id)"
+                  triggers="mouseenter:mouseleave" style="background-color: #866031;"> Удалить</span>
+
                   <span class="btn glyphicon glyphicon-envelope" popover="Запросить консультацию"
                         containerClass="container" (click)="status.show(); getConsultation(mentor.profile.id)"
                         triggers="mouseenter:mouseleave" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px"> Консультация</span>
@@ -268,6 +276,7 @@
               </div>
             </div>
           </div>
+            </div>
           </div>
           <div *ngIf="teamMentorCount === 0">
             <span>В команде нет ни одного ментора</span>
@@ -780,6 +789,29 @@
 
           <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="status.hide();">
             Ok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--change END-->
+
+  <!--Подтверждение change-->
+
+  <div bsModal #delete="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:10%">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Вы действительно хотите изгнать пользователя из проекта?</h4>
+        </div>
+        <!--<span style="color:red">*После смены статуса на "Close" проект будет закрыт и его редактирование будет невозможным</span>-->
+        <div class="modal-body">
+          <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="delete.hide();">
+            Отмена
+          </button>
+          <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="delete.hide();removeFromTeam()">
+            Удалить
           </button>
         </div>
       </div>
