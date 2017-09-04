@@ -30,16 +30,16 @@
   </div>
   </div>-->
   <!--Avatar END-->
-
-  <div class="col-lg-8 col-md-8 col-sm-8" >
+<div class="col-lg-3 col-md-3 col-sm-3"></div>
+  <div class="col-lg-6 col-md-6 col-sm-6" >
     <!--ФИО-->
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 fullname" style="text-align: left">
+    <div class="col-lg-12 col-md-12 col-sm-12 fullname" style="text-align: center">
       <h2>ФИО<span style="color:red">*</span></h2>
     </div>
   </div>
   <div class="row">
-      <div  class="form-group" class="col-lg-12 col-md-12 col-sm-12 input-group fullnameform" style="text-align: left">
+      <div  class="form-group" class="col-lg-12 col-md-12 col-sm-12 input-group fullnameform" style="text-align: center">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
         <input type="text" class="form-control"  placeholder="Fullname"
                [(ngModel)]="user.contact.fullName" #fullName="ngModel" required  minlength="4">
@@ -54,12 +54,12 @@
 
     <!--Birthday-->
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 fullname" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12 fullname" style="text-align: center">
         <h2>Дата рождения<span style="color:red">*</span></h2>
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 input-group fullnameform form-group" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12 input-group fullnameform form-group" style="text-align: center">
         <span class="input-group-addon"><i class="glyphicon glyphicon-glass"></i></span>
         <input type="date" [(ngModel)]="birth" #dateOfBirth="ngModel" required
                name="dateOfBirth" class="form-control" value="1999-01-01"
@@ -73,9 +73,8 @@
     <!--Birthday END-->
 
     <!--Country-->
-<div class="row">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: center">
         <h2>Страна проживания<span style="color:red">*</span></h2>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 input-group loginform form-group">
@@ -93,7 +92,7 @@
     </div>
 
 
-    <div class="col-lg-12 col-md-12 col-sm-12 input-group login" style="text-align: left">
+    <div class="col-lg-12 col-md-12 col-sm-12 input-group login" style="text-align: center">
       <h2>Город<span style="color:red">*</span></h2>
     </div>
       <div class="col-lg-12 col-md-12 col-sm-12 input-group loginform form-group">
@@ -115,7 +114,7 @@
 
     <!--login-->
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: center">
         <h2>Login<span style="color:red">*</span></h2>
       </div>
     </div>
@@ -137,7 +136,7 @@
 
   <!--Password-->
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 password" style="text-align: left">
+    <div class="col-lg-12 col-md-12 col-sm-12 password" style="text-align: center">
       <h2>Пароль<span style="color:red">*</span></h2>
     </div>
   </div>
@@ -156,7 +155,7 @@
 
   <!--PasswordAccept-->
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 password" style="text-align: left">
+    <div class="col-lg-12 col-md-12 col-sm-12 password" style="text-align: center">
       <h2>Подтвердите пароль<span style="color:red">*</span></h2>
     </div>
   </div>
@@ -174,7 +173,7 @@
 
     <!--E-mail-->
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12 login" style="text-align: center">
         <h2>Email</h2>
       </div>
     </div>
@@ -194,7 +193,7 @@
 
     <!--Моб.телефон-->
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 phone" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12 phone" style="center">
         <h2>Мобильный телефон</h2>
       </div>
     </div>
@@ -214,7 +213,7 @@
 
   <!--Skype-->
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 skype " style="text-align: left">
+    <div class="col-lg-12 col-md-12 col-sm-12 skype " style="text-align: center">
       <h2>Skype</h2>
     </div>
   </div>
@@ -234,7 +233,7 @@
 
     <!--About-->
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 about" style="text-align: left">
+      <div class="col-lg-12 col-md-12 col-sm-12 about" style="text-align: center">
         <h2>О себе/Интересы</h2>
       </div>
     </div>
@@ -251,7 +250,7 @@
 
     <!--Submit-->
     <div class="row" [hidden]="role==='Customer'">
-      <div class="col-lg-12 col-md-12 col-sm-12 submit" style="text-align: right">
+      <div class="col-lg-12 col-md-12 col-sm-12 submit" style="text-align: center">
         <button type="submit"  [disabled]="fullName.invalid || dateOfBirth.invalid || country.invalid || city.invalid || login.invalid || form.controls.password.invalid || form.controls.confirmPassword.invalid || email.invalid || skype.invalid || loginCheck"
                 (click)="nextStep()" class="btn btn-primary">
           Далее
@@ -272,7 +271,6 @@
   </div>
   <!--Registration END-->
 
-  </div>
 
 </div>
   <div class="col-lg-2 col-md-2 col-sm-2"></div>
