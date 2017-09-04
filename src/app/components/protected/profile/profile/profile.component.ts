@@ -207,11 +207,9 @@ chek = false;
     this.newMessage = new Message();
   }
 
-  sentMessage(){
+  sendMessage(){
     this.newMessage.receiverId = this.profile.id;
     this.messageService.sendMessage(this.newMessage).subscribe();
-
-
   }
 
 }

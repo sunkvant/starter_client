@@ -28,9 +28,10 @@
       <div class="col-lg-2 col-md-2 col-sm-2" style="text-align:left">
 
       </div>
-
       <div class="col-lg-6 col-md-6 col-sm-6" style="border: 1px solid #B0C4DE;">
         <div class="col-lg-1 col-md-1 col-sm-1">
+
+
           <img src="{{message.senderPerson.contact.avatarPath}}" class="img-circle" alt="Photo" width="35" height="35">
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8">
@@ -38,17 +39,18 @@
           <div class="row" style="text-align:left"><h4>Тема: {{message.title}}</h4></div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3">
-          {{message.date | date : 'dd/MM/yyyy' }}
+          {{message.date | date : 'dd/MM/yyyy' }}<p></p>
+          <span *ngIf="!message.read" style="color: #a94442">Не прочитано</span>
         </div>
 
         <div class="col-lg-12 col-md-12 col-sm-12 padd">
 
         <button type="button" class="btn btn-primary pull-right" aria-label="Close"
-                (click)="setShowMessage(message);message.show()" *ngIf="message.requestType==='Message' || message.requestType==='Consultation'">
+                (click)="setShowMessage(message); messageAbout.show()" *ngIf="message.requestType==='Message' || message.requestType==='Consultation'">
           Читать
         </button>
           <button type="button" class="btn btn-primary pull-right" aria-label="Close"
-                  (click)="setShowMessage(message);message.show()" *ngIf="message.requestType==='Accessment' || message.requestType==='Vacancy'">
+                  (click)="setShowMessage(message); messageAbout.show()" *ngIf="message.requestType==='Accessment' || message.requestType==='Vacancy'">
             Ответить
           </button>
 
@@ -70,16 +72,26 @@
 
 
 <!--Message-->
-<div bsModal #message="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:10%">
+<div bsModal #messageAbout="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:10%">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE;">
           <div class="col-lg-1 col-md-1 col-sm-1">
-            <img src="{{showMessage.senderPerson.contact.avatarPath}}" class="img-circle" alt="Photo" width="35" height="35">
+
+              <img src="{{showMessage.senderPerson.contact.avatarPath}}"
+                   class="img-circle" alt="Photo" width="35" height="35">
+           <a> <span routerLink="/profile/{{showMessage.senderPerson.id}}">От</span></a>
+          </div>
+          <div class="col-lg-1 col-md-1 col-sm-1" >
+
+              <img src="{{showMessage.receiverPerson.contact.avatarPath}}"
+                   class="img-circle" alt="Photo" width="35" height="35">
+            <a> <span routerLink="/profile/{{showMessage.receiverPerson.id}}">К</span></a>
           </div>
           <div class="col-lg-9 col-md-9 col-sm-9">
-            <div class="row"><a routerLink="/profile/{{showMessage.senderPerson.id}}"><h4>{{showMessage.senderPerson.contact.fullName}}</h4></a></div>
+            <div class="row"><h4>Сообщение</h4></div>
+            <!--<div class="row"><a routerLink="/profile/{{showMessage.receiverPerson.id}}"><h4>{{showMessage.receiverPerson.contact.fullName}}</h4></a></div>-->
             <div class="row" style="text-align:left"><h4>Тема: {{showMessage.title}}</h4></div>
             <div class="row" style="text-align:justify"><p>{{showMessage.text}}</p></div>
           </div>
@@ -88,16 +100,20 @@
           </div>
       </div>
       <div class="modal-body">
-        <div *ngIf="message.requestType==='Accessment' || message.requestType==='Vacancy'">
-        <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="message.hide()">
+        <div *ngIf="showMessage.requestType==='Accessment' || showMessage.requestType==='Vacancy'">
+        <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="messageAbout.hide()">
           Подтвердить
         </button>
-        <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="message.hide()">
+        <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="messageAbout.hide()">
           Отклонить
         </button>
         </div>
-        <button type="button"  *ngIf="message.requestType==='Message' || message.requestType==='Consultation'"
-                class="btn btn-primary pull-right" aria-label="Close" (click)="message.hide()">
+        <button type="button"  *ngIf="showMessage.requestType==='Message' || showMessage.requestType==='Consultation'"
+                class="btn btn-primary pull-left" aria-label="Close" (click)="writeMessage();sendmessage.show();messageAbout.hide()">
+          Ответить
+        </button>
+        <button type="button"  *ngIf="showMessage.requestType==='Message' || showMessage.requestType==='Consultation'"
+                class="btn btn-primary pull-right" aria-label="Close" (click)="messageAbout.hide()">
           Закрыть
         </button>
       </div>
@@ -119,7 +135,7 @@
             <div class="row">
               <div class="col-lg-1 col-md-1 col-sm-1"></div>
               <div class="col-lg-10 col-md-10 col-sm-10">
-                <!--<h4>Получатель: <a >{{profile.contact.fullName}}</a></h4>-->
+                <h4>Получатель: <a >{{showMessage.senderPerson.contact.fullName}}</a></h4>
               </div>
             </div>
 
@@ -165,7 +181,7 @@
 
           </div>
           <button type="button" [disabled]="text.invalid || title.invalid"
-                  class="btn btn-primary pull-left" aria-label="Close" (click)="sendmessage.hide(); sentMessage()">
+                  class="btn btn-primary pull-left" aria-label="Close" (click)="sendmessage.hide(); sendMessage()">
             Отправить
           </button>
           <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="sendmessage.hide()">

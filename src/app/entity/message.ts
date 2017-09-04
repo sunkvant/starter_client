@@ -6,7 +6,7 @@ import {Vacancy} from "./vacancy";
  */
 export class Message {
   id: number;
-  isRead: boolean;
+  read: boolean;
   date: number;
   requestType: String;
   senderPerson: Profile;

@@ -15,7 +15,22 @@ export class MessageService {
       .map(response => {
 
       });
+  }
 
+  getAllMassages() {
+    return this.http
+      .get(API_URL + 'api/messages/getAll')
+      .map(response => {
+           return response.json();
+      });
+  }
+
+  setRead(id) {
+    return this.http
+      .post(API_URL + 'api/message/setRead/' + id, null)
+      .map(response => {
+
+      });
   }
 
 }
