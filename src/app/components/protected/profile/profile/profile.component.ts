@@ -212,4 +212,10 @@ chek = false;
     this.messageService.sendMessage(this.newMessage).subscribe();
   }
 
+  getAssessment(){
+    this.profileService.getAssessment(this.profile.id).subscribe(() => {
+
+    });
+  }
+
 }

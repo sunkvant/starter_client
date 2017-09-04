@@ -11,26 +11,29 @@
       </div>
 
       <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; background-color: #beecf9">
+    <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; margin-bottom:10px; background-color: #f6f8fa; border-radius:5px">
       <div class="col-lg-6 col-md-6 col-sm-6" >
-        <div class="row" style="text-align: Center">
+        <div class="row" style="text-align: Center; margin-bottom:10px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
           <div class="col-lg-12 col-md-12 col-sm-12"><h4>{{project.name}}</h4></div>
         </div>
-        <div class="row" style="text-align: Center">
-          <div class="col-lg-12 col-md-12 col-sm-12"><a routerLink="/profile/{{project.customer.id}}"><h6>{{project.customer.contact.fullName}}</h6></a></div>
+        <div class="row" style="text-align: Center; margin-bottom:10px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
+          <div class="col-lg-12 col-md-12 col-sm-12"><a routerLink="/profile/{{project.customer.id}}"><h5>{{project.customer.contact.fullName}}</h5></a></div>
         </div>
-        <div class="row" style="text-align: Center">
-          <div class="col-lg-12 col-md-12 col-sm-12"><p>{{project.description}}</p></div>
+        <div class="row" style="text-align: Center; margin-bottom:10px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
+          <div class="col-lg-12 col-md-12 col-sm-12"><h5>{{project.description}}</h5></div>
         </div>
       </div>
 
       <div class="col-lg-6 col-md-6 col-sm-6" >
+        <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom:10px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
         <div class="row" style="text-align: Center">
           <div class="col-lg-12 col-md-12 col-sm-12"><h4>Отрасль</h4></div>
         </div>
         <div class="row" style="text-align: Center">
           <div class="col-lg-12 col-md-12 col-sm-12"><h5>{{project.projectCategory}}</h5></div>
         </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom:10px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
         <div class="row" style="text-align: Center">
           <div class="col-lg-12 col-md-12 col-sm-12"><h4>Срок реализации</h4></div>
         </div>
@@ -40,13 +43,15 @@
               <b *ngIf="!project.dateEnd">В разработе</b>
           </h5></div>
         </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom:10px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
         <div class="row" style="text-align: Center">
           <div class="col-lg-12 col-md-12 col-sm-12"><h4>Статус проекта</h4></div>
         </div>
 
 
 
-        <div class="dropdown form-group" *ngIf="customer">
+        <div class="dropdown form-group" *ngIf="customer && project.projectStatus !== 'Close'">
           <button class="btn btn-primary dropdown-toggle" type="button"
                   data-toggle="dropdown">
             {{project.projectStatus}}
@@ -54,13 +59,14 @@
           </button>
           <ul class="dropdown-menu" role="menu">
             <li role="menuitem" style="cursor: pointer" *ngFor="let status of statuses"
-                (click)="project.projectStatus.statuses=status;acceptChangeStatus.show();"><a>{{status}}</a></li>
+                (click)="setStatus(status);acceptChangeStatus.show();"><a>{{status}}</a></li>
           </ul>
         </div>
 
 
-        <div class="row" style="text-align: Center" *ngIf="!customer">
+        <div class="row" style="text-align: Center" *ngIf="!customer || project.projectStatus === 'Close'">
           <div class="col-lg-12 col-md-12 col-sm-12"><h5>{{project.projectStatus}}</h5></div>
+        </div>
         </div>
       </div>
 
@@ -69,8 +75,9 @@
     </div>
       </div>
     </div>
-    <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: left" *ngIf="customer">
-      <span class="btn glyphicon glyphicon-edit" popover="Редактировать описание проекта" placement="left" containerClass="container" triggers="mouseenter:mouseleave" (click)="openModal1(template1)" style="background-color: #6aafb7"></span>
+    <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: left" *ngIf="customer && project.projectStatus !== 'Close'">
+      <span class="btn glyphicon glyphicon-edit" popover="Редактировать описание проекта"
+            placement="left" containerClass="container" triggers="mouseenter:mouseleave" (click)="openModal1(template1)" style="background-color: #6aafb7"></span>
     </div>
   </div>
       <!--Information END-->
@@ -83,9 +90,11 @@
         <div class="col-lg-12" ><h2>Коммуникация на проекте</h2></div>
       </div>
 
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; background-color: #beecf9">
-          <div class="col-lg-4 col-md-4 col-sm-4" >
+      <div class="row" >
+        <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; margin-bottom:10px; background-color: #f6f8fa; border-radius:5px">
+
+          <div class="col-lg-4 col-md-4 col-sm-4" style="background-color: #dbedff; border-radius:5px">
+
             <div class="row" style="text-align: Center">
               <div class="col-lg-12 col-md-12 col-sm-12"><h4>Язык общения</h4></div>
             </div>
@@ -95,11 +104,12 @@
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="project.languages.length === 0">
               <h6>Любой</h6></div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4" >
+
 
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-4" >
+          <div class="col-lg-4 col-md-4 col-sm-4" >          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-4" style="background-color: #dbedff; border-radius:5px" >
             <div class="row" style="text-align: Center">
               <div class="col-lg-12 col-md-12 col-sm-12"><h4>Способ коммуникации на проекте</h4></div>
             </div>
@@ -111,7 +121,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-2" style="text-align: left" *ngIf="customer">
+    <div class="col-lg-2" style="text-align: left" *ngIf="customer && project.projectStatus !== 'Close'">
       <span class="btn glyphicon glyphicon-edit"
             popover="Редактировать способ коммуникации на проекте" placement="left"
             containerClass="container" triggers="mouseenter:mouseleave"
@@ -123,37 +133,40 @@
       <!--Vacantion-->
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="col-lg-2 col-md-2 col-sm-2"></div>
-      <div class="col-lg-8 col-md-8 col-sm-8">
+      <div class="col-lg-8 col-md-8 col-sm-8" >
       <div class="row padd" style="text-align: center;">
         <div class="col-lg-12" ><h2>Вакансии</h2></div>
           <div class="col-lg-12 col-md-12 col-sm-12">
-            <span class="btn btn-sm glyphicon glyphicon-plus" *ngIf="customer||projectMentor"
-                  popover="Добавить вакансию" containerClass="container" triggers="mouseenter:mouseleave"
+            <span class="btn btn-sm glyphicon glyphicon-plus" *ngIf="(customer||projectMentor) && project.projectStatus !== 'Close'"
+                  popover="Добавить вакансию" containerClass="container"
+                  triggers="mouseenter:mouseleave"
                   (click)="openModal4(template3)" style="background-color: #22e42c"></span>
           </div>
       </div>
 
-      <div class="row" *ngIf="project.vacancies.length !==0">
-        <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; background-color: #beecf9" *ngFor="let vacancy of project.vacancies">
-<div *ngIf="vacancy!== null">
-          <div class="col-lg-4 col-md-4 col-sm-4" style="border: 1px solid #B0C4DE;" *ngIf="vacancy">
-            <div class="col-lg-9 col-md-9 col-sm-9">
+      <div class="row"  style="border: 1px solid #B0C4DE; margin-bottom:10px; background-color: #f6f8fa; border-radius:5px" *ngIf="project.vacancies.length !==0">
 
-            <div class="row" style="text-align: Center">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-4 col-md-4 col-sm-4" *ngFor="let vacancy of project.vacancies" style="float: left">
+<div *ngIf="vacancy!== null">
+          <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="vacancy">
+            <div class="col-lg-9 col-md-9 col-sm-9" style="margin-bottom:10px; background-color: #dbedff; border-radius:5px">
+
+            <div class="row" style="text-align: Center;">
               <div class="col-lg-12 col-md-12 col-sm-12"><h4>{{vacancy.position}}</h4> </div>
             </div>
-              <div class="row" style="text-align: Center">
+              <div class="row" style="text-align: Center;">
                 <div class="col-lg-12 col-md-12 col-sm-12"><h5>{{vacancy.role}}</h5> </div>
               </div>
 
-            <div class="row" style="text-align: Center">
+            <div class="row" style="text-align: Center;">
               <div class="col-lg-12 col-md-12 col-sm-12"><h6>{{vacancy.personNumber}} чел.</h6></div>
             </div>
 
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3">
               <span class="btn btn-sm glyphicon glyphicon-edit" popover="Подробнее"
-                    containerClass="container" triggers="mouseenter:mouseleave" (click)="setShowVacancy(vacancy);vacantion.show()" style="background-color: #6aafb7"></span>
+                    containerClass="container" triggers="mouseenter:mouseleave" (click)="setShowVacancy(vacancy);vacantion.show()" style="background-color: #95d5de;"></span>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3">
               <span class="btn btn-sm glyphicon glyphicon-remove" popover="Удалить вакансию"
@@ -162,12 +175,13 @@
                     placement="bottom" containerClass="container" triggers="mouseenter:mouseleave" style="background-color: #b73f3f"></span>
             </div>
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-4" style="border: 1px solid #B0C4DE;">
+          <div class="col-lg-4 col-md-4 col-sm-4">
 
           </div>
 
         </div>
         </div>
+      </div>
       </div>
 
         <div *ngIf="project.vacancies.length === 0">
@@ -189,18 +203,18 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; background-color: #beecf9">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; margin-bottom:10px; background-color: #f6f8fa; border-radius:5px">
 
           <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row" style="text-align: Center">
-              <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE;"><h4>Стажёры</h4></div>
+              <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px"><h4>Стажёры</h4></div>
             </div>
             </div>
 
             <div *ngIf="teamTraineeCount !== 0">
             <div *ngFor="let trainee of project.team">
-            <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE;" *ngIf="trainee.role==='Ментор'">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px" *ngIf="trainee.role==='Ментор'">
             <div class="row" >
               <div class="col-lg-10 col-md-10 col-sm-10" style="text-align: left"
                    routerLink="/profile/{{trainee.profile.id}}">
@@ -210,7 +224,7 @@
                 <h6>{{trainee.profile.contact.fullName}}</h6></div>
               <div class="col-lg-2 col-md-2 col-sm-2">
               <span class="btn glyphicon glyphicon-envelope" popover="Отправить сообщение" containerClass="container"
-                    triggers="mouseenter:mouseleave" style="background-color: #6aafb7"></span>
+                    triggers="mouseenter:mouseleave" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px"></span>
               </div>
               </div>
             <div class="row">
@@ -229,13 +243,13 @@
           <div class="col-lg-6 col-md-6 col-sm-6" >
             <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row" style="text-align: Center">
-              <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE;"><h4>Менторы</h4></div>
+              <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px;"><h4>Менторы</h4></div>
             </div>
             </div>
 
             <div *ngIf="teamMentorCount !== 0">
             <div *ngFor="let mentor of project.team">
-            <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE;" *ngIf="mentor.role==='Ментор'">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px" *ngIf="mentor.role==='Ментор'">
               <div class="row" >
                 <div class="col-lg-10 col-md-10 col-sm-10" style="text-align: left"
                 routerLink="/profile/{{mentor.profile.id}}">
@@ -246,7 +260,7 @@
                 <div class="col-lg-2 col-md-2 col-sm-2">
                   <span class="btn glyphicon glyphicon-envelope" popover="Отправить сообщение"
                         containerClass="container" (click)="sendmessage.show()"
-                        triggers="mouseenter:mouseleave" style="background-color: #6aafb7"></span>
+                        triggers="mouseenter:mouseleave" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px"></span>
                 </div>
               </div>
               <div class="row">
@@ -601,15 +615,15 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12" style="border: 1px solid #B0C4DE; background-color: #beecf9">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #f6f8fa; border-radius:5px">
 
 
-              <div class="row padd" style="text-align: Center; background-color: #acd9ff">
+              <div class="row padd" style="text-align: Center; margin-bottom:10px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
                 <div class="col-lg-12 col-md-12 col-sm-12"><h3>{{showVacancy.position}}</h3></div>
               </div>
 
-              <div class="col-lg-12 col-md-12 col-sm-12 padd">
-                <div class="row" style="text-align: Center; background-color: #acd9ff">
+              <div class="col-lg-12 col-md-12 col-sm-12 padd" style="margin-bottom:10px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
+                <div class="row" style="text-align: Center;">
                   <div class="col-lg-12 col-md-12 col-sm-12"><h4>Требуемая роль</h4></div>
                 </div>
                 <div class="row" style="text-align: Center">
@@ -631,12 +645,12 @@
                 <!--Навыки END-->
               </div>
 
-              <div class="col-lg-12 col-md-12 col-sm-12 padd" *ngIf="showVacancy.languages.length !== 0">
-                <div class="row" style="text-align: Center; background-color: #acd9ff">
+              <div class="col-lg-12 col-md-12 col-sm-12 padd" *ngIf="showVacancy.languages.length !== 0" style="margin-bottom:10px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
+                <div class="row" style="text-align: Center;">
                   <div class="col-lg-12 col-md-12 col-sm-12"><h4>Требуемые языки</h4></div>
                 </div>
                 <!--Языки-->
-                <div class="row padd" >
+                <div class="row padd" style="margin-bottom:10px; margin-left:1px; margin-right:1px; background-color: #dbedff; border-radius:5px">
                   <span class="label label-default" *ngFor="let language of showVacancy.languages">{{language}}</span>
                 </div>
                 <!--Языки END-->
@@ -645,9 +659,9 @@
           </div>
                       <span *ngIf="approved !== 'true' && role==='Mentor'">Чтобы принимать участие в проектах необходимо пройти ассесмент</span>
         </div>
-        <button type="button" class="btn btn-primary pull-left"
+        <button type="button" class="btn btn-primary pull-left" *ngIf="!customer&&role===showVacancy.role"
                 [disabled]="approved !== 'true' && role==='Mentor'" aria-label="Close"
-                (click)="vacantion.hide()">
+                (click)="vacantion.hide();requestVacancy(showVacancy.id)" >
           Подать заявку
         </button>
         <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="vacantion.hide()">
@@ -660,6 +674,7 @@
   <!--Просмотр вакансии END-->
 
   <!--Отправка сообщения-->
+<!--
 
   <div bsModal #sendmessage="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:0px">
     <div class="modal-dialog">
@@ -671,7 +686,7 @@
           <div class="row">
             <div class="col-lg-1 col-md-1 col-sm-1"></div>
             <div class="col-lg-10 col-md-10 col-sm-10">
-              <!--<h4>Получатель: <a >{{profile.contact.fullName}}</a></h4>-->
+              &lt;!&ndash;<h4>Получатель: <a >{{profile.contact.fullName}}</a></h4>&ndash;&gt;
             </div>
           </div>
 
@@ -726,6 +741,7 @@
       </div>
     </div>
   </div>
+-->
 
   <!--Отправка сообщения END-->
 
@@ -735,14 +751,14 @@
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title pull-left">Вы действительно хотите cменить статус проектa?</h4>
+          <h4 class="modal-title pull-left">Вы действительно хотите cменить статус проектa на {{status}}?</h4>
         </div>
-        <span style="color:red">После смены стату на "Завершён" проект был закрыт и его редактирование будет невозможным</span>
+        <span style="color:red">*После смены статуса на "Close" проект будет закрыт и его редактирование будет невозможным</span>
         <div class="modal-body">
-          <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="accept.hide()">
+          <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="acceptChangeStatus.hide()">
             Нет
           </button>
-          <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="accept.hide();changeProjectStatus() ">
+          <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="acceptChangeStatus.hide();changeProjectStatus() ">
             Подтвердить
           </button>
         </div>

@@ -51,6 +51,7 @@ export class ProjectComponent implements OnInit {
   role: String;
   newMessage: Message;
   statuses: String[];
+  status: String;
 
   skillAdd(name){
 
@@ -208,7 +209,7 @@ export class ProjectComponent implements OnInit {
 
     this.vacancy.skills = bufferSkills;
     this.vacancy.languages = this.bufferLanguages;
-    this.vacancyService.addVacancy(this.vacancy,this.project.id).subscribe(success => {
+    this.vacancyService.addVacancy(this.vacancy, this.project.id).subscribe(success => {
       this.project.vacancies.push(this.vacancy);
     });
   }
@@ -222,7 +223,6 @@ export class ProjectComponent implements OnInit {
       .subscribe( success => {
         this.project.vacancies[this.deletedI] = null;
       });
-
   }
 
   setDeletedId(id){
@@ -232,19 +232,25 @@ export class ProjectComponent implements OnInit {
   setShowVacancy(vacancy){
     this.showVacancy = vacancy;
   }
+
+  setStatus(status){
+    this.status = status;
+  }
   changeProjectStatus(){
-
+    if(this.status !== 'Close'){
+      this.project.projectStatus = this.status;
+      this.projectService.updateProject(this.project).subscribe();
+    }
+    if(this.status === 'Close'){
+      this.project.projectStatus = this.status;
+      this.projectService.closeProject(this.project.id).subscribe();
+    }
   }
 
-  createNewMessage(){
-    this.newMessage = new Message();
+  requestVacancy(id){
+    this.vacancyService.requestVacancy(id).subscribe();
   }
 
-  sentMessage(){
-    //this.newMessage.receiverId = this.profile.id;
-    this.messageService.sendMessage(this.newMessage).subscribe();
 
-
-  }
 
 }
