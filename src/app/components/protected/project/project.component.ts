@@ -11,6 +11,8 @@ import {Vacancy} from '../../../entity/vacancy';
 import {Skill} from "../../../entity/skill";
 import {SkillService} from "../../../service/skill.service";
 import {VacancyService} from "../../../service/vacancy.service";
+import {Message} from "../../../entity/message";
+import {MessageService} from "../../../service/message.service";
 
 @Component({
   selector: 'app-project',
@@ -47,6 +49,8 @@ export class ProjectComponent implements OnInit {
   showVacancy: Vacancy;
   approved: String;
   role: String;
+  newMessage: Message;
+  statuses: String[];
 
   skillAdd(name){
 
@@ -67,12 +71,15 @@ export class ProjectComponent implements OnInit {
 
   constructor(private modalService: BsModalService, private projectService: ProjectService,
   private activatedRoute: ActivatedRoute, private route: Router, private categoryService: CategoryService,
-  private languageService: LanguageService, private skillService: SkillService, private vacancyService: VacancyService) {
+  private languageService: LanguageService, private skillService: SkillService, private vacancyService: VacancyService,
+  private messageService: MessageService) {
     this.roles[0] = 'Mentor';
     this.roles[1] = 'Trainee';
     this.showVacancy = new Vacancy();
     this.approved = localStorage.getItem('approved');
     this.role = localStorage.getItem('role');
+    this.newMessage = new Message();
+    this.statuses = this.projectService.getStatuses();
   }
 
     public openModal1(template: TemplateRef<any>) {
@@ -224,6 +231,20 @@ export class ProjectComponent implements OnInit {
 
   setShowVacancy(vacancy){
     this.showVacancy = vacancy;
+  }
+  changeProjectStatus(){
+
+  }
+
+  createNewMessage(){
+    this.newMessage = new Message();
+  }
+
+  sentMessage(){
+    //this.newMessage.receiverId = this.profile.id;
+    this.messageService.sendMessage(this.newMessage).subscribe();
+
+
   }
 
 }

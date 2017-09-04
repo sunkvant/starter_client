@@ -43,10 +43,28 @@
         <div class="row" style="text-align: Center">
           <div class="col-lg-12 col-md-12 col-sm-12"><h4>Статус проекта</h4></div>
         </div>
-        <div class="row" style="text-align: Center">
+
+
+
+        <div class="dropdown form-group" *ngIf="customer">
+          <button class="btn btn-primary dropdown-toggle" type="button"
+                  data-toggle="dropdown">
+            {{project.projectStatus}}
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li role="menuitem" style="cursor: pointer" *ngFor="let status of statuses"
+                (click)="project.projectStatus.statuses=status;acceptChangeStatus.show();"><a>{{status}}</a></li>
+          </ul>
+        </div>
+
+
+        <div class="row" style="text-align: Center" *ngIf="!customer">
           <div class="col-lg-12 col-md-12 col-sm-12"><h5>{{project.projectStatus}}</h5></div>
         </div>
       </div>
+
+
 
     </div>
       </div>
@@ -226,7 +244,8 @@
                   </div>
                   <h6>{{mentor.profile.contact.fullName}}</h6></div>
                 <div class="col-lg-2 col-md-2 col-sm-2">
-                  <span class="btn glyphicon glyphicon-envelope" popover="Отправить сообщение" containerClass="container"
+                  <span class="btn glyphicon glyphicon-envelope" popover="Отправить сообщение"
+                        containerClass="container" (click)="sendmessage.show()"
                         triggers="mouseenter:mouseleave" style="background-color: #6aafb7"></span>
                 </div>
               </div>
@@ -639,3 +658,96 @@
   </div>
 
   <!--Просмотр вакансии END-->
+
+  <!--Отправка сообщения-->
+
+  <div bsModal #sendmessage="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:0px">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="text-align: center">
+          <h3 class="modal-title">Отправить сообщение</h3>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col-lg-10 col-md-10 col-sm-10">
+              <!--<h4>Получатель: <a >{{profile.contact.fullName}}</a></h4>-->
+            </div>
+          </div>
+
+          <div class="row padd">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-1 col-md-1 col-sm-1"></div>
+              <div class="col-lg-10 col-md-10 col-sm-10">
+                <h4>Тема сообщения:<span style="color:red">*</span></h4>
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-1 col-md-1 col-sm-1"></div>
+              <div class="col-lg-10 col-md-10 col-sm-10 input-group">
+                <span class="input-group-addon" ><i class="glyphicon glyphicon-pencil"></i></span>
+                <input type="text" class="form-control" style="margin-top: 0px" [(ngModel)]="newMessage.title" required minlength="3"
+                       placeholder="Тема сообщения" #title="ngModel" aria-describedby="basic-addon1" id="messagetitle">
+              </div>
+              <div [hidden]="title.valid || title.untouched" class="alert alert-danger">
+                Некорректная тема
+              </div>
+            </div>
+          </div>
+
+          <div class="row padd">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-1 col-md-1 col-sm-1"></div>
+              <div class="col-lg-10 col-md-10 col-sm-10">
+                <h4>Текст сообщения:<span style="color:red">*</span></h4>
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-1 col-md-1 col-sm-1"></div>
+              <div class="col-lg-10 col-md-10 col-sm-10 input-group">
+                <span class="input-group-addon" ><i class="glyphicon glyphicon-pencil"></i></span>
+                <textarea class="form-control" [(ngModel)]="newMessage.text" #text="ngModel" required
+                          style="margin-top: 0px" placeholder="Текст сообщения" rows="5" id="comment"></textarea>
+              </div>
+              <div [hidden]="text.valid || text.untouched" class="alert alert-danger">
+                Введите сообщение
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <button type="button" [disabled]="text.invalid || title.invalid"
+                class="btn btn-primary pull-left" aria-label="Close" (click)="sendmessage.hide(); sentMessage()">
+          Отправить
+        </button>
+        <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="sendmessage.hide()">
+          Закрыть
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--Отправка сообщения END-->
+
+  <!--Подтверждение change-->
+
+  <div bsModal #acceptChangeStatus="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="padding-top:10%">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Вы действительно хотите cменить статус проектa?</h4>
+        </div>
+        <span style="color:red">После смены стату на "Завершён" проект был закрыт и его редактирование будет невозможным</span>
+        <div class="modal-body">
+          <button type="button" class="btn btn-primary pull-left" aria-label="Close" (click)="accept.hide()">
+            Нет
+          </button>
+          <button type="button" class="btn btn-warning pull-right" aria-label="Close" (click)="accept.hide();changeProjectStatus() ">
+            Подтвердить
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--change END-->

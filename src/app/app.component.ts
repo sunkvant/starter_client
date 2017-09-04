@@ -54,7 +54,10 @@ search(value) {
         this.isDataAvalible = true;
         localStorage.setItem('uid', this.myProfile.id.toString());
         localStorage.setItem('role', this.myProfile.role.toString());
-        localStorage.setItem('approved', this.myProfile.approved.toString());
+        if(this.myProfile.role !== 'Customer'){
+          localStorage.setItem('approved', this.myProfile.approved.toString());
+        }
+
       });
     }else{
       this.isDataAvalible = true;

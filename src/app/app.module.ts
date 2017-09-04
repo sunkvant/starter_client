@@ -39,13 +39,13 @@ import {LanguageService} from './service/language.service';
 import {ProjectService} from './service/project.service';
 import {ProjectComponent} from './components/protected/project/project.component';
 import {SearchpersonComponent} from './components/protected/searchperson/searchperson.component';
-import {VacancyService} from "./service/vacancy.service";
-import {MyprojectsComponent} from "./components/protected/myprojects/myprojects.component";
-import {SearchprojectComponent} from "./components/protected/searchproject/searchproject.component";
-import {ConverterService} from "./service/converter.service";
-import {SearchvacantionComponent} from "./components/protected/searchvacantion/searchvacantion.component";
-import {MessagesComponent} from "./components/protected/messages/messages.component";
-import { WriteMessageComponent } from './components/protected/write-message/write-message.component';
+import {VacancyService} from './service/vacancy.service';
+import {MyprojectsComponent} from './components/protected/myprojects/myprojects.component';
+import {SearchprojectComponent} from './components/protected/searchproject/searchproject.component';
+import {ConverterService} from './service/converter.service';
+import {SearchvacantionComponent} from './components/protected/searchvacantion/searchvacantion.component';
+import {MessagesComponent} from './components/protected/messages/messages.component';
+import {MessageService} from './service/message.service';
 
 const appRoutes: Routes = [
   { path: 'profile/:id', component: ProfileComponent },
@@ -100,8 +100,7 @@ const appRoutes: Routes = [
     MyprojectsComponent,
     SearchprojectComponent,
     SearchvacantionComponent,
-    MessagesComponent,
-    WriteMessageComponent
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -118,7 +117,8 @@ const appRoutes: Routes = [
     ProfileService, TokenService, HttpClient,
     RegistrationService, CountryService, CityService, EducationService,
     CourseService, WorkplaceService, DirectionService, SkillService, SecurityService,
-  ContactService, CategoryService, LanguageService, ProjectService, VacancyService, ConverterService],
+  ContactService, CategoryService, LanguageService, ProjectService, VacancyService, ConverterService,
+    MessageService],
 
   bootstrap: [AppComponent]
 

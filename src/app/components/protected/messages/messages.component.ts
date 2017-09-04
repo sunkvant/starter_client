@@ -18,6 +18,8 @@ export class MessagesComponent implements OnInit {
     this.messages = [];
     this.showMessage = new Message();
     this.showMessage.senderPerson =  new Profile();
+    this.newMessage = new Message();
+    this.newMessage.senderPerson = new Profile();
   }
 
   ngOnInit() {
