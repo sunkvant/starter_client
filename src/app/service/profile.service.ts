@@ -74,9 +74,9 @@ export class ProfileService {
         return response;
       });
   }
-  setAssessment(uid){
+  setAssessment(uid,id){
     return this.http
-      .post(API_URL + 'api/profile/' + uid + '/approwed', null)
+      .post(API_URL + 'api/profile/' + uid + '/approwed/' + id, null)
       .map(response => {
         //console.log(response);
         return response;

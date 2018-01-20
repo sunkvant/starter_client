@@ -114,13 +114,17 @@ export class MessagesComponent implements OnInit {
     });
   }
 
-  setAssessment(uid){
-    this.profileService.setAssessment(uid).subscribe();
+  setAssessment(uid,id){
+    this.profileService.setAssessment(uid,id).subscribe();
+    this.deletedMessage = this.showMessage;
+    this.deleteMessage();
 
   }
 
   setUserOnVacancy(uid){
     this.vacancyService.setUserOnVacancy(uid, this.showMessage.vacancyDTO.id).subscribe();
+    this.deletedMessage = this.showMessage;
+    this.deleteMessage();
   }
 
 }

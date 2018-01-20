@@ -111,12 +111,12 @@
             {{showMessage.date | date:'dd/MM/yyyy'}}
           </div>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" *ngIf="showMessage.senderPerson.id !== uid">
         <div *ngIf="showMessage.requestType==='Assessment'">
 
           <button type="button" class="btn btn-primary pull-left" aria-label="Close"
                   *ngIf="showMessage.senderPerson.id !== uid"
-                  (click)="setAssessment(showMessage.senderPerson.id);messageAbout.hide()">
+                  (click)="setAssessment(showMessage.senderPerson.id,showMessage.receiverPerson.id);messageAbout.hide()">
             Подтвердить
           </button>
           <button type="button" class="btn btn-primary pull-left" aria-label="Close"

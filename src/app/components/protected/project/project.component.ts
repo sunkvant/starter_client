@@ -138,7 +138,6 @@ export class ProjectComponent implements OnInit {
           (project) => {
             this.teamMentorCount = 0;
             this.teamTraineeCount = 0;
-            console.log(project);
             if (project){
               if (project.customer.id.toString() === localStorage.getItem('uid')){
                 this.customer = true;
@@ -242,6 +241,9 @@ export class ProjectComponent implements OnInit {
 
   setStatus(status){
     this.status = status;
+  }
+  getStatus(){
+    return this.status;
   }
   changeProjectStatus(){
     if(this.status !== 'Close'){

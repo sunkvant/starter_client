@@ -6,7 +6,7 @@ export class TeamPerson {
   id: number;
   position: String ;
   role: String ;
-  isActive: boolean;
+  active: boolean;
   profile: Profile;
 
 

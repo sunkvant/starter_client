@@ -15,6 +15,8 @@ import {Contact} from '../../../../entity/contact';
 import {Location} from "../../../../entity/location";
 import {Message} from "../../../../entity/message";
 import {MessageService} from "../../../../service/message.service";
+import {Project} from "../../../../entity/project";
+import {ProjectService} from "../../../../service/project.service";
 
 @Component({
   selector: 'app-profile',
@@ -47,19 +49,21 @@ chek = false;
   newMessage: Message;
   role: String;
   approved: boolean;
+  projects: Project[];
 
 
   constructor(private activatedRoute: ActivatedRoute, private profileService: ProfileService,
               private modalService: BsModalService, private countryService: CountryService,
               private cityService: CityService, private courseService: CourseService,
               private contactService: ContactService, private route: Router,
-  private messageService: MessageService) {
+  private messageService: MessageService, private projectService: ProjectService) {
 
     this.newMessage = new Message();
     this.role = localStorage.getItem('role');
     if(localStorage.getItem('approved') === 'false'){
       this.approved = false;
     }
+
 
 
   }
@@ -113,6 +117,7 @@ chek = false;
             if (profile){
               this.customer = false;
               this.profile = profile;
+              this.projectService.getProjectByUid(this.profile.id).subscribe(succsess => {this.projects = succsess; });
               this.isDataAvailable = true;
               console.log(this.profile);
               if ( localStorage.getItem('uid') === this.profile.id.toString()){
@@ -132,6 +137,7 @@ chek = false;
             if (profile) {
               this.customer = true;
               this.profile = profile;
+              this.projectService.getProjectByUid(this.profile.id).subscribe(succsess => {this.projects = succsess; });
               //console.log(this.profile);
               this.isDataAvailable = true;
             }else{

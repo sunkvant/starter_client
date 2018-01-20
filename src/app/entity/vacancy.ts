@@ -9,6 +9,7 @@ export class Vacancy {
   languages: String[] = [];
   projectId: number;
   personNumber: number;
+  active: boolean;
 
 
   constructor(values: Object = {}) {

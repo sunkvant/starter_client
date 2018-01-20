@@ -19,6 +19,7 @@ export class Project {
   reviews: Review[];
   vacancies: Vacancy[];
   team: TeamPerson[];
+  active:boolean;
 
 
   constructor(values: Object = {}) {

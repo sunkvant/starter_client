@@ -5,6 +5,7 @@ import {HttpClient} from './http-client';
 import {environment} from '../environments/environment';
 import {Profile} from './entity/profile';
 import {SecurityService} from './service/security.service';
+import {MessageService} from './service/message.service';
 
 
 @Component({
@@ -20,9 +21,10 @@ export class AppComponent implements OnInit {
   title = 'app';
   public uid: any;
   isDataAvalible = false;
+  public notReadMessages: number;
 
 constructor(private http: HttpClient, private route: Router, private securityService: SecurityService,
-            private activatedRoute: ActivatedRoute, private profileService: ProfileService) {}
+            private activatedRoute: ActivatedRoute, private profileService: ProfileService, private messageService: MessageService) {}
 
 toProfile(id){
   this.route.navigate(['/profile/' + id]);
@@ -48,13 +50,14 @@ search(value) {
 
   ngOnInit() {
     this.showHead = this.securityService.checkSecurityStatus();
-    if(this.showHead) {
+    if (this.showHead) {
       this.profileService.getProfile().subscribe(profile => {
         this.myProfile = profile;
         this.isDataAvalible = true;
+        this.getMessages();
         localStorage.setItem('uid', this.myProfile.id.toString());
         localStorage.setItem('role', this.myProfile.role.toString());
-        if(this.myProfile.role !== 'Customer'){
+        if (this.myProfile.role !== 'Customer'){
           localStorage.setItem('approved', this.myProfile.approved.toString());
         }
 
@@ -62,6 +65,18 @@ search(value) {
     }else{
       this.isDataAvalible = true;
     }
+  }
+
+  getMessages(){
+  this.notReadMessages = 0;
+    return this.messageService.getReceivedMessages().subscribe(messages => {
+      console.log(messages);
+      messages.forEach(message => {
+        if (!message.read){
+          this.notReadMessages++;
+        }
+      });
+    });
   }
 
 }

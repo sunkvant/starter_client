@@ -149,7 +149,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="col-lg-4 col-md-4 col-sm-4" *ngFor="let vacancy of project.vacancies" style="float: left">
 <div *ngIf="vacancy!== null">
-          <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="vacancy">
+          <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="vacancy.active">
             <div class="col-lg-9 col-md-9 col-sm-9" style="margin-bottom:10px; background-color: #dbedff; border-radius:5px">
 
             <div class="row" style="text-align: Center;">
@@ -164,11 +164,11 @@
             </div>
 
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="this.project.projectStatus != 'Close'">
               <span class="btn btn-sm glyphicon glyphicon-edit" popover="Подробнее"
                     containerClass="container" triggers="mouseenter:mouseleave" (click)="setShowVacancy(vacancy);vacantion.show()" style="background-color: #95d5de;"></span>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="this.project.projectStatus != 'Close'">
               <span class="btn btn-sm glyphicon glyphicon-remove" popover="Удалить вакансию"
                     *ngIf="customer||projectMentor"
                     (click)="accept.show(); setDeletedId(vacancy.id); setDeletedI(project.vacancies.indexOf(vacancy))"
@@ -214,7 +214,7 @@
 
             <div *ngIf="teamTraineeCount !== 0">
             <div *ngFor="let trainee of project.team">
-              <div *ngIf="trainee.isActive">
+              <div >
             <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px" *ngIf="trainee.role==='Trainee'">
             <div class="row" >
               <div class="col-lg-10 col-md-10 col-sm-10" style="text-align: left"
@@ -226,9 +226,12 @@
               <div class="col-lg-2 col-md-2 col-sm-2">
                </div>
               </div>
-              <span class="btn glyphicon glyphicon-delete" popover="Delete" *ngIf="customer || projectMentor"
+              <span class="btn glyphicon glyphicon-delete" popover="Delete" *ngIf="(customer || projectMentor) && trainee.active"
                     containerClass="container" (click)="delete.show(); setRemovePersonId(trainee.profile.id)"
                     triggers="mouseenter:mouseleave" style="background-color: #866031;"> Удалить</span>
+              <span *ngIf="!trainee.active">
+                Пользователь изгнан из команды
+              </span>
             <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left"><h6>{{trainee.profile.direction}}</h6></div>
             </div>
@@ -252,7 +255,7 @@
 
             <div *ngIf="teamMentorCount !== 0">
             <div *ngFor="let mentor of project.team">
-              <div *ngIf="trainee.isActive">
+              <div>
             <div class="col-lg-12 col-md-12 col-sm-12" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px" *ngIf="mentor.role==='Mentor'">
               <div class="row" >
                 <div class="col-lg-10 col-md-10 col-sm-10" style="text-align: left">
@@ -261,15 +264,19 @@
                     <img src="{{mentor.profile.contact.avatarPath}}" class="img-circle" alt="Photo" width="35" height="35">
                   </div>
                   <a routerLink="/profile/{{mentor.profile.id}}"> <h6>{{mentor.profile.contact.fullName}}</h6></a></div>
-                <div class="col-lg-5 col-md-5 col-sm-5">
-                  <span class="btn glyphicon glyphicon-delete" popover="Delete" *ngIf="customer || projectMentor"
+                <div class="col-lg-5 col-md-5 col-sm-5" >
+                  <span class="btn glyphicon glyphicon-delete" popover="Delete" *ngIf="(customer || projectMentor)&&mentor.active"
                   containerClass="container" (click)="delete.show(); setRemovePersonId(mentor.profile.id)"
                   triggers="mouseenter:mouseleave" style="background-color: #866031;"> Удалить</span>
 
                   <span class="btn glyphicon glyphicon-envelope" popover="Запросить консультацию"
+                        *ngIf="!projectMentor && mentor.active"
                         containerClass="container" (click)="status.show(); getConsultation(mentor.profile.id)"
                         triggers="mouseenter:mouseleave" style="background-color: #dbedff; border-radius:5px; margin-bottom:10px; margin-right:5px"> Консультация</span>
                 </div>
+                <span *ngIf="!mentor.active">
+                  Пользователь изгнан из команды
+                </span>
               </div>
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: left"><h6>{{mentor.profile.direction}}</h6></div>
@@ -760,7 +767,7 @@
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title pull-left">Вы действительно хотите cменить статус проектa на {{status}}?</h4>
+          <h4 class="modal-title pull-left">Вы действительно хотите cменить статус проектa на {{getStatus()}}?</h4>
         </div>
         <span style="color:red">*После смены статуса на "Close" проект будет закрыт и его редактирование будет невозможным</span>
         <div class="modal-body">

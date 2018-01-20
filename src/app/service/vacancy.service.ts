@@ -32,7 +32,7 @@ export class VacancyService {
 
   deleteVacancy(id, projectId){
     return this.http
-      .delete(API_URL + 'api/project/' + projectId + '/vacancy/ '+ id)
+      .delete(API_URL + 'api/project/' + projectId + '/vacancy/'+ id)
       .map(response => {
         //console.log(response);
         return response;
